@@ -38,3 +38,49 @@ alter table m_users alter column gender set not null;
 alter table m_users alter column gender set default 'NOT_SELECTED'::character varying;
 
 
+-- table for standard goods
+
+create table m_goods
+(
+	id bigserial not null,
+	order_code varchar(100) not null,
+	name varchar(200) not null,
+	photo varchar(300),
+	gender varchar(50) default 'unisex'::character varying not null,
+	size varchar(50) not null,
+	color varchar(100) not null,
+	description varchar(700),
+	"isDeleted" boolean default false not null,
+	price double precision,
+	quantity int,
+	created timestamp(3) default current_timestamp,
+	changed timestamp(3) default current_timestamp
+);
+
+create index m_goods_color_index
+	on m_goods (color);
+
+create index m_goods_gender_index
+	on m_goods (gender);
+
+create unique index m_goods_id_uindex
+	on m_goods (id);
+
+create index m_goods_name_index
+	on m_goods (name);
+
+create index m_goods_order_code_index
+	on m_goods (order_code);
+
+create index m_goods_price_index
+	on m_goods (price);
+
+create index m_goods_size_index
+	on m_goods (size);
+
+alter table m_goods
+	add constraint m_goods_pk
+		primary key (id);
+
+
+
