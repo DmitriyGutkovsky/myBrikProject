@@ -219,4 +219,48 @@ alter table "m_textileProductType"
 
 
 
+create table m_individual_order
+(
+	id bigserial not null,
+	user_id bigint not null,
+	textile_id bigint not null
+		constraint m_individual_order_m_textile_id_fk
+			references m_textile,
+	product_type_id bigint not null
+		constraint m_individual_order_m_product_type_id_fk
+			references m_product_type,
+	price_id bigint not null
+		constraint m_individual_order_m_price_for_individual_order_id_fk
+			references m_price_for_individual_order,
+	quantity int not null,
+	total_price double precision not null,
+	order_status varchar(50),
+	created timestamp(3) default current_timestamp,
+	changed timestamp(3) default current_timestamp
+);
+
+create unique index m_individual_order_id_uindex
+	on m_individual_order (id);
+
+create index m_individual_order_order_status_index
+	on m_individual_order (order_status);
+
+create index m_individual_order_product_type_id_index
+	on m_individual_order (product_type_id);
+
+create index m_individual_order_textile_id_index
+	on m_individual_order (textile_id);
+
+create index m_individual_order_user_id_index
+	on m_individual_order (user_id);
+
+alter table m_individual_order
+	add constraint m_individual_order_pk
+		primary key (id);
+
+alter table m_individual_order
+	add constraint m_individual_order_m_users_id_fk
+		foreign key (user_id) references m_users;
+
+
 
