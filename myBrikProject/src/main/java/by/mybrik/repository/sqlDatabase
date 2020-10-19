@@ -126,3 +126,24 @@ alter table m_standard_order
 
 
 
+create table m_price_for_individual_order
+(
+	id bigserial not null,
+	product_type varchar(100) not null,
+	price double precision not null,
+	created timestamp(3) default current_timestamp,
+	changed timestamp(3) default current_timestamp
+);
+
+create unique index m_price_for_individual_order_id_uindex
+	on m_price_for_individual_order (id);
+
+create index m_price_for_individual_order_product_type_index
+	on m_price_for_individual_order (product_type);
+
+alter table m_price_for_individual_order
+	add constraint m_price_for_individual_order_pk
+		primary key (id);
+
+
+
