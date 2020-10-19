@@ -37,6 +37,16 @@ alter table m_users alter column gender set not null;
 
 alter table m_users alter column gender set default 'NOT_SELECTED'::character varying;
 
+drop index m_users_login_index;
+
+create unique index m_users_login_uindex
+	on m_users (login);
+
+create unique index m_users_email_uindex
+	on m_users (email);
+
+create unique index m_users_phone_uindex
+	on m_users (phone);
 
 -- table for standard goods
 
@@ -89,6 +99,11 @@ create index m_goods_category_index
 	on m_goods (category);
 
 alter table m_goods alter column category type varchar(100) using category::varchar(100);
+
+drop index m_goods_order_code_index;
+
+create unique index m_goods_order_code_uindex
+	on m_goods (order_code);
 
 
 create table m_standard_order
@@ -145,6 +160,9 @@ alter table m_price_for_individual_order
 	add constraint m_price_for_individual_order_pk
 		primary key (id);
 
+alter table m_price_for_individual_order
+	add "isDeleted" boolean default false not null;
+
 
 
 create table m_product_type
@@ -160,6 +178,18 @@ create unique index m_product_type_id_uindex
 alter table m_product_type
 	add constraint m_product_type_pk
 		primary key (id);
+
+create unique index m_product_type_product_type_uindex
+	on m_product_type (product_type);
+
+alter table m_product_type
+	add "isDeleted" boolean default false not null;
+
+alter table m_product_type
+	add created timestamp(3) default current_timestamp;
+
+alter table m_product_type
+	add changed timestamp(3) default current_timestamp;
 
 
 create table m_textile
