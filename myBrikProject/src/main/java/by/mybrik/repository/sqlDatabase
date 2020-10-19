@@ -191,6 +191,31 @@ alter table m_textile
 	add constraint m_textile_pk
 		primary key (id);
 
+create table "m_textileProductType"
+(
+	id bigserial not null,
+	textile_id bigint
+		constraint m_textileproducttype_m_textile_id_fk
+			references m_textile
+				on update cascade on delete cascade,
+	product_type_id bigint
+		constraint m_textileproducttype_m_product_type_id_fk
+			references m_product_type
+				on update cascade on delete cascade
+);
+
+create unique index m_textileproducttype_id_uindex
+	on "m_textileProductType" (id);
+
+create index m_textileproducttype_product_type_id_index
+	on "m_textileProductType" (product_type_id);
+
+create index m_textileproducttype_textile_id_index
+	on "m_textileProductType" (textile_id);
+
+alter table "m_textileProductType"
+	add constraint m_textileproducttype_pk
+		primary key (id);
 
 
 
