@@ -1,0 +1,40 @@
+create table m_users
+(
+	id bigserial not null,
+	name varchar(100) not null,
+	surname varchar(100),
+	login varchar(100) not null,
+	password varchar(100) not null,
+	email varchar(100) not null,
+	gender varchar(50),
+	created timestamp(3) default current_timestamp,
+	changed timestamp(3) default current_timestamp,
+	phone int not null,
+	address varchar(100),
+	"isDeleted" boolean default false
+);
+
+create index m_users_address_index
+	on m_users (address);
+
+create unique index m_users_id_uindex
+	on m_users (id);
+
+create index m_users_login_index
+	on m_users (login);
+
+create index m_users_name_index
+	on m_users (name);
+
+create index m_users_surname_index
+	on m_users (surname);
+
+alter table m_users
+	add constraint m_users_pk
+		primary key (id);
+
+alter table m_users alter column gender set not null;
+
+alter table m_users alter column gender set default 'NOT_SELECTED'::character varying;
+
+
