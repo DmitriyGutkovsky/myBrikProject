@@ -82,5 +82,47 @@ alter table m_goods
 	add constraint m_goods_pk
 		primary key (id);
 
+alter table m_goods
+	add category varchar not null;
+
+create index m_goods_category_index
+	on m_goods (category);
+
+alter table m_goods alter column category type varchar(100) using category::varchar(100);
+
+
+create table m_standard_order
+(
+	id bigserial not null,
+	good_id bigint not null
+		constraint m_standard_order_m_goods_id_fk
+			references m_goods,
+	user_id bigint not null
+		constraint m_standard_order_m_users_id_fk
+			references m_users
+				on update cascade on delete cascade,
+	quantity int not null,
+	total_price double precision,
+	order_status varchar(50),
+	changed timestamp default current_timestamp,
+	created timestamp(3) default current_timestamp
+);
+
+create index m_standard_order_good_id_index
+	on m_standard_order (good_id);
+
+create unique index m_standard_order_id_uindex
+	on m_standard_order (id);
+
+create index m_standard_order_order_status_index
+	on m_standard_order (order_status);
+
+create index m_standard_order_user_id_index
+	on m_standard_order (user_id);
+
+alter table m_standard_order
+	add constraint m_standard_order_pk
+		primary key (id);
+
 
 
