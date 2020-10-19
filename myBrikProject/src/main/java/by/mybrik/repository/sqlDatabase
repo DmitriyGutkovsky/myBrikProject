@@ -162,5 +162,36 @@ alter table m_product_type
 		primary key (id);
 
 
+create table m_textile
+(
+	id bigserial not null,
+	code varchar(50) not null,
+	name varchar(100) not null,
+	color varchar not null,
+	description varchar(500),
+	photo varchar(500),
+	"isDeleted" boolean default false not null,
+	created timestamp(3) default current_timestamp,
+	changed timestamp(3) default current_timestamp
+);
+
+create unique index m_textile_code_uindex
+	on m_textile (code);
+
+create index m_textile_color_index
+	on m_textile (color);
+
+create unique index m_textile_id_uindex
+	on m_textile (id);
+
+create unique index m_textile_name_uindex
+	on m_textile (name);
+
+alter table m_textile
+	add constraint m_textile_pk
+		primary key (id);
+
+
+
 
 
