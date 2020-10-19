@@ -147,3 +147,20 @@ alter table m_price_for_individual_order
 
 
 
+create table m_product_type
+(
+	id bigserial not null,
+	product_type varchar(300) not null,
+	photo varchar(300)
+);
+
+create unique index m_product_type_id_uindex
+	on m_product_type (id);
+
+alter table m_product_type
+	add constraint m_product_type_pk
+		primary key (id);
+
+
+
+
