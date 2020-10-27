@@ -1,10 +1,7 @@
-package by.mybrik.dao;
+package by.mybrik.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -15,29 +12,21 @@ import java.sql.Timestamp;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Goods {
+public class Textile {
 
-    private Long id;
+    private long id;
 
-    private String orderCode;
+    private String code;
 
     private String name;
 
-    private  String photo;
-
-    private String gender;
-
-    private String size;
-
     private String color;
 
+    private String description;
+
+    private String photo;
+
     private boolean isDeleted;
-
-    private double price;
-
-    private int quantity;
-
-    private String category;
 
     private Timestamp created = new Timestamp(System.currentTimeMillis());
 
@@ -47,4 +36,5 @@ public class Goods {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
+
 }

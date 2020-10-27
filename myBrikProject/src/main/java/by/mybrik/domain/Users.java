@@ -1,4 +1,4 @@
-package by.mybrik.dao;
+package by.mybrik.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -15,23 +15,31 @@ import java.sql.Timestamp;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class StandardOrder {
+public class Users {
 
-    private long id;
+    private Long id;
 
-    private long goodId;
+    private String name;
 
-    private  long userId;
+    private String surName;
 
-    private int quantity;
+    private String login;
 
-    private double totalPrice;
+    private String password;
 
-    private String orderStatus;
+    private String email;
+
+    private String gender;
 
     private Timestamp created = new Timestamp(System.currentTimeMillis());
 
     private Timestamp changed = new Timestamp(System.currentTimeMillis());
+
+    private int phone;
+
+    private String address;
+
+    private boolean isDeleted;
 
     @Override
     public String toString() {
