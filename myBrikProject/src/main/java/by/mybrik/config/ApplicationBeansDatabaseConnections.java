@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import javax.sql.DataSource;
 
 @Configuration
-public class ApplicationBeans {
+public class ApplicationBeansDatabaseConnections {
 
     @Bean
     public DataSource hikariDatasource(DatabaseConfig databaseConfig){
