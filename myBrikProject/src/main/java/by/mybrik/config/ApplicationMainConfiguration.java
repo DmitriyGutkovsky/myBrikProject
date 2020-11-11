@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan("by.mybrik")
-@EnableAspectJAutoProxy(proxyTargetClass = true)
 @Import({DatabaseConfig.class, ApplicationBeansDatabaseConnections.class})
 public class ApplicationMainConfiguration {
 }
