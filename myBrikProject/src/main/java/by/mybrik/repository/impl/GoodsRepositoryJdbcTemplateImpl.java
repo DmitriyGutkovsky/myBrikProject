@@ -76,20 +76,20 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
   @Override
   public Goods update(Goods product) {
     final String updateQuery =
-            "update m_goods "
-                    + "set " +
-                    "order_code = :orderCode, " +
-                    "name = :name, " +
-                    "photo = :photo, " +
-                    "gender = :gender, " +
-                    "size = :size, " +
-                    "color = :color, " +
-                    "description = :description, " +
-                    "isdeleted = :isDeleted, " +
-                    "price = :price, " +
-                    "quantity = :quantity, " +
-                    "category = :category " +
-                    "where id = :id";
+        "update m_goods "
+            + "set "
+            + "order_code = :orderCode, "
+            + "name = :name, "
+            + "photo = :photo, "
+            + "gender = :gender, "
+            + "size = :size, "
+            + "color = :color, "
+            + "description = :description, "
+            + "isdeleted = :isDeleted, "
+            + "price = :price, "
+            + "quantity = :quantity, "
+            + "category = :category "
+            + "where id = :id";
 
     MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue("orderCode", product.getOrderCode());
@@ -105,14 +105,21 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
     params.addValue("category", product.getCategory());
     params.addValue("id", product.getId());
 
-    namedParameterJdbcTemplate.update(updateQuery,params);
+    namedParameterJdbcTemplate.update(updateQuery, params);
 
     return findById(product.getId());
   }
 
   @Override
   public Long delete(Goods product) {
-    return null;
+    final String deleteQuery = "delete from m_goods where id = :id";
+
+    MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue("id", product.getId());
+
+    namedParameterJdbcTemplate.update(deleteQuery, params);
+
+    return (Long) params.getValue("id");
   }
 
   private Goods getGoodsRowMapper(ResultSet rs, int i) throws SQLException {
