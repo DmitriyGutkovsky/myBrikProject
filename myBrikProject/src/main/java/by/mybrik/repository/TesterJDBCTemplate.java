@@ -28,6 +28,7 @@ public class TesterJDBCTemplate {
               .build();
 
     //        System.out.println(productBean.save(productForSaving));
-    System.out.println(productBean.findAll());
+    //    System.out.println(productBean.findAll());
+    System.out.println(productBean.findById(7l));
   }
 }

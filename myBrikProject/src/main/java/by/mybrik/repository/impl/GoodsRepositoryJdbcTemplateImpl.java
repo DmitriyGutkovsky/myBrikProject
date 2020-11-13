@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -58,12 +57,15 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
 
   @Override
   public List<Goods> findAll() {
-    return jdbcTemplate.query("select * from m_goods",this::getGoodsRowMapper);
+    return jdbcTemplate.query("select * from m_goods", this::getGoodsRowMapper);
   }
 
   @Override
   public Goods findById(Long id) {
-    return null;
+    MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+    mapSqlParameterSource.addValue("carId", id);
+    return namedParameterJdbcTemplate.queryForObject(
+        "select * from m_goods where id = :carId", mapSqlParameterSource, this::getGoodsRowMapper);
   }
 
   @Override
@@ -92,7 +94,7 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
     product.setGender(rs.getString(GoodsColumns.GENDER));
     product.setSize(rs.getString(GoodsColumns.SIZE));
     product.setColor(rs.getString(GoodsColumns.COLOR));
-    product.setDescription(rs. getString(GoodsColumns.DESCRIPTION));
+    product.setDescription(rs.getString(GoodsColumns.DESCRIPTION));
     product.setDeleted(rs.getBoolean(GoodsColumns.ISDELETED));
     product.setPrice(rs.getDouble(GoodsColumns.PRICE));
     product.setQuantity(rs.getInt(GoodsColumns.QUANTITY));
