@@ -27,6 +27,7 @@ public class TesterJDBCTemplate {
               .category("caps")
               .build();
 
-        System.out.println(productBean.save(productForSaving));
+    //        System.out.println(productBean.save(productForSaving));
+    System.out.println(productBean.findAll());
   }
 }

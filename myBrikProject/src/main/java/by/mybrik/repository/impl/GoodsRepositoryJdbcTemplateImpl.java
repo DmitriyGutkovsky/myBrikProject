@@ -1,6 +1,7 @@
 package by.mybrik.repository.impl;
 
 import by.mybrik.domain.Goods;
+import by.mybrik.repository.ColumnsInfo.GoodsColumns;
 import by.mybrik.repository.GoodsRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -8,6 +9,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -54,7 +58,7 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
 
   @Override
   public List<Goods> findAll() {
-    return null;
+    return jdbcTemplate.query("select * from m_goods",this::getGoodsRowMapper);
   }
 
   @Override
@@ -75,5 +79,27 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
   @Override
   public Long delete(Goods product) {
     return null;
+  }
+
+  private Goods getGoodsRowMapper(ResultSet rs, int i) throws SQLException {
+
+    Goods product = new Goods();
+
+    product.setId(rs.getLong(GoodsColumns.ID));
+    product.setOrderCode(rs.getString(GoodsColumns.ORDERCODE));
+    product.setName(rs.getString(GoodsColumns.NAME));
+    product.setPhoto(rs.getString(GoodsColumns.PHOTO));
+    product.setGender(rs.getString(GoodsColumns.GENDER));
+    product.setSize(rs.getString(GoodsColumns.SIZE));
+    product.setColor(rs.getString(GoodsColumns.COLOR));
+    product.setDescription(rs. getString(GoodsColumns.DESCRIPTION));
+    product.setDeleted(rs.getBoolean(GoodsColumns.ISDELETED));
+    product.setPrice(rs.getDouble(GoodsColumns.PRICE));
+    product.setQuantity(rs.getInt(GoodsColumns.QUANTITY));
+    product.setCategory(rs.getString(GoodsColumns.CATEGORY));
+    product.setCreated(rs.getTimestamp(GoodsColumns.CREATED));
+    product.setChanged(rs.getTimestamp(GoodsColumns.CHANGED));
+
+    return product;
   }
 }
