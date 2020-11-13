@@ -1,6 +1,5 @@
 package by.mybrik.repository.ColumnsInfo;
 
-import java.sql.Timestamp;
 
 public interface IndividualOrderColumns {
 

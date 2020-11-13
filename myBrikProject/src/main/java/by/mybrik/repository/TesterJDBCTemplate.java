@@ -1,6 +1,7 @@
 package by.mybrik.repository;
 
 import by.mybrik.domain.Goods;
+import by.mybrik.domain.IndividualOrder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class TesterJDBCTemplate {
@@ -11,7 +12,7 @@ public class TesterJDBCTemplate {
               new AnnotationConfigApplicationContext("by.mybrik");
 
 
-      GoodsRepository productBean = annotationConfigApplicationContext.getBean(GoodsRepository.class);
+//      GoodsRepository productBean = annotationConfigApplicationContext.getBean(GoodsRepository.class);
 
 //      Goods productForSaving = Goods.builder()
 //              .orderCode("someOrderCode6")
@@ -46,22 +47,37 @@ public class TesterJDBCTemplate {
 //              .build();
 //
 //    System.out.println(productBean.update(productForUpdate));
+//
+//      Goods productForDelete = Goods.builder()
+//              .id(7l)
+//              .orderCode("someOrderCode7ForUpdate")
+//              .name("cap")
+//              .photo("linkToPhoto")
+//              .gender("Male")
+//              .size("52")
+//              .color("red")
+//              .description("summer cap")
+//              .isDeleted(false)
+//              .price(15)
+//              .quantity(15)
+//              .category("caps")
+//              .build();
+//
+//    System.out.println(productBean.delete(productForDelete));
 
-      Goods productForDelete = Goods.builder()
-              .id(7l)
-              .orderCode("someOrderCode7ForUpdate")
-              .name("cap")
-              .photo("linkToPhoto")
-              .gender("Male")
-              .size("52")
-              .color("red")
-              .description("summer cap")
-              .isDeleted(false)
-              .price(15)
-              .quantity(15)
-              .category("caps")
+      GoodsRepository productBean = annotationConfigApplicationContext.getBean(GoodsRepository.class);
+      IndividualOrderRepository orderBean = annotationConfigApplicationContext.getBean(IndividualOrderRepository.class);
+      IndividualOrder order = IndividualOrder.builder()
+              .userId(2)
+              .textileId(1)
+              .productTypeId(1)
+              .priceId(1)
+              .quantity(1)
+              .totalprice(10)
+              .orderStatus("created")
               .build();
 
-    System.out.println(productBean.delete(productForDelete));
+        System.out.println(orderBean.save(order));
+    System.out.println(orderBean.findById(1l));
   }
 }

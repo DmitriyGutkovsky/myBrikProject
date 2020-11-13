@@ -4,12 +4,15 @@ import by.mybrik.domain.IndividualOrder;
 import by.mybrik.repository.ColumnsInfo.IndividualOrderColumns;
 import by.mybrik.repository.IndividualOrderRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -18,8 +21,12 @@ public class IndividualOrderRepositoryJdbcTemplateImpl implements IndividualOrde
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    public IndividualOrderRepositoryJdbcTemplateImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
-    private IndividualOrder getUserRowMapper(ResultSet rs, int i) throws SQLException {
+    private IndividualOrder getIndividualOrderRowMapper(ResultSet rs, int i) throws SQLException {
 
         IndividualOrder order = new IndividualOrder();
 
@@ -39,32 +46,54 @@ public class IndividualOrderRepositoryJdbcTemplateImpl implements IndividualOrde
 
 
     @Override
-    public Object save(Object object) {
+    public IndividualOrder save(IndividualOrder order) {
+        final String saveQuery =
+                "insert into m_individual_order (user_id, textile_id, product_type_id, price_id, quantity, total_price, order_status) "
+                        + "values (:userId, :textileId, :productTypeId, :priceId, :quantity, :totalPrice, :orderStatus)";
+
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("userId", order.getUserId());
+        params.addValue("textileId", order.getTextileId());
+        params.addValue("productTypeId", order.getProductTypeId());
+        params.addValue("priceId", order.getPriceId());
+        params.addValue("quantity", order.getQuantity());
+        params.addValue("totalPrice", order.getTotalprice());
+        params.addValue("orderStatus", order.getOrderStatus());
+
+        namedParameterJdbcTemplate.update(saveQuery, params, keyHolder, new String[] {"id"});
+
+        long insertedId = Objects.requireNonNull(keyHolder.getKey()).longValue();
+
+        return findById(insertedId);
+    }
+
+    @Override
+    public List<IndividualOrder> findAll() {
         return null;
     }
 
     @Override
-    public List findAll() {
-        return null;
+    public IndividualOrder findById(Long id) {
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("orderId", id);
+        return namedParameterJdbcTemplate.queryForObject(
+                "select * from m_individual_order where id = :orderId", mapSqlParameterSource, this::getIndividualOrderRowMapper);
     }
 
     @Override
-    public Object findById(Object key) {
-        return null;
-    }
-
-    @Override
-    public Optional findOne(Object key) {
+    public Optional<IndividualOrder> findOne(Long key) {
         return Optional.empty();
     }
 
     @Override
-    public Object update(Object object) {
+    public IndividualOrder update(IndividualOrder object) {
         return null;
     }
 
     @Override
-    public Object delete(Object object) {
+    public Long delete(IndividualOrder object) {
         return null;
     }
 }
