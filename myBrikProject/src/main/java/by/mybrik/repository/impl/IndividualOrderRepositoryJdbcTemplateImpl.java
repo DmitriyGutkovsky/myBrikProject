@@ -71,7 +71,7 @@ public class IndividualOrderRepositoryJdbcTemplateImpl implements IndividualOrde
 
     @Override
     public List<IndividualOrder> findAll() {
-        return null;
+        return jdbcTemplate.query("select * from m_individual_order", this::getIndividualOrderRowMapper);
     }
 
     @Override

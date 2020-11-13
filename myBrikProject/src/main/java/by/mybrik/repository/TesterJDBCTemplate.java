@@ -77,7 +77,9 @@ public class TesterJDBCTemplate {
               .orderStatus("created")
               .build();
 
-        System.out.println(orderBean.save(order));
-    System.out.println(orderBean.findById(1l));
+    //        System.out.println(orderBean.save(order));
+    //    System.out.println(orderBean.findById(1l));
+
+    System.out.println(orderBean.findAll());
   }
 }
