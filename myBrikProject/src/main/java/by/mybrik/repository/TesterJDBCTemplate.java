@@ -93,6 +93,7 @@ public class TesterJDBCTemplate {
               .orderStatus("done")
               .build();
 
-    System.out.println(orderBean.update(orderForUpdate));
+    //    System.out.println(orderBean.update(orderForUpdate));
+    System.out.println(orderBean.delete(orderForUpdate));
   }
 }

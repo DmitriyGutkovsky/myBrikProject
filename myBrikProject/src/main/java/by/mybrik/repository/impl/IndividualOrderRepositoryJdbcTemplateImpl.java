@@ -120,6 +120,14 @@ public class IndividualOrderRepositoryJdbcTemplateImpl implements IndividualOrde
 
     @Override
     public Long delete(IndividualOrder order) {
-        return null;
+
+        final String deleteQuery = "delete from m_individual_order where id = :id";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", order.getId());
+
+        namedParameterJdbcTemplate.update(deleteQuery, params);
+
+        return (Long) params.getValue("id");
     }
 }
