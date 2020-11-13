@@ -13,8 +13,26 @@ public class TesterJDBCTemplate {
 
       GoodsRepository productBean = annotationConfigApplicationContext.getBean(GoodsRepository.class);
 
-      Goods productForSaving = Goods.builder()
-              .orderCode("someOrderCode6")
+//      Goods productForSaving = Goods.builder()
+//              .orderCode("someOrderCode6")
+//              .name("cap")
+//              .photo("linkToPhoto")
+//              .gender("Male")
+//              .size("52")
+//              .color("red")
+//              .description("summer cap")
+//              .isDeleted(false)
+//              .price(15)
+//              .quantity(15)
+//              .category("caps")
+//              .build();
+//        System.out.println(productBean.save(productForSaving));
+//    System.out.println(productBean.findAll());
+//    System.out.println(productBean.findById(7l));
+
+      Goods productForUpdate = Goods.builder()
+              .id(7l)
+              .orderCode("someOrderCode7ForUpdate")
               .name("cap")
               .photo("linkToPhoto")
               .gender("Male")
@@ -27,8 +45,6 @@ public class TesterJDBCTemplate {
               .category("caps")
               .build();
 
-    //        System.out.println(productBean.save(productForSaving));
-    //    System.out.println(productBean.findAll());
-    System.out.println(productBean.findById(7l));
+    System.out.println(productBean.update(productForUpdate));
   }
 }

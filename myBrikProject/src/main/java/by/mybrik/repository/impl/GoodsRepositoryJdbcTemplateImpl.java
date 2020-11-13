@@ -75,7 +75,39 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
 
   @Override
   public Goods update(Goods product) {
-    return null;
+    final String updateQuery =
+            "update m_goods "
+                    + "set " +
+                    "order_code = :orderCode, " +
+                    "name = :name, " +
+                    "photo = :photo, " +
+                    "gender = :gender, " +
+                    "size = :size, " +
+                    "color = :color, " +
+                    "description = :description, " +
+                    "isdeleted = :isDeleted, " +
+                    "price = :price, " +
+                    "quantity = :quantity, " +
+                    "category = :category " +
+                    "where id = :id";
+
+    MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue("orderCode", product.getOrderCode());
+    params.addValue("name", product.getName());
+    params.addValue("photo", product.getPhoto());
+    params.addValue("gender", product.getGender());
+    params.addValue("size", product.getSize());
+    params.addValue("color", product.getColor());
+    params.addValue("description", product.getDescription());
+    params.addValue("isDeleted", product.isDeleted());
+    params.addValue("price", product.getPrice());
+    params.addValue("quantity", product.getQuantity());
+    params.addValue("category", product.getCategory());
+    params.addValue("id", product.getId());
+
+    namedParameterJdbcTemplate.update(updateQuery,params);
+
+    return findById(product.getId());
   }
 
   @Override
