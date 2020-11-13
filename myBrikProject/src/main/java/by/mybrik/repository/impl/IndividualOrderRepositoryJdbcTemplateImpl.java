@@ -88,12 +88,38 @@ public class IndividualOrderRepositoryJdbcTemplateImpl implements IndividualOrde
     }
 
     @Override
-    public IndividualOrder update(IndividualOrder object) {
-        return null;
+    public IndividualOrder update(IndividualOrder order) {
+
+        final String updateQuery =
+                "update m_individual_order "
+                        + "set "
+                        + "user_id = :userId, "
+                        + "textile_id = :textileId, "
+                        + "product_type_id = :productTypeId, "
+                        + "price_id = :priceId, "
+                        + "quantity = :quantity, "
+                        + "total_price = :totalPrice, "
+                        + "order_status = :orderStatus "
+                        + "where id = :id";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("userId", order.getUserId());
+        params.addValue("textileId", order.getTextileId());
+        params.addValue("productTypeId", order.getProductTypeId());
+        params.addValue("priceId", order.getPriceId());
+        params.addValue("quantity", order.getQuantity());
+        params.addValue("totalPrice", order.getTotalprice());
+        params.addValue("orderStatus", order.getOrderStatus());
+        params.addValue("id", order.getId());
+
+        namedParameterJdbcTemplate.update(updateQuery, params);
+
+        return findById(order.getId());
+
     }
 
     @Override
-    public Long delete(IndividualOrder object) {
+    public Long delete(IndividualOrder order) {
         return null;
     }
 }

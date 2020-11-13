@@ -80,6 +80,19 @@ public class TesterJDBCTemplate {
     //        System.out.println(orderBean.save(order));
     //    System.out.println(orderBean.findById(1l));
 
-    System.out.println(orderBean.findAll());
+//    System.out.println(orderBean.findAll());
+
+      IndividualOrder orderForUpdate = IndividualOrder.builder()
+              .id(3)
+              .userId(2)
+              .textileId(1)
+              .productTypeId(1)
+              .priceId(1)
+              .quantity(1)
+              .totalprice(100)
+              .orderStatus("done")
+              .build();
+
+    System.out.println(orderBean.update(orderForUpdate));
   }
 }
