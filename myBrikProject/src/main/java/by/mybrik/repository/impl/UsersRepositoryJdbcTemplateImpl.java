@@ -53,7 +53,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 
     @Override
     public List<Users> findAll() {
-        return null;
+        return jdbcTemplate.query("select * from m_users", this::getUsersRowMapper);
     }
 
     @Override
