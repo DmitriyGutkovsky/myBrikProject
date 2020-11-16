@@ -5,6 +5,7 @@ import by.mybrik.domain.Users;
 import by.mybrik.repository.ColumnsInfo.UsersColumns;
 import by.mybrik.repository.UsersRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -56,8 +57,11 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
     }
 
     @Override
-    public Users findById(Long key) {
-        return null;
+    public Users findById(Long id) {
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("userId", id);
+        return namedParameterJdbcTemplate.queryForObject(
+                "select * from m_users where id = :userId", mapSqlParameterSource, this::getUsersRowMapper);
     }
 
     @Override

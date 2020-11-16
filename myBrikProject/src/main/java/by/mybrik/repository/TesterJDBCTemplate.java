@@ -65,35 +65,39 @@ public class TesterJDBCTemplate {
 //
 //    System.out.println(productBean.delete(productForDelete));
 
-      GoodsRepository productBean = annotationConfigApplicationContext.getBean(GoodsRepository.class);
-      IndividualOrderRepository orderBean = annotationConfigApplicationContext.getBean(IndividualOrderRepository.class);
-      IndividualOrder order = IndividualOrder.builder()
-              .userId(2)
-              .textileId(1)
-              .productTypeId(1)
-              .priceId(1)
-              .quantity(1)
-              .totalprice(10)
-              .orderStatus("created")
-              .build();
+//      GoodsRepository productBean = annotationConfigApplicationContext.getBean(GoodsRepository.class);
+//      IndividualOrderRepository orderBean = annotationConfigApplicationContext.getBean(IndividualOrderRepository.class);
+//      IndividualOrder order = IndividualOrder.builder()
+//              .userId(2)
+//              .textileId(1)
+//              .productTypeId(1)
+//              .priceId(1)
+//              .quantity(1)
+//              .totalprice(10)
+//              .orderStatus("created")
+//              .build();
 
     //        System.out.println(orderBean.save(order));
     //    System.out.println(orderBean.findById(1l));
 
 //    System.out.println(orderBean.findAll());
 
-      IndividualOrder orderForUpdate = IndividualOrder.builder()
-              .id(3)
-              .userId(2)
-              .textileId(1)
-              .productTypeId(1)
-              .priceId(1)
-              .quantity(1)
-              .totalprice(100)
-              .orderStatus("done")
-              .build();
+//      IndividualOrder orderForUpdate = IndividualOrder.builder()
+//              .id(3)
+//              .userId(2)
+//              .textileId(1)
+//              .productTypeId(1)
+//              .priceId(1)
+//              .quantity(1)
+//              .totalprice(100)
+//              .orderStatus("done")
+//              .build();
 
     //    System.out.println(orderBean.update(orderForUpdate));
-    System.out.println(orderBean.delete(orderForUpdate));
+//    System.out.println(orderBean.delete(orderForUpdate));
+
+      UsersRepository userBean = annotationConfigApplicationContext.getBean(UsersRepository.class);
+
+    System.out.println(userBean.findById(2l));
   }
 }
