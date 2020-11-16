@@ -75,7 +75,14 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
     }
 
     @Override
-    public Long delete(Users object) {
-        return null;
+    public Long delete(Users user) {
+        final String deleteQuery = "delete from m_users where id = :id";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", user.getId());
+
+        namedParameterJdbcTemplate.update(deleteQuery, params);
+
+        return (Long) params.getValue("id");
     }
 }

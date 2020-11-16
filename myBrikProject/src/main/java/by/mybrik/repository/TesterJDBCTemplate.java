@@ -99,6 +99,6 @@ public class TesterJDBCTemplate {
       UsersRepository userBean = annotationConfigApplicationContext.getBean(UsersRepository.class);
 
 //    System.out.println(userBean.findById(2l));
-    System.out.println(userBean.findAll());
+//    System.out.println(userBean.findAll());
   }
 }
