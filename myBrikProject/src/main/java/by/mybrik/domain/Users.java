@@ -29,7 +29,7 @@ public class Users {
 
     private String email;
 
-    private String gender;
+    private Gender gender;
 
     private Timestamp created = new Timestamp(System.currentTimeMillis());
 
