@@ -151,16 +151,27 @@ public class TesterJDBCTemplate {
 
       StandardOrderRepository standardOrderBean = annotationConfigApplicationContext.getBean(StandardOrderRepository.class);
 
-      StandardOrder standardOrder = StandardOrder.builder()
+//      StandardOrder standardOrder = StandardOrder.builder()
+//              .goodId(6)
+//              .userId(10)
+//              .quantity(10)
+//              .totalPrice(25)
+//              .orderStatus("in progress")
+//              .build();
+
+//    System.out.println(standardOrderBean.save(standardOrder));
+//    System.out.println(standardOrderBean.findAll());
+//    System.out.println(standardOrderBean.findById(1l));
+
+      StandardOrder standardOrderForUpdate = StandardOrder.builder()
+              .id(2)
               .goodId(6)
               .userId(10)
-              .quantity(10)
+              .quantity(100)
               .totalPrice(25)
               .orderStatus("in progress")
               .build();
 
-    System.out.println(standardOrderBean.save(standardOrder));
-//    System.out.println(standardOrderBean.findAll());
-//    System.out.println(standardOrderBean.findById(1l));
+    System.out.println(standardOrderBean.update(standardOrderForUpdate));
   }
 }

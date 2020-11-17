@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -51,17 +53,11 @@ public class StandardOrderRepositoryJdbcTemplate implements StandardOrderReposit
             + "quantity ,"
             + "total_price, "
             + "order_status)"
-//            + "order_status, "
-//            + "changed, "
-//            + "created) "
             + "values (:goodId, "
             + ":userId, "
             + ":quantity, "
             + ":totalPrice, "
             + ":orderStatus)";
-//            + ":orderStatus, "
-//            + ":changed, "
-//            + ":created)";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -71,8 +67,6 @@ public class StandardOrderRepositoryJdbcTemplate implements StandardOrderReposit
         params.addValue("quantity",order.getQuantity());
         params.addValue("totalPrice",order.getTotalPrice());
         params.addValue("orderStatus",order.getOrderStatus());
-//        params.addValue("changed",order.getChanged());
-//        params.addValue("created",order.getCreated());
 
         namedParameterJdbcTemplate.update(saveQuery, params, keyHolder, new String[] {"id"});
 
@@ -99,7 +93,28 @@ public class StandardOrderRepositoryJdbcTemplate implements StandardOrderReposit
 
     @Override
     public StandardOrder update(StandardOrder order) {
-        return null;
+        final String updateQuery =
+                "update m_standard_order set "
+                        + "good_id = :goodId, "
+                        + "user_id = :userId, "
+                        + "quantity = :quantity, "
+                        + "total_price = :totalPrice, "
+                        + "order_status = :orderStatus, "
+                        + "changed = :changed "
+                        + "where id  = :id";
+
+        MapSqlParameterSource paramets = new MapSqlParameterSource();
+        paramets.addValue("goodId",order.getGoodId());
+        paramets.addValue("userId",order.getUserId());
+        paramets.addValue("quantity",order.getQuantity());
+        paramets.addValue("totalPrice",order.getTotalPrice());
+        paramets.addValue("orderStatus",order.getOrderStatus());
+        paramets.addValue("changed",new Timestamp(new Date().getTime()));
+        paramets.addValue("id",order.getId());
+
+        namedParameterJdbcTemplate.update(updateQuery, paramets);
+
+    return findById(order.getId());
     }
 
     @Override
