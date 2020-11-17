@@ -1,8 +1,6 @@
 package by.mybrik.repository.impl;
 
-import by.mybrik.domain.IndividualOrder;
 import by.mybrik.domain.StandardOrder;
-import by.mybrik.repository.ColumnsInfo.IndividualOrderColumns;
 import by.mybrik.repository.ColumnsInfo.StandardOrderColumns;
 import by.mybrik.repository.StandardOrderRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -53,7 +51,8 @@ public class StandardOrderRepositoryJdbcTemplate implements StandardOrderReposit
 
     @Override
     public StandardOrder findById(Long id) {
-        return null;
+        return   jdbcTemplate.queryForObject(
+                "select * from m_users where id = ?", new Object[]{id}, this::getStandardOrderRowMapper);
     }
 
     @Override
