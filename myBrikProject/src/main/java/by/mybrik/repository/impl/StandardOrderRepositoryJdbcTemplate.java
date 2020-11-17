@@ -46,7 +46,7 @@ public class StandardOrderRepositoryJdbcTemplate implements StandardOrderReposit
 
     @Override
     public List<StandardOrder> findAll() {
-        return null;
+        return jdbcTemplate.query("select * from m_standard_order", this :: getStandardOrderRowMapper);
     }
 
     @Override
