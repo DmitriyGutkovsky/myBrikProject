@@ -7,11 +7,13 @@ import by.mybrik.repository.UsersRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -47,8 +49,49 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
     }
 
     @Override
-    public Users save(Users object) {
-        return null;
+    public Users save(Users user) {
+    final String saveQuery =
+        "insert into m_users (name, "
+            + "surname, "
+            + "login, "
+            + "password, "
+            + "email, "
+            + "gender, "
+            + "phone, "
+            + "address, "
+            + "isDeleted) "
+            + "values "
+            + "(:name, "
+            + ":surname, "
+            + ":login, "
+            + ":password, "
+            + ":email, "
+            + ":gender, "
+            + ":phone, "
+            + ":address, "
+            + ":isdeleted)";
+
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("name", user.getName());
+        params.addValue("surname", user.getSurName());
+        params.addValue("login", user.getLogin());
+        params.addValue("password", user.getPassword());
+        params.addValue("email", user.getEmail());
+        params.addValue("gender", user.getGender().name());
+        params.addValue("created", user.getCreated());
+        params.addValue("changed", user.getChanged());
+        params.addValue("phone", user.getPhone());
+        params.addValue("address", user.getAddress());
+        params.addValue("isdeleted", user.isDeleted());
+
+        namedParameterJdbcTemplate.update(saveQuery, params,keyHolder, new String[] {"id"});
+
+        Long insertedId = Objects.requireNonNull(keyHolder.getKey().longValue());
+
+        return findById(insertedId);
     }
 
     @Override

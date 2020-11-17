@@ -1,7 +1,9 @@
 package by.mybrik.repository;
 
+import by.mybrik.domain.Gender;
 import by.mybrik.domain.Goods;
 import by.mybrik.domain.IndividualOrder;
+import by.mybrik.domain.Users;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class TesterJDBCTemplate {
@@ -100,5 +102,37 @@ public class TesterJDBCTemplate {
 
 //    System.out.println(userBean.findById(2l));
 //    System.out.println(userBean.findAll());
+
+//      Users userForDelete = Users.builder()
+//              .id(7l)
+//              .name("save")
+//              .surName("save")
+//              .login("save")
+//              .password("save")
+//              .email("save@mail.ru")
+//              .gender(Gender.FEMALE)
+//              .phone(356985)
+//              .address("save")
+//              .isDeleted(false)
+//              .build();
+//
+//      System.out.println(userBean.delete(userForDelete));
+
+      Users userForSaving = Users.builder()
+              .name("save7")
+              .surName("save7")
+              .login("save7")
+              .password("save7")
+              .email("save7@mail.ru")
+              .gender(Gender.FEMALE)
+              .phone(3569857)
+              .address("save7")
+              .isDeleted(false)
+              .build();
+
+
+    System.out.println(userBean.save(userForSaving));
+
+
   }
 }
