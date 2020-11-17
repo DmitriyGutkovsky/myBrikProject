@@ -1,9 +1,6 @@
 package by.mybrik.repository;
 
-import by.mybrik.domain.Gender;
-import by.mybrik.domain.Goods;
-import by.mybrik.domain.IndividualOrder;
-import by.mybrik.domain.Users;
+import by.mybrik.domain.StandardOrder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.Timestamp;
@@ -135,23 +132,35 @@ public class TesterJDBCTemplate {
 //
 //
 //    System.out.println(userBean.save(userForSaving));
-      Users userForUpdate = Users.builder()
-              .id(10l)
-              .name("save8899")
-              .surName("save")
-              .login("save809")
-              .password("save809")
-              .email("sav809@mail.ru")
-              .gender(Gender.FEMALE)
-              .phone(3569890)
-              .changed(new Timestamp(new Date().getTime()))
-              .address("sav809")
-              .isDeleted(false)
+//      Users userForUpdate = Users.builder()
+//              .id(10l)
+//              .name("save8899")
+//              .surName("save")
+//              .login("save809")
+//              .password("save809")
+//              .email("sav809@mail.ru")
+//              .gender(Gender.FEMALE)
+//              .phone(3569890)
+//              .changed(new Timestamp(new Date().getTime()))
+//              .address("sav809")
+//              .isDeleted(false)
+//              .build();
+//
+//
+//    System.out.println(userBean.update(userForUpdate));
+
+      StandardOrderRepository standardOrderBean = annotationConfigApplicationContext.getBean(StandardOrderRepository.class);
+
+      StandardOrder standardOrder = StandardOrder.builder()
+              .goodId(6)
+              .userId(10)
+              .quantity(10)
+              .totalPrice(25)
+              .orderStatus("in progress")
               .build();
 
-
-    System.out.println(userBean.update(userForUpdate));
-
-
+    System.out.println(standardOrderBean.save(standardOrder));
+//    System.out.println(standardOrderBean.findAll());
+//    System.out.println(standardOrderBean.findById(1l));
   }
 }
