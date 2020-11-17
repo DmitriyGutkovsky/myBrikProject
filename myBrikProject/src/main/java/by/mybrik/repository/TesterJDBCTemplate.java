@@ -163,7 +163,17 @@ public class TesterJDBCTemplate {
 //    System.out.println(standardOrderBean.findAll());
 //    System.out.println(standardOrderBean.findById(1l));
 
-      StandardOrder standardOrderForUpdate = StandardOrder.builder()
+//      StandardOrder standardOrderForUpdate = StandardOrder.builder()
+//              .id(2)
+//              .goodId(6)
+//              .userId(10)
+//              .quantity(100)
+//              .totalPrice(25)
+//              .orderStatus("in progress")
+//              .build();
+//
+//    System.out.println(standardOrderBean.update(standardOrderForUpdate));
+      StandardOrder standardOrderForDelete = StandardOrder.builder()
               .id(2)
               .goodId(6)
               .userId(10)
@@ -172,6 +182,7 @@ public class TesterJDBCTemplate {
               .orderStatus("in progress")
               .build();
 
-    System.out.println(standardOrderBean.update(standardOrderForUpdate));
+    System.out.println(standardOrderBean.delete(standardOrderForDelete));
+
   }
 }
