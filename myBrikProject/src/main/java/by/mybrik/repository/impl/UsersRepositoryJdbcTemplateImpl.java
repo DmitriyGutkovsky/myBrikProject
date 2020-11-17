@@ -59,7 +59,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
             + "gender, "
             + "phone, "
             + "address, "
-            + "isDeleted) "
+            + "isdeleted) "
             + "values "
             + "(:name, "
             + ":surname, "
@@ -81,8 +81,6 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
         params.addValue("password", user.getPassword());
         params.addValue("email", user.getEmail());
         params.addValue("gender", user.getGender().name());
-        params.addValue("created", user.getCreated());
-        params.addValue("changed", user.getChanged());
         params.addValue("phone", user.getPhone());
         params.addValue("address", user.getAddress());
         params.addValue("isdeleted", user.isDeleted());
@@ -113,8 +111,38 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
     }
 
     @Override
-    public Users update(Users object) {
-        return null;
+    public Users update(Users user) {
+        final String updateQuery =
+                "update m_users  set "
+                        + "name = :name, "
+                        + "surname = :surname, "
+                        + "login = :login, "
+                        + "password = :password, "
+                        + "email = :email, "
+                        + "gender = :gender, "
+                        + "changed = :changed, "
+                        + "phone = :phone, "
+                        + "address = :address, "
+                        + "isdeleted = :isdeleted "
+                        +  "where id = :id";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("name", user.getName());
+        params.addValue("surname", user.getSurName());
+        params.addValue("login", user.getLogin());
+        params.addValue("password", user.getPassword());
+        params.addValue("email", user.getEmail());
+        params.addValue("gender", user.getGender().name());
+        params.addValue("changed", user.getChanged());
+        params.addValue("phone", user.getPhone());
+        params.addValue("address", user.getAddress());
+        params.addValue("isdeleted", user.isDeleted());
+        params.addValue("id", user.getId());
+
+        namedParameterJdbcTemplate.update(updateQuery, params);
+
+    return findById(user.getId());
     }
 
     @Override

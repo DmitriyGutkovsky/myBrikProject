@@ -6,6 +6,9 @@ import by.mybrik.domain.IndividualOrder;
 import by.mybrik.domain.Users;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class TesterJDBCTemplate {
 
   public static void main(String[] args) {
@@ -118,20 +121,36 @@ public class TesterJDBCTemplate {
 //
 //      System.out.println(userBean.delete(userForDelete));
 
-      Users userForSaving = Users.builder()
-              .name("save7")
-              .surName("save7")
-              .login("save7")
-              .password("save7")
-              .email("save7@mail.ru")
+//      Users userForSaving = Users.builder()
+//              .name("save778")
+//              .surName("save7778")
+//              .login("save7778")
+//              .password("save778")
+//              .email("save7778@mail.ru")
+//              .gender(Gender.FEMALE)
+//              .phone(356985778)
+//              .address("save7778")
+//              .isDeleted(false)
+//              .build();
+//
+//
+//    System.out.println(userBean.save(userForSaving));
+      Users userForUpdate = Users.builder()
+              .id(10l)
+              .name("save8899")
+              .surName("save")
+              .login("save809")
+              .password("save809")
+              .email("sav809@mail.ru")
               .gender(Gender.FEMALE)
-              .phone(3569857)
-              .address("save7")
+              .phone(3569890)
+              .changed(new Timestamp(new Date().getTime()))
+              .address("sav809")
               .isDeleted(false)
               .build();
 
 
-    System.out.println(userBean.save(userForSaving));
+    System.out.println(userBean.update(userForUpdate));
 
 
   }
