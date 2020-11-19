@@ -1,6 +1,7 @@
 package by.mybrik.repository;
 
 import by.mybrik.domain.PriceForIndividualOrder;
+import by.mybrik.domain.ProductType;
 import by.mybrik.domain.StandardOrder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -218,7 +219,14 @@ public class TesterJDBCTemplate {
 //    System.out.println(priceBean.delete(priceDelete));
       ProductTypeRepository productTypeBean = annotationConfigApplicationContext.getBean(ProductTypeRepository.class);
 
-//    System.out.println(productTypeBean.findAll());
-    System.out.println(productTypeBean.findById(1l));
+    //    System.out.println(productTypeBean.findAll());
+    //    System.out.println(productTypeBean.findById(1l));
+      ProductType productTypeForDelete = ProductType.builder()
+              .id(3)
+              .productType("test2")
+              .photo("test")
+              .isDeleted(false)
+              .build();
+      System.out.println(productTypeBean.delete(productTypeForDelete));
   }
 }

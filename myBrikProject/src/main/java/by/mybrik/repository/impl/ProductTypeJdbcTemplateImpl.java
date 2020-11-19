@@ -70,6 +70,14 @@ public class ProductTypeJdbcTemplateImpl implements ProductTypeRepository {
 
     @Override
     public Long delete(ProductType productType) {
-        return null;
+        final String deleteQuery = "delete from m_product_type where id = :id";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", productType.getId());
+
+        namedParameterJdbcTemplate.update(deleteQuery, params);
+
+        return (Long) params.getValue("id");
+
     }
 }
