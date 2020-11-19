@@ -186,6 +186,7 @@ public class TesterJDBCTemplate {
 
       PriceForIndividualOrderRepository priceBean = annotationConfigApplicationContext.getBean(PriceForIndividualOrderRepository.class);
 
-    System.out.println(priceBean.findById(1l));
+//    System.out.println(priceBean.findById(1l));
+    System.out.println(priceBean.findAll());
   }
 }

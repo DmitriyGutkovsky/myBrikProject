@@ -47,7 +47,7 @@ public class PriceForIndividualOrderJDBCTemplate implements PriceForIndividualOr
 
   @Override
   public List<PriceForIndividualOrder> findAll() {
-    return null;
+    return jdbcTemplate.query("select * from m_price_for_individual_order", this :: getRowMapper);
   }
 
   @Override
