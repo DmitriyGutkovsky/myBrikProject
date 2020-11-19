@@ -86,7 +86,23 @@ public class PriceForIndividualOrderJDBCTemplate implements PriceForIndividualOr
 
   @Override
   public PriceForIndividualOrder update(PriceForIndividualOrder price) {
-    return null;
+    final String updateQuery =
+        "update m_price_for_individual_order set "
+            + "product_type = :productType, "
+            + "price = :price, "
+            + "changed = :changed, "
+            + "isdeleted = :isdeleted "
+            + "where id = :id";
+    MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue("productType", price.getProductType());
+    params.addValue("price", price.getPrice());
+    params.addValue("changed", price.getChanged());
+    params.addValue("isdeleted", price.isDeleted());
+    params.addValue("id", price.getId());
+
+    namedParameterJdbcTemplate.update(updateQuery, params);
+
+    return findById(price.getId());
   }
 
   @Override

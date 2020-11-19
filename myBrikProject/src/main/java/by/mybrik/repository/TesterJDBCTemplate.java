@@ -189,12 +189,22 @@ public class TesterJDBCTemplate {
 
 //    System.out.println(priceBean.findById(1l));
 //    System.out.println(priceBean.findAll());
-      PriceForIndividualOrder priceSave = PriceForIndividualOrder.builder()
-              .productType("cap")
-              .price(55)
+//      PriceForIndividualOrder priceSave = PriceForIndividualOrder.builder()
+//              .productType("cap")
+//              .price(55)
+//              .isDeleted(false)
+//              .build();
+
+//    System.out.println(priceBean.save(priceSave));
+
+      PriceForIndividualOrder priceUpdate = PriceForIndividualOrder.builder()
+              .id(2l)
+              .productType("Some cap")
+              .price(65)
+              .changed(new Timestamp(new Date().getTime()))
               .isDeleted(false)
               .build();
 
-    System.out.println(priceBean.save(priceSave));
+    System.out.println(priceBean.update(priceUpdate));
   }
 }
