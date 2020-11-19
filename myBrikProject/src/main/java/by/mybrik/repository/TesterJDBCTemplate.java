@@ -197,7 +197,17 @@ public class TesterJDBCTemplate {
 
 //    System.out.println(priceBean.save(priceSave));
 
-      PriceForIndividualOrder priceUpdate = PriceForIndividualOrder.builder()
+//      PriceForIndividualOrder priceUpdate = PriceForIndividualOrder.builder()
+//              .id(2l)
+//              .productType("Some cap")
+//              .price(65)
+//              .changed(new Timestamp(new Date().getTime()))
+//              .isDeleted(false)
+//              .build();
+//
+//    System.out.println(priceBean.update(priceUpdate));
+
+            PriceForIndividualOrder priceDelete = PriceForIndividualOrder.builder()
               .id(2l)
               .productType("Some cap")
               .price(65)
@@ -205,6 +215,6 @@ public class TesterJDBCTemplate {
               .isDeleted(false)
               .build();
 
-    System.out.println(priceBean.update(priceUpdate));
+    System.out.println(priceBean.delete(priceDelete));
   }
 }

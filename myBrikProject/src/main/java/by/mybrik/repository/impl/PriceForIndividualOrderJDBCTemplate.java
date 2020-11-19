@@ -107,6 +107,11 @@ public class PriceForIndividualOrderJDBCTemplate implements PriceForIndividualOr
 
   @Override
   public Long delete(PriceForIndividualOrder price) {
-    return null;
+    final String deleteQuery =  "delete from m_price_for_individual_order where id = :id";
+    MapSqlParameterSource param = new MapSqlParameterSource();
+    param.addValue("id", price.getId());
+    namedParameterJdbcTemplate.update(deleteQuery, param);
+
+    return (Long) param.getValue("id");
   }
 }
