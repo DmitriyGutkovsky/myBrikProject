@@ -6,11 +6,13 @@ import by.mybrik.repository.ProductTypeRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -41,8 +43,23 @@ public class ProductTypeJdbcTemplateImpl implements ProductTypeRepository {
     }
 
     @Override
-    public ProductType save(ProductType object) {
-        return null;
+    public ProductType save(ProductType productType) {
+        final String saveQuery =
+                "insert into m_product_type (product_type, photo, isdeleted) "
+                        + "values (:productType, :photo, :isdeleted)";
+
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("productType", productType.getProductType());
+        params.addValue("photo", productType.getPhoto());
+        params.addValue("isdeleted", productType.isDeleted());
+
+        namedParameterJdbcTemplate.update(saveQuery, params, keyHolder, new String[] {"id"});
+
+        long insertedId = Objects.requireNonNull(keyHolder.getKey()).longValue();
+
+        return findById(insertedId);
     }
 
     @Override
