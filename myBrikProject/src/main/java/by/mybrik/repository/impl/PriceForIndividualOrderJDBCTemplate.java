@@ -4,12 +4,14 @@ import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.repository.ColumnsInfo.PriceForIndividualOrderColumns;
 import by.mybrik.repository.PriceForIndividualOrderRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -49,22 +51,25 @@ public class PriceForIndividualOrderJDBCTemplate implements PriceForIndividualOr
   }
 
   @Override
-  public PriceForIndividualOrder findById(Long key) {
-    return null;
+  public PriceForIndividualOrder findById(Long id) {
+    MapSqlParameterSource param = new MapSqlParameterSource();
+    param.addValue("id", id);
+    return namedParameterJdbcTemplate.queryForObject(
+            "select * from m_price_for_individual_order where id = :id", param, this:: getRowMapper);
   }
 
   @Override
-  public Optional<PriceForIndividualOrder> findOne(Long key) {
+  public Optional<PriceForIndividualOrder> findOne(Long id) {
     return Optional.empty();
   }
 
   @Override
-  public PriceForIndividualOrder update(PriceForIndividualOrder object) {
+  public PriceForIndividualOrder update(PriceForIndividualOrder price) {
     return null;
   }
 
   @Override
-  public Long delete(PriceForIndividualOrder object) {
+  public Long delete(PriceForIndividualOrder price) {
     return null;
   }
 }

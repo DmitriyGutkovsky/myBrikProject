@@ -173,16 +173,19 @@ public class TesterJDBCTemplate {
 //              .build();
 //
 //    System.out.println(standardOrderBean.update(standardOrderForUpdate));
-      StandardOrder standardOrderForDelete = StandardOrder.builder()
-              .id(2)
-              .goodId(6)
-              .userId(10)
-              .quantity(100)
-              .totalPrice(25)
-              .orderStatus("in progress")
-              .build();
+//      StandardOrder standardOrderForDelete = StandardOrder.builder()
+//              .id(2)
+//              .goodId(6)
+//              .userId(10)
+//              .quantity(100)
+//              .totalPrice(25)
+//              .orderStatus("in progress")
+//              .build();
+//
+//    System.out.println(standardOrderBean.delete(standardOrderForDelete));
 
-    System.out.println(standardOrderBean.delete(standardOrderForDelete));
+      PriceForIndividualOrderRepository priceBean = annotationConfigApplicationContext.getBean(PriceForIndividualOrderRepository.class);
 
+    System.out.println(priceBean.findById(1l));
   }
 }
