@@ -218,6 +218,7 @@ public class TesterJDBCTemplate {
 //    System.out.println(priceBean.delete(priceDelete));
       ProductTypeRepository productTypeBean = annotationConfigApplicationContext.getBean(ProductTypeRepository.class);
 
-    System.out.println(productTypeBean.findAll());
+//    System.out.println(productTypeBean.findAll());
+    System.out.println(productTypeBean.findById(1l));
   }
 }

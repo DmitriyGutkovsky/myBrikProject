@@ -4,6 +4,7 @@ import by.mybrik.domain.ProductType;
 import by.mybrik.repository.ColumnsInfo.ProductTypeColumns;
 import by.mybrik.repository.ProductTypeRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -51,7 +52,10 @@ public class ProductTypeJdbcTemplateImpl implements ProductTypeRepository {
 
     @Override
     public ProductType findById(Long id) {
-        return null;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("id", id);
+
+        return namedParameterJdbcTemplate.queryForObject("select * from m_product_type where id = :id",param, this:: getRowMapper);
     }
 
     @Override
