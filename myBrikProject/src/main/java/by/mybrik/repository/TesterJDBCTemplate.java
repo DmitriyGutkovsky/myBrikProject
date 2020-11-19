@@ -207,14 +207,17 @@ public class TesterJDBCTemplate {
 //
 //    System.out.println(priceBean.update(priceUpdate));
 
-            PriceForIndividualOrder priceDelete = PriceForIndividualOrder.builder()
-              .id(2l)
-              .productType("Some cap")
-              .price(65)
-              .changed(new Timestamp(new Date().getTime()))
-              .isDeleted(false)
-              .build();
+//            PriceForIndividualOrder priceDelete = PriceForIndividualOrder.builder()
+//              .id(2l)
+//              .productType("Some cap")
+//              .price(65)
+//              .changed(new Timestamp(new Date().getTime()))
+//              .isDeleted(false)
+//              .build();
+//
+//    System.out.println(priceBean.delete(priceDelete));
+      ProductTypeRepository productTypeBean = annotationConfigApplicationContext.getBean(ProductTypeRepository.class);
 
-    System.out.println(priceBean.delete(priceDelete));
+    System.out.println(productTypeBean.findAll());
   }
 }

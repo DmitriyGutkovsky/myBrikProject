@@ -46,26 +46,26 @@ public class ProductTypeJdbcTemplateImpl implements ProductTypeRepository {
 
     @Override
     public List<ProductType> findAll() {
+        return jdbcTemplate.query("select * from m_product_type", this :: getRowMapper);
+    }
+
+    @Override
+    public ProductType findById(Long id) {
         return null;
     }
 
     @Override
-    public ProductType findById(Long key) {
-        return null;
-    }
-
-    @Override
-    public Optional<ProductType> findOne(Long key) {
+    public Optional<ProductType> findOne(Long id) {
         return Optional.empty();
     }
 
     @Override
-    public ProductType update(ProductType object) {
+    public ProductType update(ProductType productType) {
         return null;
     }
 
     @Override
-    public Long delete(ProductType object) {
+    public Long delete(ProductType productType) {
         return null;
     }
 }
