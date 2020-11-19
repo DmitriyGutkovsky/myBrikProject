@@ -6,12 +6,13 @@ import by.mybrik.repository.PriceForIndividualOrderRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -41,8 +42,28 @@ public class PriceForIndividualOrderJDBCTemplate implements PriceForIndividualOr
   }
 
   @Override
-  public PriceForIndividualOrder save(PriceForIndividualOrder object) {
-    return null;
+  public PriceForIndividualOrder save(PriceForIndividualOrder price) {
+    final String saveQuery =
+        "insert into m_price_for_individual_order ( "
+            + "product_type, "
+            + "price, "
+            + "isdeleted) "
+            + "values ( "
+            + ":productType, "
+            + ":price,"
+            + ":isdeleted)";
+
+    GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+    MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue("productType", price.getProductType());
+    params.addValue("price", price.getPrice());
+    params.addValue("isdeleted", price.isDeleted());
+
+    namedParameterJdbcTemplate.update(saveQuery, params,keyHolder, new String[] {"id"});
+
+    Long insertedId = Objects.requireNonNull(keyHolder.getKey().longValue());
+
+    return findById(insertedId);
   }
 
   @Override

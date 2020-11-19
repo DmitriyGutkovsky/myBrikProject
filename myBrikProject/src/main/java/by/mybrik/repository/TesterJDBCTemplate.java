@@ -1,5 +1,6 @@
 package by.mybrik.repository;
 
+import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.domain.StandardOrder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -187,6 +188,13 @@ public class TesterJDBCTemplate {
       PriceForIndividualOrderRepository priceBean = annotationConfigApplicationContext.getBean(PriceForIndividualOrderRepository.class);
 
 //    System.out.println(priceBean.findById(1l));
-    System.out.println(priceBean.findAll());
+//    System.out.println(priceBean.findAll());
+      PriceForIndividualOrder priceSave = PriceForIndividualOrder.builder()
+              .productType("cap")
+              .price(55)
+              .isDeleted(false)
+              .build();
+
+    System.out.println(priceBean.save(priceSave));
   }
 }
