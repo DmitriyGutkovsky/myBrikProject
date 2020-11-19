@@ -19,7 +19,7 @@ public class PriceForIndividualOrder {
 
     private long id;
 
-    private String product_type;
+    private String productType;
 
     private double price;
 
