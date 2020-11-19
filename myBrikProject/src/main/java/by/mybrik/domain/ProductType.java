@@ -21,6 +21,8 @@ public class ProductType {
 
     private String productType;
 
+    private String photo;
+
     private boolean isDeleted;
 
     private Timestamp created = new Timestamp(System.currentTimeMillis());
