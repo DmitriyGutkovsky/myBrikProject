@@ -229,12 +229,22 @@ public class TesterJDBCTemplate {
 //              .build();
 //      System.out.println(productTypeBean.delete(productTypeForDelete));
 
-      ProductType productTypeForSave = ProductType.builder()
-              .productType("test2")
+//      ProductType productTypeForSave = ProductType.builder()
+//              .productType("test2")
+//              .photo("test")
+//              .isDeleted(false)
+//              .build();
+//
+//    System.out.println(productTypeBean.save(productTypeForSave));
+
+      ProductType productTypeForUpdate = ProductType.builder()
+              .id(4l)
+              .productType("test2ForUpdate")
               .photo("test")
               .isDeleted(false)
+              .changed(new Timestamp(new Date().getTime()))
               .build();
 
-    System.out.println(productTypeBean.save(productTypeForSave));
+      System.out.println(productTypeBean.update(productTypeForUpdate));
   }
 }

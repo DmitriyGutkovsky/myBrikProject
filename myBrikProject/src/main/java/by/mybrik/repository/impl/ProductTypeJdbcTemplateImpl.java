@@ -82,7 +82,25 @@ public class ProductTypeJdbcTemplateImpl implements ProductTypeRepository {
 
     @Override
     public ProductType update(ProductType productType) {
-        return null;
+        final String updateQuery =
+                "update m_product_type "
+                        + "set "
+                        + "product_type = :productType, "
+                        + "photo = :photo, "
+                        + "isdeleted = :isdeleted, "
+                        + "changed = :changed "
+                        + "where id = :id";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("productType", productType.getProductType());
+        params.addValue("photo", productType.getPhoto());
+        params.addValue("isdeleted", productType.isDeleted());
+        params.addValue("changed", productType.getChanged());
+        params.addValue("id", productType.getId());
+
+        namedParameterJdbcTemplate.update(updateQuery, params);
+
+        return findById(productType.getId());
     }
 
     @Override
