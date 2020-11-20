@@ -6,11 +6,13 @@ import by.mybrik.repository.TextileRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -44,8 +46,39 @@ public class TextileJdbcTemplateImpl implements TextileRepository {
 
 
     @Override
-    public Textile save(Textile object) {
-        return null;
+    public Textile save(Textile textile) {
+
+    final String saveQuery =
+        "insert into m_textile ( "
+            + "code, "
+            + "name, "
+            + "color, "
+            + "description, "
+            + "photo, "
+            + "isdeleted) "
+            + "values ("
+            + ":code, "
+            + ":name, "
+            + ":color, "
+            + ":description, "
+            + ":photo, "
+            + ":isDeleted)";
+
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("code", textile.getCode());
+        params.addValue("name", textile.getName());
+        params.addValue("color", textile.getColor());
+        params.addValue("description", textile.getDescription());
+        params.addValue("photo", textile.getPhoto());
+        params.addValue("isDeleted", textile.isDeleted());
+
+        namedParameterJdbcTemplate.update(saveQuery, params, keyHolder, new String[] {"id"});
+
+        long insertedId = Objects.requireNonNull(keyHolder.getKey()).longValue();
+
+        return findById(insertedId);
     }
 
     @Override

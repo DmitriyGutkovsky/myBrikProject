@@ -14,7 +14,7 @@ public interface TextileColumns {
 
   String PHOTO = "photo";
 
-  String ISDELETED = "isDeleted";
+  String ISDELETED = "isdeleted";
 
   String CREATED = "created";
 

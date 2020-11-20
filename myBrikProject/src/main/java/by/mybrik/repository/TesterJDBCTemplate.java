@@ -3,6 +3,7 @@ package by.mybrik.repository;
 import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.domain.ProductType;
 import by.mybrik.domain.StandardOrder;
+import by.mybrik.domain.Textile;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.Timestamp;
@@ -250,6 +251,17 @@ public class TesterJDBCTemplate {
       TextileRepository textileBean = annotationConfigApplicationContext.getBean(TextileRepository.class);
 
 //    System.out.println(textileBean.findById(1l));
-    System.out.println(textileBean.findAll());
+//    System.out.println(textileBean.findAll());
+
+      Textile textileForSave = Textile.builder()
+              .code("someCode4")
+              .name("someName4")
+              .color("someColor")
+              .description("someDescription")
+              .photo("somePhoto")
+              .isDeleted(false)
+              .build();
+
+    System.out.println(textileBean.save(textileForSave));
   }
 }
