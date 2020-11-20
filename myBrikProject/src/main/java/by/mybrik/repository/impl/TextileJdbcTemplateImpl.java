@@ -50,7 +50,7 @@ public class TextileJdbcTemplateImpl implements TextileRepository {
 
     @Override
     public List<Textile> findAll() {
-        return null;
+        return jdbcTemplate.query("select * from m_textile", this:: getRowMapper);
     }
 
     @Override
