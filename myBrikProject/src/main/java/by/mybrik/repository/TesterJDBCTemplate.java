@@ -237,14 +237,18 @@ public class TesterJDBCTemplate {
 //
 //    System.out.println(productTypeBean.save(productTypeForSave));
 
-      ProductType productTypeForUpdate = ProductType.builder()
-              .id(4l)
-              .productType("test2ForUpdate")
-              .photo("test")
-              .isDeleted(false)
-              .changed(new Timestamp(new Date().getTime()))
-              .build();
+//      ProductType productTypeForUpdate = ProductType.builder()
+//              .id(4l)
+//              .productType("test2ForUpdate")
+//              .photo("test")
+//              .isDeleted(false)
+//              .changed(new Timestamp(new Date().getTime()))
+//              .build();
+//
+//      System.out.println(productTypeBean.update(productTypeForUpdate));
 
-      System.out.println(productTypeBean.update(productTypeForUpdate));
+      TextileRepository textileBean = annotationConfigApplicationContext.getBean(TextileRepository.class);
+
+    System.out.println(textileBean.findById(1l));
   }
 }

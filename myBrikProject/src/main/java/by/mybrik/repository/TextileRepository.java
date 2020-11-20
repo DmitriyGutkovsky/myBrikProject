@@ -1,4 +1,6 @@
 package by.mybrik.repository;
 
-public interface TextileRepository extends CrudRepository{
+import by.mybrik.domain.Textile;
+
+public interface TextileRepository extends CrudRepository <Long, Textile>{
 }

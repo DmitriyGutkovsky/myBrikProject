@@ -4,6 +4,7 @@ import by.mybrik.domain.Textile;
 import by.mybrik.repository.ColumnsInfo.TextileColumns;
 import by.mybrik.repository.TextileRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -41,33 +42,36 @@ public class TextileJdbcTemplateImpl implements TextileRepository {
         return textile;
     }
 
+
     @Override
-    public Object save(Object object) {
+    public Textile save(Textile object) {
         return null;
     }
 
     @Override
-    public List findAll() {
+    public List<Textile> findAll() {
         return null;
     }
 
     @Override
-    public Object findById(Object key) {
-        return null;
+    public Textile findById(Long id) {
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("id", id);
+        return namedParameterJdbcTemplate.queryForObject("select * from m_textile where id = :id", param, this::getRowMapper);
     }
 
     @Override
-    public Optional findOne(Object key) {
+    public Optional<Textile> findOne(Long key) {
         return Optional.empty();
     }
 
     @Override
-    public Object update(Object object) {
+    public Textile update(Textile object) {
         return null;
     }
 
     @Override
-    public Object delete(Object object) {
+    public Long delete(Textile object) {
         return null;
     }
 }
