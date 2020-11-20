@@ -99,8 +99,32 @@ public class TextileJdbcTemplateImpl implements TextileRepository {
     }
 
     @Override
-    public Textile update(Textile object) {
-        return null;
+    public Textile update(Textile textile) {
+        final String updateQuery =
+                "update m_textile "
+                        + "set "
+                        + "code = :code, "
+                        + "name = :name, "
+                        + "color = :color, "
+                        + "description = :description, "
+                        + "photo = :photo, "
+                        + "isdeleted = :isDeleted, "
+                        + "changed = :changed "
+                        + "where id = :id";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("code", textile.getCode());
+        params.addValue("name", textile.getName());
+        params.addValue("color", textile.getColor());
+        params.addValue("description", textile.getDescription());
+        params.addValue("photo", textile.getPhoto());
+        params.addValue("isDeleted", textile.isDeleted());
+        params.addValue("changed", textile.getChanged());
+        params.addValue("id", textile.getId());
+
+        namedParameterJdbcTemplate.update(updateQuery, params);
+
+        return findById(textile.getId());
     }
 
     @Override
