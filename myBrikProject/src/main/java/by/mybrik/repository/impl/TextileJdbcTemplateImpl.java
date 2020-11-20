@@ -128,7 +128,14 @@ public class TextileJdbcTemplateImpl implements TextileRepository {
     }
 
     @Override
-    public Long delete(Textile object) {
-        return null;
+    public Long delete(Textile textile) {
+        final String deleteQuery = "delete from m_textile where id = :id";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", textile.getId());
+
+        namedParameterJdbcTemplate.update(deleteQuery, params);
+
+        return (Long) params.getValue("id");
     }
 }
