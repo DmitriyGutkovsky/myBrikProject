@@ -1,9 +1,6 @@
 package by.mybrik.repository;
 
-import by.mybrik.domain.PriceForIndividualOrder;
-import by.mybrik.domain.ProductType;
-import by.mybrik.domain.StandardOrder;
-import by.mybrik.domain.Textile;
+import by.mybrik.domain.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.Timestamp;
@@ -299,6 +296,13 @@ public class TesterJDBCTemplate {
     TextileProductTypeRepository textileProductTypeBean = annotationConfigApplicationContext.getBean(TextileProductTypeRepository.class);
 
 //    System.out.println(textileProductTypeBean.findAll());
-    System.out.println(textileProductTypeBean.findById(1l));
+//    System.out.println(textileProductTypeBean.findById(1l));
+
+    TextileProductType textileProductTypeForSave = TextileProductType.builder()
+            .productTypeId(1)
+            .textileId(1)
+            .build();
+
+    System.out.println(textileProductTypeBean.save(textileProductTypeForSave));
   }
 }

@@ -6,11 +6,13 @@ import by.mybrik.repository.TextileProductTypeRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -38,7 +40,22 @@ public class TextileProductTypeJdbcTemplateImpl implements TextileProductTypeRep
 
     @Override
     public TextileProductType save(TextileProductType textileProductType) {
-        return null;
+        final String saveQuery = "insert into m_textile_product_type (textile_id, product_type_id) "
+               + "values ("
+               + ":textileId, "
+               + ":productTypeId)";
+
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("textileId",textileProductType.getTextileId());
+        params.addValue("productTypeId",textileProductType.getProductTypeId());
+
+        namedParameterJdbcTemplate.update(saveQuery, params, keyHolder, new String[]{"id"});
+
+        long insertedId = Objects.requireNonNull(keyHolder.getKey()).longValue();
+
+        return findById(insertedId);
     }
 
     @Override
