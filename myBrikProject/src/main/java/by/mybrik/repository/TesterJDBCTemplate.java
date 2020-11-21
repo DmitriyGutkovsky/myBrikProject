@@ -298,11 +298,19 @@ public class TesterJDBCTemplate {
 //    System.out.println(textileProductTypeBean.findAll());
 //    System.out.println(textileProductTypeBean.findById(1l));
 
-    TextileProductType textileProductTypeForSave = TextileProductType.builder()
-            .productTypeId(1)
+//    TextileProductType textileProductTypeForSave = TextileProductType.builder()
+//            .productTypeId(1)
+//            .textileId(1)
+//            .build();
+//
+//    System.out.println(textileProductTypeBean.save(textileProductTypeForSave));
+    TextileProductType textileProductTypeForUpdate = TextileProductType.builder()
+            .id(2)
+            .productTypeId(4)
             .textileId(1)
             .build();
 
-    System.out.println(textileProductTypeBean.save(textileProductTypeForSave));
+    System.out.println(textileProductTypeBean.update(textileProductTypeForUpdate));
+
   }
 }

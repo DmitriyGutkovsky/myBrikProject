@@ -78,7 +78,19 @@ public class TextileProductTypeJdbcTemplateImpl implements TextileProductTypeRep
 
     @Override
     public TextileProductType update(TextileProductType textileProductType) {
-        return null;
+        final String updatequery = "update m_textile_product_type set "
+                + "textile_id = :textileId, "
+                + "product_type_id = :productTypeIid "
+                + "where id = :id";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("id", textileProductType.getId());
+        params.addValue("textileId", textileProductType.getTextileId());
+        params.addValue("productTypeIid", textileProductType.getProductTypeId());
+
+        namedParameterJdbcTemplate.update(updatequery, params);
+
+        return findById(textileProductType.getId());
     }
 
     @Override
