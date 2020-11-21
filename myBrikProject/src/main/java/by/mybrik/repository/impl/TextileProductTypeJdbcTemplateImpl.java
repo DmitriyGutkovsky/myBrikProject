@@ -42,7 +42,7 @@ public class TextileProductTypeJdbcTemplateImpl implements TextileProductTypeRep
 
     @Override
     public List<TextileProductType> findAll() {
-        return null;
+        return jdbcTemplate.query("select * from m_textile_product_type", this::getRowMapper);
     }
 
     @Override

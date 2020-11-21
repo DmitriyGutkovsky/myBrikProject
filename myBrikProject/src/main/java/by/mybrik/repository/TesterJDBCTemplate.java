@@ -282,18 +282,22 @@ public class TesterJDBCTemplate {
 //            .build();
 //
 //    System.out.println(textileBean.update(textileForUpdate));
-    Textile textileForDelete =
-        Textile.builder()
-            .id(0)
-            .code("someCode5")
-            .name("someName5")
-            .color("someColor")
-            .description("someDescription")
-            .photo("somePhoto")
-            .changed(new Timestamp(new Date().getTime()))
-            .isDeleted(false)
-            .build();
+//    Textile textileForDelete =
+//        Textile.builder()
+//            .id(0)
+//            .code("someCode5")
+//            .name("someName5")
+//            .color("someColor")
+//            .description("someDescription")
+//            .photo("somePhoto")
+//            .changed(new Timestamp(new Date().getTime()))
+//            .isDeleted(false)
+//            .build();
+//
+//    System.out.println(textileBean.delete(textileForDelete));
 
-    System.out.println(textileBean.delete(textileForDelete));
+    TextileProductTypeRepository textileProductTypeBean = annotationConfigApplicationContext.getBean(TextileProductTypeRepository.class);
+
+    System.out.println(textileProductTypeBean.findAll());
   }
 }
