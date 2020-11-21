@@ -4,6 +4,7 @@ import by.mybrik.domain.TextileProductType;
 import by.mybrik.repository.ColumnsInfo.TextileProductTypeColumns;
 import by.mybrik.repository.TextileProductTypeRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -47,7 +48,10 @@ public class TextileProductTypeJdbcTemplateImpl implements TextileProductTypeRep
 
     @Override
     public TextileProductType findById(Long id) {
-        return null;
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("id", id);
+        return namedParameterJdbcTemplate.queryForObject(
+                "select * from m_textile_product_type where id = :id",param, this::getRowMapper);
     }
 
     @Override

@@ -298,6 +298,7 @@ public class TesterJDBCTemplate {
 
     TextileProductTypeRepository textileProductTypeBean = annotationConfigApplicationContext.getBean(TextileProductTypeRepository.class);
 
-    System.out.println(textileProductTypeBean.findAll());
+//    System.out.println(textileProductTypeBean.findAll());
+    System.out.println(textileProductTypeBean.findById(1l));
   }
 }
