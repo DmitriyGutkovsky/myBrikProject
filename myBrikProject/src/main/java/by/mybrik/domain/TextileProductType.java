@@ -1,6 +1,7 @@
 package by.mybrik.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Setter
 @Getter
+@Builder
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,9 +19,9 @@ public class TextileProductType {
 
     private long id;
 
-    private long textile_id;
+    private long textileId;
 
-    private long product_type_id;
+    private long productTypeId;
 
     @Override
     public String toString() {
