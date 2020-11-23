@@ -95,6 +95,14 @@ public class TextileProductTypeJdbcTemplateImpl implements TextileProductTypeRep
 
     @Override
     public Long delete(TextileProductType textileProductType) {
-        return null;
+
+        final String deleteQuery = "delete from m_textile_product_type where id = :id";
+
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("id", textileProductType.getId());
+
+        namedParameterJdbcTemplate.update(deleteQuery, param);
+
+        return (Long) param.getValue("id");
     }
 }
