@@ -15,8 +15,8 @@ public interface GoodsService {
 
     Optional<Goods> findOne(Long id);
 
-    Goods update(Goods object);
+    Goods update(Goods product);
 
-    Long delete(Goods object);
+    Long delete(Goods product);
 
 }
