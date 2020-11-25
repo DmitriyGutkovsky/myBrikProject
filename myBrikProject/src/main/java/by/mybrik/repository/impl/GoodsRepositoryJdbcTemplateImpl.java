@@ -88,6 +88,7 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
             + "isdeleted = :isDeleted, "
             + "price = :price, "
             + "quantity = :quantity, "
+            + "changed = :changed, "
             + "category = :category "
             + "where id = :id";
 
@@ -102,6 +103,7 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
     params.addValue("isDeleted", product.isDeleted());
     params.addValue("price", product.getPrice());
     params.addValue("quantity", product.getQuantity());
+    params.addValue("changed", product.getChanged());
     params.addValue("category", product.getCategory());
     params.addValue("id", product.getId());
 

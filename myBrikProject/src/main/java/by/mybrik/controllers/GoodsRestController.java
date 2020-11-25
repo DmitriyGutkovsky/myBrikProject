@@ -1,6 +1,7 @@
 package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.goodsRequests.GoodsCreateRequest;
+import by.mybrik.controllers.requests.goodsRequests.GoodsUpdateRequest;
 import by.mybrik.domain.Goods;
 import by.mybrik.service.GoodsService;
 import lombok.RequiredArgsConstructor;
@@ -9,11 +10,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -84,6 +87,41 @@ public class GoodsRestController {
     }
 
 
+    /*
+    PUT + http://localhost:8080/rest/goods/10
+    {
+    "orderCode": "someOrderCode12",
+    "name": "capBig",
+    "photo": "linkToPhoto",
+    "gender": "Male",
+    "size": "52",
+    "color": "red",
+    "description": "summer cap",
+    "price": 15.0,
+    "quantity": 15,
+    "category": "caps",
+    "deleted": false
+    }
+     */
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Goods updateProduct (@PathVariable Long id, @RequestBody GoodsUpdateRequest request){
 
+        Goods product = goodsService.findById(id);
 
+        product.setOrderCode(request.getOrderCode());
+        product.setName(request.getName());
+        product.setPhoto(request.getPhoto());
+        product.setGender(request.getGender());
+        product.setSize(request.getSize());
+        product.setColor(request.getColor());
+        product.setDescription(request.getDescription());
+        product.setDeleted(request.isDeleted());
+        product.setPrice(request.getPrice());
+        product.setQuantity(request.getQuantity());
+        product.setCategory(request.getCategory());
+        product.setChanged(new Timestamp(System.currentTimeMillis()));
+
+        return goodsService.update(product);
+    }
 }
