@@ -1,5 +1,6 @@
 package by.mybrik.controllers;
 
+import by.mybrik.controllers.requests.usersRequests.UserCreateRequest;
 import by.mybrik.domain.Users;
 import by.mybrik.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,38 @@ public class UsersRestController {
         Users deleteUser = usersService.findById(id);
         usersService.delete(deleteUser);
         return usersService.findAll();
+    }
+    /*
+    http://localhost:8080/rest/users
+    {
+    "name": "saveUser",
+    "surName": "saveUser",
+    "login": "saveUser",
+    "password": "save809",
+    "email": "sav809User@mail.ru",
+    "gender": "FEMALE",
+    "phone": 35698980,
+    "address": "sav8099",
+    "deleted": false
+    }
+     */
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Users registerUser (@RequestBody UserCreateRequest request){
+
+        Users user = new Users();
+
+        user.setName(request.getName());
+        user.setSurName(request.getSurName());
+        user.setLogin(request.getLogin());
+        user.setPassword(request.getPassword());
+        user.setEmail(request.getEmail());
+        user.setGender(request.getGender());
+        user.setPhone(request.getPhone());
+        user.setAddress(request.getAddress());
+        user.setDeleted(request.isDeleted());
+
+        return usersService.save(user);
     }
 
 }
