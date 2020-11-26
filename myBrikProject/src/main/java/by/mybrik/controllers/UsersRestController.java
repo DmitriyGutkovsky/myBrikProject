@@ -29,4 +29,13 @@ public class UsersRestController {
         return usersService.findById(id);
     }
 
+    // http://localhost:8080/rest/users/18
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Users> deleteUserById(@PathVariable("id") Long id){
+        Users deleteUser = usersService.findById(id);
+        usersService.delete(deleteUser);
+        return usersService.findAll();
+    }
+
 }
