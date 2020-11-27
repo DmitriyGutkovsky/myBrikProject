@@ -32,7 +32,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Optional<Users> findOne(Long id) {
-        return Optional.empty();
+        return usersRepository.findOne(id);
     }
 
     @Override
