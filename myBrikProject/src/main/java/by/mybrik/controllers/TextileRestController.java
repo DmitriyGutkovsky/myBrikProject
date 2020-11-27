@@ -1,5 +1,6 @@
 package by.mybrik.controllers;
 
+import by.mybrik.controllers.requests.textileRequests.TextileCreateRequest;
 import by.mybrik.domain.Textile;
 import by.mybrik.service.TextileService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,23 @@ public class TextileRestController {
     public List<Textile> deleteTextileById(@PathVariable("id") Long id){
         textileService.delete(textileService.findById(id));
         return textileService.findAll();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public  Textile addNewTextile(@RequestBody TextileCreateRequest request){
+
+        Textile textile = new Textile();
+
+        textile.setCode(request.getCode());
+        textile.setName(request.getName());
+        textile.setColor(request.getColor());
+        textile.setDescription(request.getDescription());
+        textile.setPhoto(request.getPhoto());
+        textile.setDeleted(request.isDeleted());
+
+        return textileService.save(textile);
+
     }
 
 }
