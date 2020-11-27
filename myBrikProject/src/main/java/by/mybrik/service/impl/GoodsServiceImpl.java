@@ -32,7 +32,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Optional<Goods> findOne(Long id) {
-        return Optional.empty();
+        return goodsRepository.findOne(id);
     }
 
     @Override
