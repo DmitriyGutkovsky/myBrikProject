@@ -1,12 +1,14 @@
 package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.textileRequests.TextileCreateRequest;
+import by.mybrik.controllers.requests.textileRequests.TextileUpdateRequest;
 import by.mybrik.domain.Textile;
 import by.mybrik.service.TextileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -38,6 +40,17 @@ public class TextileRestController {
         return textileService.findAll();
     }
 
+    /*
+    http://localhost:8080/rest/textile/
+    {
+        "code": "someCode6",
+        "name": "someName6",
+        "color": "someColor",
+        "description": "someDescription",
+        "photo": "somePhoto",
+        "deleted": false
+    }
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public  Textile addNewTextile(@RequestBody TextileCreateRequest request){
@@ -52,7 +65,35 @@ public class TextileRestController {
         textile.setDeleted(request.isDeleted());
 
         return textileService.save(textile);
+    }
 
+
+    /*
+    http://localhost:8080/rest/textile/6
+     {
+        "code": "someCode0",
+        "name": "someName6",
+        "color": "someColor",
+        "description": "someDescription",
+        "photo": "somePhoto",
+        "deleted": false
+    }
+     */
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Textile updateTextile(@PathVariable("id") Long id, @RequestBody TextileUpdateRequest request){
+
+        Textile updatedTextile = textileService.findById(id);
+
+        updatedTextile.setCode(request.getCode());
+        updatedTextile.setName(request.getName());
+        updatedTextile.setColor(request.getColor());
+        updatedTextile.setDescription(request.getDescription());
+        updatedTextile.setPhoto(request.getPhoto());
+        updatedTextile.setDeleted(request.isDeleted());
+        updatedTextile.setChanged(new Timestamp(System.currentTimeMillis()));
+
+        return textileService.update(updatedTextile);
     }
 
 }
