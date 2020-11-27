@@ -4,10 +4,7 @@ import by.mybrik.domain.Textile;
 import by.mybrik.service.TextileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,12 @@ public class TextileRestController {
     @ResponseStatus(HttpStatus.OK)
     public List<Textile> getListOfAllTextile(){
         return textileService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Textile findTextileById(@PathVariable("id") Long id){
+        return textileService.findById(id);
     }
 
 }
