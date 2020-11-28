@@ -4,10 +4,7 @@ import by.mybrik.domain.ProductType;
 import by.mybrik.service.ProductTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,12 +15,20 @@ public class ProductTypeRestController {
 
     public final ProductTypeService typeService;
 
+    // http://localhost:8080/rest/producttype
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ProductType> getListOfAllProductTypes(){
         return typeService.findAll();
     }
 
+
+    // http://localhost:8080/rest/producttype/4
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductType getProductTypeById(@PathVariable("id") Long id){
+        return typeService.findById(id);
+    }
 
 
 }
