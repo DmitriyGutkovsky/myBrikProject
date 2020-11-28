@@ -30,5 +30,14 @@ public class ProductTypeRestController {
         return typeService.findById(id);
     }
 
+    // http://localhost:8080/rest/producttype/4
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProductType> deleteTypeById(@PathVariable Long id){
+        ProductType deletedType = typeService.findById(id);
+        typeService.delete(deletedType);
+        return typeService.findAll();
+    }
+
 
 }
