@@ -1,12 +1,14 @@
 package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.productTypeRequests.ProductTypeCreateRequest;
+import by.mybrik.controllers.requests.productTypeRequests.ProductTypeUpdateRequest;
 import by.mybrik.domain.ProductType;
 import by.mybrik.service.ProductTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -61,7 +63,25 @@ public class ProductTypeRestController {
         return typeService.save(newType);
     }
 
+    /*
+    http://localhost:8080/rest/producttype/5
+    {
+        "productType": "test5",
+        "photo": "test5",
+        "deleted": false
+    }
+     */
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductType updateProductType(@PathVariable Long id, @RequestBody ProductTypeUpdateRequest request){
 
+        ProductType updateType = typeService.findById(id);
 
+        updateType.setProductType(request.getProductType());
+        updateType.setPhoto(request.getPhoto());
+        updateType.setDeleted(request.isDeleted());
+        updateType.setChanged(new Timestamp(System.currentTimeMillis()));
 
+        return typeService.update(updateType);
+    }
 }
