@@ -1,5 +1,6 @@
 package by.mybrik.controllers;
 
+import by.mybrik.controllers.requests.productTypeRequests.ProductTypeCreateRequest;
 import by.mybrik.domain.ProductType;
 import by.mybrik.service.ProductTypeService;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,29 @@ public class ProductTypeRestController {
         typeService.delete(deletedType);
         return typeService.findAll();
     }
+
+    /*
+    http://localhost:8080/rest/producttype
+    {
+        "productType": "test2",
+        "photo": "test2",
+        "deleted": false
+    }
+     */
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductType addProductType(@RequestBody ProductTypeCreateRequest request){
+
+        ProductType newType = new ProductType();
+
+        newType.setProductType(request.getProductType());
+        newType.setPhoto(request.getPhoto());
+        newType.setDeleted(request.isDeleted());
+
+        return typeService.save(newType);
+    }
+
+
 
 
 }
