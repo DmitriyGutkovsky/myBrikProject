@@ -5,11 +5,11 @@
   <nodes>
     <node x="832.0" y="55.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_textile</node>
     <node x="360.0" y="88.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_price_for_individual_order</node>
-    <node x="766.671875" y="468.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_textile_product_type</node>
     <node x="0.0" y="0.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_goods</node>
+    <node x="492.0" y="391.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_individual_order</node>
     <node x="636.0" y="88.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_product_type</node>
     <node x="68.3125" y="413.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_standard_order</node>
-    <node x="492.0" y="391.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_individual_order</node>
+    <node x="766.671875" y="468.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_textile_product_type</node>
     <node x="185.0" y="22.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_users</node>
   </nodes>
   <notes />
