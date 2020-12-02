@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class PriceForIndividualOrderRestController {
     }
 
     // http://localhost:8080/rest/individualorderprice/3
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<PriceForIndividualOrder> deleteIndividualOrderPriceById(@PathVariable Long id){
         PriceForIndividualOrder deletedPrice = priceForIndividualOrderService.findById(id);
@@ -57,6 +58,27 @@ public class PriceForIndividualOrderRestController {
         price.setDeleted(request.isDeleted());
 
         return priceForIndividualOrderService.save(price);
+    }
+
+    /*
+http://localhost:8080/rest/individualorderprice/4
+{
+    "productType": "test",
+    "price": 12.0,
+    "deleted": false
+}
+ */
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PriceForIndividualOrder updatePriceForIndividualOrder(@PathVariable ("id") Long id, @RequestBody PriceForIndividualCreateRequest request ){
+
+        PriceForIndividualOrder price = priceForIndividualOrderService.findById(id);
+        price.setProductType(request.getProductType());
+        price.setPrice(request.getPrice());
+        price.setDeleted(request.isDeleted());
+        price.setChanged(new Timestamp(System.currentTimeMillis()));
+
+        return priceForIndividualOrderService.update(price);
     }
 
 
