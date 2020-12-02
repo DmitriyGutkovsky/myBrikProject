@@ -1,7 +1,7 @@
 package by.mybrik.controllers;
 
+import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualCreateRequest;
 import by.mybrik.domain.PriceForIndividualOrder;
-import by.mybrik.domain.ProductType;
 import by.mybrik.service.PriceForIndividualOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,6 +37,26 @@ public class PriceForIndividualOrderRestController {
         PriceForIndividualOrder deletedPrice = priceForIndividualOrderService.findById(id);
         priceForIndividualOrderService.delete(deletedPrice);
         return priceForIndividualOrderService.findAll();
+    }
+
+    /*
+    http://localhost:8080/rest/individualorderprice
+    {
+        "productType": "test",
+        "price": 12.0,
+        "deleted": false
+    }
+     */
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public PriceForIndividualOrder addPriceForIndividualOrder(@RequestBody PriceForIndividualCreateRequest request ){
+
+        PriceForIndividualOrder price = new PriceForIndividualOrder();
+        price.setProductType(request.getProductType());
+        price.setPrice(request.getPrice());
+        price.setDeleted(request.isDeleted());
+
+        return priceForIndividualOrderService.save(price);
     }
 
 
