@@ -1,14 +1,11 @@
 package by.mybrik.controllers;
 
 import by.mybrik.domain.PriceForIndividualOrder;
+import by.mybrik.domain.ProductType;
 import by.mybrik.service.PriceForIndividualOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +28,15 @@ public class PriceForIndividualOrderRestController {
     @ResponseStatus(HttpStatus.OK)
     public PriceForIndividualOrder getIndividualOrderPriceById(@PathVariable("id") Long id){
         return priceForIndividualOrderService.findById(id);
+    }
+
+    // http://localhost:8080/rest/individualorderprice/3
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PriceForIndividualOrder> deleteIndividualOrderPriceById(@PathVariable Long id){
+        PriceForIndividualOrder deletedPrice = priceForIndividualOrderService.findById(id);
+        priceForIndividualOrderService.delete(deletedPrice);
+        return priceForIndividualOrderService.findAll();
     }
 
 
