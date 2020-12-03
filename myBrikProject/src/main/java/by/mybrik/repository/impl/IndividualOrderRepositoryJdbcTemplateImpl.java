@@ -36,7 +36,7 @@ public class IndividualOrderRepositoryJdbcTemplateImpl implements IndividualOrde
         order.setProductTypeId(rs.getLong(IndividualOrderColumns.PRODUCTTYPEID));
         order.setPriceId(rs.getLong(IndividualOrderColumns.PRICEID));
         order.setQuantity(rs.getInt(IndividualOrderColumns.QUANTITY));
-        order.setTotalprice(rs.getDouble(IndividualOrderColumns.TOTALPRICE));
+        order.setTotalPrice(rs.getDouble(IndividualOrderColumns.TOTALPRICE));
         order.setOrderStatus(rs.getString(IndividualOrderColumns.ORDERSTATUS));
         order.setCreated(rs.getTimestamp(IndividualOrderColumns.CREATED));
         order.setChanged(rs.getTimestamp(IndividualOrderColumns.CHANGED));
@@ -59,7 +59,7 @@ public class IndividualOrderRepositoryJdbcTemplateImpl implements IndividualOrde
         params.addValue("productTypeId", order.getProductTypeId());
         params.addValue("priceId", order.getPriceId());
         params.addValue("quantity", order.getQuantity());
-        params.addValue("totalPrice", order.getTotalprice());
+        params.addValue("totalPrice", order.getTotalPrice());
         params.addValue("orderStatus", order.getOrderStatus());
 
         namedParameterJdbcTemplate.update(saveQuery, params, keyHolder, new String[] {"id"});
@@ -108,7 +108,7 @@ public class IndividualOrderRepositoryJdbcTemplateImpl implements IndividualOrde
         params.addValue("productTypeId", order.getProductTypeId());
         params.addValue("priceId", order.getPriceId());
         params.addValue("quantity", order.getQuantity());
-        params.addValue("totalPrice", order.getTotalprice());
+        params.addValue("totalPrice", order.getTotalPrice());
         params.addValue("orderStatus", order.getOrderStatus());
         params.addValue("id", order.getId());
 

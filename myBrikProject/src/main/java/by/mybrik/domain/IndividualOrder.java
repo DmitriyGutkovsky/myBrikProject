@@ -31,7 +31,7 @@ public class IndividualOrder {
 
     private int quantity;
 
-    private double totalprice;
+    private double totalPrice;
 
     private String orderStatus;
 
