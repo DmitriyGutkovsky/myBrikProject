@@ -1,6 +1,7 @@
 package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderCreateRequest;
+import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderUpdateRequest;
 import by.mybrik.domain.IndividualOrder;
 import by.mybrik.service.IndividualOrderService;
 import lombok.RequiredArgsConstructor;
@@ -9,11 +10,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -47,7 +50,7 @@ public class IndividualOrderRestController {
     }
 
     /*
-    http://localhost:8080/rest/standardorder
+    http://localhost:8080/rest/individualorder
 
     {
         "userId": 2,
@@ -74,6 +77,37 @@ public class IndividualOrderRestController {
         order.setOrderStatus(request.getOrderStatus());
 
         return individualOrderService.save(order);
+    }
+
+    /*
+    http://localhost:8080/rest/individualorder/4
+
+    {
+        "userId": 6,
+        "textileId": 1,
+        "productTypeId": 1,
+        "priceId": 1,
+        "quantity": 1,
+        "totalPrice": 10,
+        "orderStatus": "updated"
+    }
+    */
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public IndividualOrder updateIndividualOrder(@PathVariable Long id, @RequestBody IndividualOrderUpdateRequest request) {
+
+        IndividualOrder updateOrder = individualOrderService.findById(id);
+
+        updateOrder.setUserId(request.getUserId());
+        updateOrder.setTextileId(request.getTextileId());
+        updateOrder.setProductTypeId(request.getProductTypeId());
+        updateOrder.setPriceId(request.getPriceId());
+        updateOrder.setQuantity(request.getQuantity());
+        updateOrder.setTotalPrice(request.getTotalPrice());
+        updateOrder.setOrderStatus(request.getOrderStatus());
+        updateOrder.setChanged(new Timestamp(System.currentTimeMillis()));
+
+        return individualOrderService.update(updateOrder);
     }
 
 }

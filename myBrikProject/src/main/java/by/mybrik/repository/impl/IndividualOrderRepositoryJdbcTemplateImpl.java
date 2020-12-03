@@ -99,6 +99,7 @@ public class IndividualOrderRepositoryJdbcTemplateImpl implements IndividualOrde
                         + "price_id = :priceId, "
                         + "quantity = :quantity, "
                         + "total_price = :totalPrice, "
+                        + "changed = :changed, "
                         + "order_status = :orderStatus "
                         + "where id = :id";
 
@@ -109,6 +110,7 @@ public class IndividualOrderRepositoryJdbcTemplateImpl implements IndividualOrde
         params.addValue("priceId", order.getPriceId());
         params.addValue("quantity", order.getQuantity());
         params.addValue("totalPrice", order.getTotalPrice());
+        params.addValue("changed", order.getChanged());
         params.addValue("orderStatus", order.getOrderStatus());
         params.addValue("id", order.getId());
 
