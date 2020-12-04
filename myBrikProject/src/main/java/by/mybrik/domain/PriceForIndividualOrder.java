@@ -19,17 +19,17 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class PriceForIndividualOrder {
 
-    private long id;
+    private Long id;
 
     private String productType;
 
-    private double price;
+    private Double price;
 
     private Timestamp created = new Timestamp(System.currentTimeMillis());
 
     private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
-    private boolean isDeleted;
+    private Boolean isDeleted;
 
     @Override
     public String toString() {

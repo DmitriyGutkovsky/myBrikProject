@@ -19,19 +19,19 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class IndividualOrder {
 
-    private long id;
+    private Long id;
 
-    private long userId;
+    private Long userId;
 
-    private long textileId;
+    private Long textileId;
 
-    private long productTypeId;
+    private Long productTypeId;
 
-    private long priceId;
+    private Long priceId;
 
     private int quantity;
 
-    private double totalPrice;
+    private Double totalPrice;
 
     private String orderStatus;
 

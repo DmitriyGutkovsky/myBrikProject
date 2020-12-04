@@ -37,7 +37,7 @@ public class Goods {
 
     private boolean isDeleted;
 
-    private double price;
+    private Double price;
 
     private int quantity;
 

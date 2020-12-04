@@ -17,11 +17,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @AllArgsConstructor
 public class TextileProductType {
 
-    private long id;
+    private Long id;
 
-    private long textileId;
+    private Long textileId;
 
-    private long productTypeId;
+    private Long productTypeId;
 
     @Override
     public String toString() {

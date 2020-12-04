@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class Textile {
 
-    private long id;
+    private Long id;
 
     private String code;
 

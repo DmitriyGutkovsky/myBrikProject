@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class ProductType {
 
-    private long id;
+    private Long id;
 
     private String productType;
 

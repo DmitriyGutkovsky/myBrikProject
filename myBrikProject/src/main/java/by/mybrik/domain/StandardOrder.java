@@ -19,15 +19,15 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class StandardOrder {
 
-    private long id;
+    private Long id;
 
-    private long goodId;
+    private Long goodId;
 
-    private  long userId;
+    private  Long userId;
 
     private int quantity;
 
-    private double totalPrice;
+    private Double totalPrice;
 
     private String orderStatus;
 
