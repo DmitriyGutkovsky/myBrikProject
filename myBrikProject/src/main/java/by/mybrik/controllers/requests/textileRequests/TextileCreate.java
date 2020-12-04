@@ -3,7 +3,7 @@ package by.mybrik.controllers.requests.textileRequests;
 import lombok.Data;
 
 @Data
-public class TextileCreateRequest {
+public class TextileCreate {
 
     private String code;
 

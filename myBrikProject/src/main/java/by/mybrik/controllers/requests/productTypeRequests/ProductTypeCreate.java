@@ -3,7 +3,7 @@ package by.mybrik.controllers.requests.productTypeRequests;
 import lombok.Data;
 
 @Data
-public class ProductTypeCreateRequest {
+public class ProductTypeCreate {
 
     private String productType;
 

@@ -1,7 +1,7 @@
 package by.mybrik.repository.impl;
 
 import by.mybrik.domain.TextileProductType;
-import by.mybrik.repository.ColumnsInfo.TextileProductTypeColumns;
+import by.mybrik.repository.columnsInfo.TextileProductTypeColumns;
 import by.mybrik.repository.TextileProductTypeRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

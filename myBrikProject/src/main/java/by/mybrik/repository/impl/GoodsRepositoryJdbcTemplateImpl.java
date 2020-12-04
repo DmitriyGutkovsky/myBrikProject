@@ -1,7 +1,7 @@
 package by.mybrik.repository.impl;
 
 import by.mybrik.domain.Goods;
-import by.mybrik.repository.ColumnsInfo.GoodsColumns;
+import by.mybrik.repository.columnsInfo.GoodsColumns;
 import by.mybrik.repository.GoodsRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

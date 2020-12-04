@@ -1,9 +1,9 @@
-package by.mybrik.controllers.requests.StandardOrderRequests;
+package by.mybrik.controllers.requests.standardOrderRequests;
 
 import lombok.Data;
 
 @Data
-public class StandardOrderCreateRequest {
+public class StandardOrderCreate {
 
     private long goodId;
 

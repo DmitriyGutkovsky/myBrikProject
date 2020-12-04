@@ -1,6 +1,6 @@
 package by.mybrik.controllers;
 
-import by.mybrik.controllers.requests.StandardOrderRequests.StandardOrderCreateRequest;
+import by.mybrik.controllers.requests.standardOrderRequests.StandardOrderCreate;
 import by.mybrik.domain.StandardOrder;
 import by.mybrik.service.StandardOrderService;
 import lombok.RequiredArgsConstructor;
@@ -60,7 +60,7 @@ public class StandardOrderRestController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StandardOrder createStandardOrder(@RequestBody StandardOrderCreateRequest request) {
+    public StandardOrder createStandardOrder(@RequestBody StandardOrderCreate request) {
 
         StandardOrder order = new StandardOrder();
 
@@ -85,7 +85,7 @@ public class StandardOrderRestController {
      */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public StandardOrder updateStandardOrder(@PathVariable Long id, @RequestBody StandardOrderCreateRequest request) {
+    public StandardOrder updateStandardOrder(@PathVariable Long id, @RequestBody StandardOrderCreate request) {
 
         StandardOrder updateOrder = orderService.findById(id);
 

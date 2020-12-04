@@ -3,7 +3,7 @@ package by.mybrik.controllers.requests.individualOrderRequests;
 import lombok.Data;
 
 @Data
-public class IndividualOrderCreateRequest {
+public class IndividualOrderCreate {
 
     private long userId;
 

@@ -2,7 +2,7 @@ package by.mybrik.repository.impl;
 
 import by.mybrik.domain.Gender;
 import by.mybrik.domain.Users;
-import by.mybrik.repository.ColumnsInfo.UsersColumns;
+import by.mybrik.repository.columnsInfo.UsersColumns;
 import by.mybrik.repository.UsersRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

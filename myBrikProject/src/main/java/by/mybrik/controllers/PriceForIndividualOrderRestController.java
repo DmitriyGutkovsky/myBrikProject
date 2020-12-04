@@ -1,7 +1,7 @@
 package by.mybrik.controllers;
 
-import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualCreateRequest;
-import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualUpdateRequest;
+import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualCreate;
+import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualUpdate;
 import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.service.PriceForIndividualOrderService;
 import lombok.RequiredArgsConstructor;
@@ -59,7 +59,7 @@ public class PriceForIndividualOrderRestController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PriceForIndividualOrder addPriceForIndividualOrder(@RequestBody PriceForIndividualCreateRequest request ){
+    public PriceForIndividualOrder addPriceForIndividualOrder(@RequestBody PriceForIndividualCreate request ){
 
         PriceForIndividualOrder price = new PriceForIndividualOrder();
         price.setProductType(request.getProductType());
@@ -79,7 +79,7 @@ public class PriceForIndividualOrderRestController {
     */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public PriceForIndividualOrder updatePriceForIndividualOrder(@PathVariable ("id") Long id, @RequestBody PriceForIndividualUpdateRequest request ){
+    public PriceForIndividualOrder updatePriceForIndividualOrder(@PathVariable ("id") Long id, @RequestBody PriceForIndividualUpdate request ){
 
         PriceForIndividualOrder price = priceForIndividualOrderService.findById(id);
         price.setProductType(request.getProductType());

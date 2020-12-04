@@ -1,7 +1,7 @@
 package by.mybrik.controllers;
 
-import by.mybrik.controllers.requests.productTypeRequests.ProductTypeCreateRequest;
-import by.mybrik.controllers.requests.productTypeRequests.ProductTypeUpdateRequest;
+import by.mybrik.controllers.requests.productTypeRequests.ProductTypeCreate;
+import by.mybrik.controllers.requests.productTypeRequests.ProductTypeUpdate;
 import by.mybrik.domain.ProductType;
 import by.mybrik.service.ProductTypeService;
 import lombok.RequiredArgsConstructor;
@@ -60,7 +60,7 @@ public class ProductTypeRestController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductType addProductType(@RequestBody ProductTypeCreateRequest request){
+    public ProductType addProductType(@RequestBody ProductTypeCreate request){
 
         ProductType newType = new ProductType();
 
@@ -81,7 +81,7 @@ public class ProductTypeRestController {
      */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductType updateProductType(@PathVariable Long id, @RequestBody ProductTypeUpdateRequest request){
+    public ProductType updateProductType(@PathVariable Long id, @RequestBody ProductTypeUpdate request){
 
         ProductType updateType = typeService.findById(id);
 

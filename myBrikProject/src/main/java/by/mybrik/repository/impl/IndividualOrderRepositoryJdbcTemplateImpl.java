@@ -1,7 +1,7 @@
 package by.mybrik.repository.impl;
 
 import by.mybrik.domain.IndividualOrder;
-import by.mybrik.repository.ColumnsInfo.IndividualOrderColumns;
+import by.mybrik.repository.columnsInfo.IndividualOrderColumns;
 import by.mybrik.repository.IndividualOrderRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

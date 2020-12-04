@@ -3,7 +3,7 @@ package by.mybrik.controllers.requests.textileRequests;
 import lombok.Data;
 
 @Data
-public class TextileUpdateRequest extends TextileCreateRequest {
+public class TextileUpdate extends TextileCreate {
 
     private Long id;
 

@@ -1,7 +1,7 @@
 package by.mybrik.controllers;
 
-import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderCreateRequest;
-import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderUpdateRequest;
+import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderCreate;
+import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderUpdate;
 import by.mybrik.domain.IndividualOrder;
 import by.mybrik.service.IndividualOrderService;
 import lombok.RequiredArgsConstructor;
@@ -64,7 +64,7 @@ public class IndividualOrderRestController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public IndividualOrder createIndividualOrder(@RequestBody IndividualOrderCreateRequest request) {
+    public IndividualOrder createIndividualOrder(@RequestBody IndividualOrderCreate request) {
 
         IndividualOrder order = new IndividualOrder();
 
@@ -94,7 +94,7 @@ public class IndividualOrderRestController {
     */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public IndividualOrder updateIndividualOrder(@PathVariable Long id, @RequestBody IndividualOrderUpdateRequest request) {
+    public IndividualOrder updateIndividualOrder(@PathVariable Long id, @RequestBody IndividualOrderUpdate request) {
 
         IndividualOrder updateOrder = individualOrderService.findById(id);
 

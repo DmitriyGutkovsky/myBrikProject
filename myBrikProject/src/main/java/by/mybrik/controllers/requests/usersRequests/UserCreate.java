@@ -4,7 +4,7 @@ import by.mybrik.domain.Gender;
 import lombok.Data;
 
 @Data
-public class UserCreateRequest {
+public class UserCreate {
 
     private String name;
 

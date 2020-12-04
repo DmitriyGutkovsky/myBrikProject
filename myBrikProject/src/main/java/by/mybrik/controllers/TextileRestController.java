@@ -1,7 +1,7 @@
 package by.mybrik.controllers;
 
-import by.mybrik.controllers.requests.textileRequests.TextileCreateRequest;
-import by.mybrik.controllers.requests.textileRequests.TextileUpdateRequest;
+import by.mybrik.controllers.requests.textileRequests.TextileCreate;
+import by.mybrik.controllers.requests.textileRequests.TextileUpdate;
 import by.mybrik.domain.Textile;
 import by.mybrik.service.TextileService;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +61,7 @@ public class TextileRestController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public  Textile addNewTextile(@RequestBody TextileCreateRequest request){
+    public  Textile addNewTextile(@RequestBody TextileCreate request){
 
         Textile textile = new Textile();
 
@@ -89,7 +89,7 @@ public class TextileRestController {
      */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Textile updateTextile(@PathVariable("id") Long id, @RequestBody TextileUpdateRequest request){
+    public Textile updateTextile(@PathVariable("id") Long id, @RequestBody TextileUpdate request){
 
         Textile updatedTextile = textileService.findById(id);
 

@@ -1,7 +1,7 @@
 package by.mybrik.repository.impl;
 
 import by.mybrik.domain.StandardOrder;
-import by.mybrik.repository.ColumnsInfo.StandardOrderColumns;
+import by.mybrik.repository.columnsInfo.StandardOrderColumns;
 import by.mybrik.repository.StandardOrderRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

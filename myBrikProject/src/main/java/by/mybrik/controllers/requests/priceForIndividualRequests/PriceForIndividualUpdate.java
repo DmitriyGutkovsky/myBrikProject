@@ -3,7 +3,7 @@ package by.mybrik.controllers.requests.priceForIndividualRequests;
 import lombok.Data;
 
 @Data
-public class PriceForIndividualUpdateRequest extends PriceForIndividualCreateRequest {
+public class PriceForIndividualUpdate extends PriceForIndividualCreate {
 
     private Long id;
 

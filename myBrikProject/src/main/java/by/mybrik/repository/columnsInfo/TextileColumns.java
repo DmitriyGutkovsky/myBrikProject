@@ -1,4 +1,4 @@
-package by.mybrik.repository.ColumnsInfo;
+package by.mybrik.repository.columnsInfo;
 
 public interface TextileColumns {
 

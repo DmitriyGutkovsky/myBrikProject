@@ -1,7 +1,7 @@
 package by.mybrik.controllers;
 
-import by.mybrik.controllers.requests.usersRequests.UserCreateRequest;
-import by.mybrik.controllers.requests.usersRequests.UsersUpdateRequest;
+import by.mybrik.controllers.requests.usersRequests.UserCreate;
+import by.mybrik.controllers.requests.usersRequests.UsersUpdate;
 import by.mybrik.domain.Users;
 import by.mybrik.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -64,7 +64,7 @@ public class UsersRestController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Users registerUser (@RequestBody UserCreateRequest request){
+    public Users registerUser (@RequestBody UserCreate request){
 
         Users user = new Users();
 
@@ -94,7 +94,7 @@ public class UsersRestController {
      */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Users updateUserDetails(@PathVariable Long id, @RequestBody UsersUpdateRequest request){
+    public Users updateUserDetails(@PathVariable Long id, @RequestBody UsersUpdate request){
 
         Users user = usersService.findById(id);
 

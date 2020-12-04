@@ -1,7 +1,7 @@
 package by.mybrik.controllers;
 
-import by.mybrik.controllers.requests.goodsRequests.GoodsCreateRequest;
-import by.mybrik.controllers.requests.goodsRequests.GoodsUpdateRequest;
+import by.mybrik.controllers.requests.goodsRequests.GoodsCreate;
+import by.mybrik.controllers.requests.goodsRequests.GoodsUpdate;
 import by.mybrik.domain.Goods;
 import by.mybrik.service.GoodsService;
 import lombok.RequiredArgsConstructor;
@@ -67,7 +67,7 @@ public class GoodsRestController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Goods createProduct(@RequestBody GoodsCreateRequest createRequest){
+    public Goods createProduct(@RequestBody GoodsCreate createRequest){
 
         Goods product = new Goods();
 
@@ -105,7 +105,7 @@ public class GoodsRestController {
      */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Goods updateProduct (@PathVariable Long id, @RequestBody GoodsUpdateRequest request){
+    public Goods updateProduct (@PathVariable Long id, @RequestBody GoodsUpdate request){
 
         Goods product = goodsService.findById(id);
 
