@@ -27,7 +27,7 @@ public class Goods {
 
     private  String photo;
 
-    private String gender;
+    private Gender gender;
 
     private String size;
 

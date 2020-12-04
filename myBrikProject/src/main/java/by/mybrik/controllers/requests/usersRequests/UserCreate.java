@@ -18,7 +18,7 @@ public class UserCreate {
 
     private Gender gender;
 
-    private int phone;
+    private String phone;
 
     private String address;
 

@@ -1,5 +1,6 @@
 package by.mybrik.repository.impl;
 
+import by.mybrik.domain.Gender;
 import by.mybrik.domain.Goods;
 import by.mybrik.repository.columnsInfo.GoodsColumns;
 import by.mybrik.repository.GoodsRepository;
@@ -39,7 +40,7 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
     params.addValue("orderCode", product.getOrderCode());
     params.addValue("name", product.getName());
     params.addValue("photo", product.getPhoto());
-    params.addValue("gender", product.getGender());
+    params.addValue("gender", product.getGender().name());
     params.addValue("size", product.getSize());
     params.addValue("color", product.getColor());
     params.addValue("description", product.getDescription());
@@ -96,7 +97,7 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
     params.addValue("orderCode", product.getOrderCode());
     params.addValue("name", product.getName());
     params.addValue("photo", product.getPhoto());
-    params.addValue("gender", product.getGender());
+    params.addValue("gender", product.getGender().name());
     params.addValue("size", product.getSize());
     params.addValue("color", product.getColor());
     params.addValue("description", product.getDescription());
@@ -132,7 +133,7 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
     product.setOrderCode(rs.getString(GoodsColumns.ORDERCODE));
     product.setName(rs.getString(GoodsColumns.NAME));
     product.setPhoto(rs.getString(GoodsColumns.PHOTO));
-    product.setGender(rs.getString(GoodsColumns.GENDER));
+    product.setGender(Gender.valueOf(rs.getString(GoodsColumns.GENDER)));
     product.setSize(rs.getString(GoodsColumns.SIZE));
     product.setColor(rs.getString(GoodsColumns.COLOR));
     product.setDescription(rs.getString(GoodsColumns.DESCRIPTION));

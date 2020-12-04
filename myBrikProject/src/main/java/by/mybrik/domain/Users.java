@@ -37,7 +37,7 @@ public class Users {
 
     private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
-    private int phone;
+    private String phone;
 
     private String address;
 

@@ -41,7 +41,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
         user.setGender(Gender.valueOf(rs.getString(UsersColumns.GENDER)));
         user.setCreated(rs.getTimestamp(UsersColumns.CREATED));
         user.setChanged(rs.getTimestamp(UsersColumns.CHANGED));
-        user.setPhone(rs.getInt(UsersColumns.PHONE));
+        user.setPhone(rs.getString(UsersColumns.PHONE));
         user.setAddress(rs.getString(UsersColumns.ADDRESS));
         user.setDeleted(rs.getBoolean(UsersColumns.ISDELETED));
 

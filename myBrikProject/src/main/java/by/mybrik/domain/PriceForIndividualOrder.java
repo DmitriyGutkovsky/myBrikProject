@@ -29,7 +29,7 @@ public class PriceForIndividualOrder {
 
     private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
-    private Boolean isDeleted;
+    private boolean isDeleted;
 
     @Override
     public String toString() {

@@ -313,9 +313,9 @@ public class TesterJDBCTemplate {
 //    System.out.println(textileProductTypeBean.update(textileProductTypeForUpdate));
 
     TextileProductType textileProductTypeForDelete = TextileProductType.builder()
-            .id(2)
-            .productTypeId(4)
-            .textileId(1)
+            .id(2l)
+            .productTypeId(4l)
+            .textileId(1l)
             .build();
 
     System.out.println(textileProductTypeBean.delete(textileProductTypeForDelete));

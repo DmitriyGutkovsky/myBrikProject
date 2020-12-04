@@ -1,5 +1,6 @@
 package by.mybrik.controllers.requests.goodsRequests;
 
+import by.mybrik.domain.Gender;
 import lombok.Data;
 
 @Data
@@ -11,7 +12,7 @@ public class GoodsCreate {
 
     private  String photo;
 
-    private String gender;
+    private Gender gender;
 
     private String size;
 
