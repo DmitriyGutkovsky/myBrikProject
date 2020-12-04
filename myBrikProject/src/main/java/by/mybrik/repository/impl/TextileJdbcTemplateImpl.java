@@ -55,7 +55,7 @@ public class TextileJdbcTemplateImpl implements TextileRepository {
             + "color, "
             + "description, "
             + "photo, "
-            + "isdeleted) "
+            + "is_deleted) "
             + "values ("
             + ":code, "
             + ":name, "
@@ -108,7 +108,7 @@ public class TextileJdbcTemplateImpl implements TextileRepository {
                         + "color = :color, "
                         + "description = :description, "
                         + "photo = :photo, "
-                        + "isdeleted = :isDeleted, "
+                        + "is_deleted = :isDeleted, "
                         + "changed = :changed "
                         + "where id = :id";
 

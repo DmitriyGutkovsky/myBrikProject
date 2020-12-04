@@ -47,7 +47,7 @@ public class PriceForIndividualOrderJDBCTemplate implements PriceForIndividualOr
         "insert into m_price_for_individual_order ( "
             + "product_type, "
             + "price, "
-            + "isdeleted) "
+            + "is_deleted) "
             + "values ( "
             + ":productType, "
             + ":price,"
@@ -91,7 +91,7 @@ public class PriceForIndividualOrderJDBCTemplate implements PriceForIndividualOr
             + "product_type = :productType, "
             + "price = :price, "
             + "changed = :changed, "
-            + "isdeleted = :isdeleted "
+            + "is_deleted = :isdeleted "
             + "where id = :id";
     MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue("productType", price.getProductType());

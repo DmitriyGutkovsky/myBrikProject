@@ -13,5 +13,5 @@ public interface PriceForIndividualOrderColumns {
 
   String CHANGED = "changed";
 
-  String ISDELETED = "isdeleted";
+  String ISDELETED = "is_deleted";
 }

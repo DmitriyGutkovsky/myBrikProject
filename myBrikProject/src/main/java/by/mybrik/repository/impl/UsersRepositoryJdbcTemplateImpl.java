@@ -59,7 +59,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
             + "gender, "
             + "phone, "
             + "address, "
-            + "isdeleted) "
+            + "is_deleted) "
             + "values "
             + "(:name, "
             + ":surname, "
@@ -123,7 +123,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
                         + "changed = :changed, "
                         + "phone = :phone, "
                         + "address = :address, "
-                        + "isdeleted = :isdeleted "
+                        + "is_deleted = :isdeleted "
                         +  "where id = :id";
 
         MapSqlParameterSource params = new MapSqlParameterSource();

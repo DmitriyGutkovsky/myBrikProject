@@ -18,7 +18,7 @@ public interface GoodsColumns {
 
     String DESCRIPTION = "description";
 
-    String ISDELETED = "isdeleted";
+    String ISDELETED = "is_deleted";
 
     String  PRICE = "price";
 

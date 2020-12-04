@@ -45,7 +45,7 @@ public class ProductTypeJdbcTemplateImpl implements ProductTypeRepository {
     @Override
     public ProductType save(ProductType productType) {
         final String saveQuery =
-                "insert into m_product_type (product_type, photo, isdeleted) "
+                "insert into m_product_type (product_type, photo, is_deleted) "
                         + "values (:productType, :photo, :isdeleted)";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -87,7 +87,7 @@ public class ProductTypeJdbcTemplateImpl implements ProductTypeRepository {
                         + "set "
                         + "product_type = :productType, "
                         + "photo = :photo, "
-                        + "isdeleted = :isdeleted, "
+                        + "is_deleted = :isdeleted, "
                         + "changed = :changed "
                         + "where id = :id";
 

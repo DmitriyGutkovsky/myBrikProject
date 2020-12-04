@@ -24,6 +24,6 @@ public interface UsersColumns {
 
   String ADDRESS = "address";
 
-  String ISDELETED = "isDeleted";
+  String ISDELETED = "is_deleted";
 
 }

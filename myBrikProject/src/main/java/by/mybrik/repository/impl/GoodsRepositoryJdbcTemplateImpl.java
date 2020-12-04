@@ -30,7 +30,7 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
   @Override
   public Goods save(Goods product) {
     final String saveQuery =
-        "insert into m_goods (order_code, name, photo, gender, size, color, description, isdeleted, price, quantity, category) "
+        "insert into m_goods (order_code, name, photo, gender, size, color, description, is_deleted, price, quantity, category) "
             + "values (:orderCode, :name, :photo, :gender, :size, :color, :description, :isDeleted, :price, :quantity, :category)";
 
     GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -85,7 +85,7 @@ public class GoodsRepositoryJdbcTemplateImpl implements GoodsRepository {
             + "size = :size, "
             + "color = :color, "
             + "description = :description, "
-            + "isdeleted = :isDeleted, "
+            + "is_deleted = :isDeleted, "
             + "price = :price, "
             + "quantity = :quantity, "
             + "changed = :changed, "
