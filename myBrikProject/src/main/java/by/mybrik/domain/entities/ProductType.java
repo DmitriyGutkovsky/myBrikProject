@@ -7,8 +7,8 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "m_price_for_individual_order")
-public class PriceForIndividualOrder {
+@Table(name = "m_product_type")
+public class ProductType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,10 @@ public class PriceForIndividualOrder {
     private String productType;
 
     @Column
-    private Double price;
+    private String photo;
+
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 
     @Column
     private Timestamp created;
@@ -26,6 +29,4 @@ public class PriceForIndividualOrder {
     @Column
     private Timestamp changed;
 
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
 }

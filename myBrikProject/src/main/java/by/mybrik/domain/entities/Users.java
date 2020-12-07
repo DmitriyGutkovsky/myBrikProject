@@ -42,10 +42,10 @@ public class Users {
     private Gender gender;
 
     @Column
-    private Timestamp created = new Timestamp(System.currentTimeMillis());
+    private Timestamp created;
 
     @Column
-    private Timestamp changed = new Timestamp(System.currentTimeMillis());
+    private Timestamp changed;
 
     @Column
     private String phone;

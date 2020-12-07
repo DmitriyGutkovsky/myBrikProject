@@ -57,9 +57,9 @@ public class Goods {
     private String category;
 
     @Column
-    private Timestamp created = new Timestamp(System.currentTimeMillis());
+    private Timestamp created;
 
     @Column
-    private Timestamp changed = new Timestamp(System.currentTimeMillis());
+    private Timestamp changed;
 
 }
