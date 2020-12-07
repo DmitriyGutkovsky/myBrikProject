@@ -12,25 +12,34 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "m_price_for_individual_order")
-public class PriceForIndividualOrder {
+@Table(name = "m_textile")
+public class Textile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_type")
-    private String productType;
+    @Column
+    private String code;
 
     @Column
-    private Double price;
+    private String name;
+
+    @Column
+    private String color;
+
+    @Column
+    private String description;
+
+    @Column
+    private String photo;
+
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 
     @Column
     private Timestamp created;
 
     @Column
     private Timestamp changed;
-
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
 }
