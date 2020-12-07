@@ -15,51 +15,45 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name ="m_goods" )
-public class Goods {
+@Table(name = "m_users")
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_code")
-    private String orderCode;
-
     @Column
     private String name;
 
     @Column
-    private  String photo;
+    private String surName;
+
+    @Column
+    private String login;
+
+    @Column
+    private String password;
+
+    @Column
+    private String email;
 
     @Column
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Column
-    private String size;
-
-    @Column
-    private String color;
-
-    @Column
-    private String description;
-
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
-
-    @Column
-    private Double price;
-
-    @Column
-    private int quantity;
-
-    @Column
-    private String category;
-
-    @Column
     private Timestamp created = new Timestamp(System.currentTimeMillis());
 
     @Column
     private Timestamp changed = new Timestamp(System.currentTimeMillis());
+
+    @Column
+    private String phone;
+
+    @Column
+    private String address;
+
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 
 }
