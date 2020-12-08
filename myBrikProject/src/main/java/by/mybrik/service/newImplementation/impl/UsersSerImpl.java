@@ -62,6 +62,12 @@ public class UsersSerImpl implements UsersSer {
 
   @Override
   public Long delete(Users user) {
-    return null;
+    try(Session session = sessionFactory.openSession()){
+      Transaction transaction = session.getTransaction();
+      transaction.begin();
+      session.delete(user);
+      transaction.commit();
+      return user.getId();
+    }
   }
 }
