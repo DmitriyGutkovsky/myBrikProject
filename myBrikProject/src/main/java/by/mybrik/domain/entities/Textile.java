@@ -48,10 +48,10 @@ public class Textile {
     private boolean isDeleted;
 
     @Column
-    private Timestamp created;
+    private Timestamp created = new Timestamp(System.currentTimeMillis());
 
     @Column
-    private Timestamp changed;
+    private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
     @ManyToMany(mappedBy = "textiles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("textiles")

@@ -36,7 +36,9 @@ public class TextileImpl implements TextileRep {
 
     @Override
     public Textile findById(Long key) {
-        return null;
+        try(Session session = sessionFactory.openSession()){
+            return session.find(Textile.class, key);
+        }
     }
 
     @Override
