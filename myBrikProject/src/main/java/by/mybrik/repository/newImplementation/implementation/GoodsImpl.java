@@ -23,7 +23,10 @@ public class GoodsImpl implements GoodsRep {
 
     @Override
     public Goods save(Goods product) {
-        return null;
+    try (final Session session = sessionFactory.openSession()) {
+         session.saveOrUpdate(product);
+         return product;
+        }
     }
 
     @Override

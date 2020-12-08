@@ -55,7 +55,7 @@ public class GoodsRestController {
     "orderCode": "someOrderCode10",
     "name": "cap",
     "photo": "linkToPhoto",
-    "gender": "Male",
+    "gender": "MALE",
     "size": "52",
     "color": "red",
     "description": "summer cap",
