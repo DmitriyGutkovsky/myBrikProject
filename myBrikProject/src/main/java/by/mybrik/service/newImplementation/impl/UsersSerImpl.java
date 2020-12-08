@@ -35,7 +35,9 @@ public class UsersSerImpl implements UsersSer {
 
   @Override
   public Users findById(Long id) {
-    return null;
+    try (Session session = sessionFactory.openSession()) {
+      return session.find(Users.class, id);
+    }
   }
 
   @Override

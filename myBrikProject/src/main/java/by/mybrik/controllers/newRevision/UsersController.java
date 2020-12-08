@@ -5,6 +5,7 @@ import by.mybrik.service.newImplementation.UsersSer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,4 +25,15 @@ public class UsersController {
   public List<Users> getAllUsers() {
     return usersService.findAll();
   }
+
+  // http://localhost:8080/new/rest/users/20
+  @GetMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public Users findUserById(@PathVariable Long id){
+    return usersService.findById(id);
+  }
+
+
+
+
 }
