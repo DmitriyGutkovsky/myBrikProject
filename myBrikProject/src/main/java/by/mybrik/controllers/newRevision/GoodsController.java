@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("new/rest/goods")
+@RequestMapping("/new/rest/goods")
 public class GoodsController {
 
   public final GoodsSer goodsService;
