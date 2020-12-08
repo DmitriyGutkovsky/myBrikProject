@@ -4,6 +4,7 @@ import by.mybrik.domain.entities.Users;
 import by.mybrik.service.newImplementation.UsersSer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
@@ -50,7 +51,13 @@ public class UsersSerImpl implements UsersSer {
 
   @Override
   public Users update(Users user) {
-    return null;
+    try(Session session = sessionFactory.openSession()){
+      Transaction transaction = session.getTransaction();
+      transaction.begin();
+      session.saveOrUpdate(user);
+      transaction.commit();
+      return user;
+    }
   }
 
   @Override
