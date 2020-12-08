@@ -22,7 +22,10 @@ public class UsersSerImpl implements UsersSer {
 
   @Override
   public Users save(Users user) {
-    return null;
+    try(Session session = sessionFactory.openSession()){
+      session.saveOrUpdate(user);
+      return user;
+    }
   }
 
   @Override
