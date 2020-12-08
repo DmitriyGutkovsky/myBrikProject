@@ -4,6 +4,7 @@ import by.mybrik.domain.entities.Goods;
 import by.mybrik.repository.newImplementation.GoodsRep;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
@@ -39,7 +40,9 @@ public class GoodsImpl implements GoodsRep {
 
     @Override
     public Goods findById(Long key) {
-        return null;
+        try (Session session = sessionFactory.openSession()){
+            return session.find(Goods.class, key);
+        }
     }
 
     @Override
@@ -49,7 +52,13 @@ public class GoodsImpl implements GoodsRep {
 
     @Override
     public Goods update(Goods product) {
-        return null;
+        try(Session session = sessionFactory.openSession()){
+            Transaction transaction = session.getTransaction();
+            transaction.begin();
+            session.saveOrUpdate(product);
+            transaction.commit();
+            return product;
+        }
     }
 
     @Override
