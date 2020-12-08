@@ -15,54 +15,59 @@ import java.util.Optional;
 @Primary
 public class GoodsImpl implements GoodsRep {
 
-    private final SessionFactory sessionFactory;
+  private final SessionFactory sessionFactory;
 
-    public GoodsImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+  public GoodsImpl(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
 
-
-    @Override
-    public Goods save(Goods product) {
+  @Override
+  public Goods save(Goods product) {
     try (final Session session = sessionFactory.openSession()) {
-         session.saveOrUpdate(product);
-         return product;
-        }
+      session.saveOrUpdate(product);
+      return product;
     }
+  }
 
-    @Override
-    public List<Goods> findAll() {
-        try(Session session = sessionFactory.openSession()){
-            String hqlQuery = "select u from Goods u";
-            return session.createQuery(hqlQuery, Goods.class).list();
-        }
+  @Override
+  public List<Goods> findAll() {
+    try (Session session = sessionFactory.openSession()) {
+      String hqlQuery = "select u from Goods u";
+      return session.createQuery(hqlQuery, Goods.class).list();
     }
+  }
 
-    @Override
-    public Goods findById(Long key) {
-        try (Session session = sessionFactory.openSession()){
-            return session.find(Goods.class, key);
-        }
+  @Override
+  public Goods findById(Long key) {
+    try (Session session = sessionFactory.openSession()) {
+      return session.find(Goods.class, key);
     }
+  }
 
-    @Override
-    public Optional<Goods> findOne(Long key) {
-        return Optional.empty();
-    }
+  @Override
+  public Optional<Goods> findOne(Long key) {
+    return Optional.empty();
+  }
 
-    @Override
-    public Goods update(Goods product) {
-        try(Session session = sessionFactory.openSession()){
-            Transaction transaction = session.getTransaction();
-            transaction.begin();
-            session.saveOrUpdate(product);
-            transaction.commit();
-            return product;
-        }
+  @Override
+  public Goods update(Goods product) {
+    try (Session session = sessionFactory.openSession()) {
+      Transaction transaction = session.getTransaction();
+      transaction.begin();
+      session.saveOrUpdate(product);
+      transaction.commit();
+      return product;
     }
+  }
 
-    @Override
-    public Long delete(Goods product) {
-        return null;
+  @Override
+  public Long delete(Goods product) {
+    try (Session session = sessionFactory.openSession()) {
+      Transaction transaction = session.getTransaction();
+      transaction.begin();
+      session.delete(product);
+      transaction.commit();
+      return product.getId();
     }
+  }
 }

@@ -6,6 +6,7 @@ import by.mybrik.domain.entities.Goods;
 import by.mybrik.service.newImplementation.GoodsSer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -111,5 +112,14 @@ public class GoodsController {
     product.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return goodsService.update(product);
+  }
+
+  // http://localhost:8080/new/rest/goods/8
+  @DeleteMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public List<Goods> deleteProduct(@PathVariable Long id){
+    Goods productForDeleting = goodsService.findById(id);
+    goodsService.delete(productForDeleting);
+    return goodsService.findAll();
   }
 }
