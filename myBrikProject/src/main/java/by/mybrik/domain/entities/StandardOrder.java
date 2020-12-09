@@ -15,29 +15,25 @@ import java.sql.Timestamp;
 @Table(name = "m_standard_order")
 public class StandardOrder {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "good_id")
-    private Long goodId;
+  @Column(name = "good_id")
+  private Long goodId;
 
-    @Column(name = "user_id")
-    private  Long userId;
+  @Column(name = "user_id")
+  private Long userId;
 
-    @Column
-    private int quantity;
+  @Column private int quantity;
 
-    @Column(name = "total_price")
-    private Double totalPrice;
+  @Column(name = "total_price")
+  private Double totalPrice;
 
-    @Column(name = "order_status")
-    private String orderStatus;
+  @Column(name = "order_status")
+  private String orderStatus;
 
-    @Column
-    private Timestamp created;
+  @Column private Timestamp created = new Timestamp(System.currentTimeMillis());
 
-    @Column
-    private Timestamp changed;
-
+  @Column private Timestamp changed = new Timestamp(System.currentTimeMillis());
 }
