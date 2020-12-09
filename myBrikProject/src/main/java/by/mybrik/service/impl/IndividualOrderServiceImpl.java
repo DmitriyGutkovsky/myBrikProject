@@ -1,7 +1,7 @@
 package by.mybrik.service.impl;
 
 import by.mybrik.domain.entities.IndividualOrder;
-import by.mybrik.repository.newImplementation.IndividualOrderRep;
+import by.mybrik.repository.IndividualOrderRepository;
 import by.mybrik.service.IndividualOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class IndividualOrderServiceImpl implements IndividualOrderService {
 
-  private final IndividualOrderRep orderRepository;
+  private final IndividualOrderRepository orderRepository;
 
   @Override
   public IndividualOrder save(IndividualOrder order) {

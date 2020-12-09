@@ -1,7 +1,7 @@
 package by.mybrik.service.impl;
 
 import by.mybrik.domain.entities.PriceForIndividualOrder;
-import by.mybrik.repository.newImplementation.PriceForIndividualOrderRep;
+import by.mybrik.repository.PriceForIndividualOrderRepository;
 import by.mybrik.service.PriceForIndividualOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PriceForIndividualOrderServiceImpl implements PriceForIndividualOrderService {
 
-  private final PriceForIndividualOrderRep priceForIndividualOrderRepository;
+  private final PriceForIndividualOrderRepository priceForIndividualOrderRepository;
 
   @Override
   public PriceForIndividualOrder save(PriceForIndividualOrder price) {

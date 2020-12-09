@@ -1,7 +1,8 @@
-package by.mybrik.repository.newImplementation.implementation;
+package by.mybrik.repository.implementation;
 
-import by.mybrik.domain.entities.ProductType;
-import by.mybrik.repository.newImplementation.ProductTypeRep;
+import by.mybrik.domain.entities.IndividualOrder;
+import by.mybrik.repository.IndividualOrderRepository;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,61 +14,58 @@ import java.util.Optional;
 
 @Repository
 @Primary
-public class ProductTypeImpl implements ProductTypeRep {
+@RequiredArgsConstructor
+public class IndividualOrderImpl implements IndividualOrderRepository {
 
   private final SessionFactory sessionFactory;
 
-  public ProductTypeImpl(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
-  }
-
   @Override
-  public ProductType save(ProductType type) {
+  public IndividualOrder save(IndividualOrder order) {
     try (Session session = sessionFactory.openSession()) {
-      session.saveOrUpdate(type);
-      return type;
+      session.saveOrUpdate(order);
+      return order;
     }
   }
 
   @Override
-  public List<ProductType> findAll() {
+  public List<IndividualOrder> findAll() {
     try (Session session = sessionFactory.openSession()) {
-      String hqlQuery = "select u from ProductType u";
-      return session.createQuery(hqlQuery, ProductType.class).list();
+      String hqlQuery = "select u from IndividualOrder u";
+      return session.createQuery(hqlQuery, IndividualOrder.class).list();
     }
   }
 
   @Override
-  public ProductType findById(Long key) {
+  public IndividualOrder findById(Long key) {
     try (Session session = sessionFactory.openSession()) {
-      return session.find(ProductType.class, key);
+      return session.find(IndividualOrder.class, key);
     }
   }
 
   @Override
-  public Optional<ProductType> findOne(Long key) {
+  public Optional<IndividualOrder> findOne(Long key) {
     return Optional.empty();
   }
 
   @Override
-  public ProductType update(ProductType type) {
+  public IndividualOrder update(IndividualOrder order) {
     try (Session session = sessionFactory.openSession()) {
       Transaction transaction = session.getTransaction();
       transaction.begin();
-      session.saveOrUpdate(type);
+      session.saveOrUpdate(order);
       transaction.commit();
-      return type;
+      return order;
     }
   }
 
   @Override
-  public Long delete(ProductType type) {
+  public Long delete(IndividualOrder order) {
     try (Session session = sessionFactory.openSession()) {
       Transaction transaction = session.getTransaction();
       transaction.begin();
-      session.delete(type);
+      session.delete(order);
       transaction.commit();
-      return type.getId();
+      return order.getId();
     }
   }
 }

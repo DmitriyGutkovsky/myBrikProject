@@ -1,6 +1,6 @@
 package by.mybrik.repository;
 
-import by.mybrik.domain.IndividualOrder;
+import by.mybrik.domain.entities.IndividualOrder;
 
-public interface IndividualOrderRepository extends CrudRepository <Long, IndividualOrder> {
+public interface IndividualOrderRepository extends CrudRepository<Long, IndividualOrder> {
 }

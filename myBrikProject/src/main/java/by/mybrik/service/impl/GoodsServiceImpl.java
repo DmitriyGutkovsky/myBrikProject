@@ -1,7 +1,7 @@
 package by.mybrik.service.impl;
 
 import by.mybrik.domain.entities.Goods;
-import by.mybrik.repository.newImplementation.GoodsRep;
+import by.mybrik.repository.GoodsRepository;
 import by.mybrik.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GoodsServiceImpl implements GoodsService {
 
-    private final GoodsRep goodsRepository;
+    private final GoodsRepository goodsRepository;
 
     @Override
     public Goods save(Goods product) {

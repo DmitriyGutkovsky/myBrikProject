@@ -1,7 +1,7 @@
 package by.mybrik.service.impl;
 
 import by.mybrik.domain.entities.ProductType;
-import by.mybrik.repository.newImplementation.ProductTypeRep;
+import by.mybrik.repository.ProductTypeRepository;
 import by.mybrik.service.ProductTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductTypeServiceImpl implements ProductTypeService {
 
-    private final ProductTypeRep productTypeRepository;
+    private final ProductTypeRepository productTypeRepository;
 
 
     @Override

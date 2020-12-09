@@ -1,7 +1,7 @@
-package by.mybrik.repository.newImplementation.implementation;
+package by.mybrik.repository.implementation;
 
 import by.mybrik.domain.entities.PriceForIndividualOrder;
-import by.mybrik.repository.newImplementation.PriceForIndividualOrderRep;
+import by.mybrik.repository.PriceForIndividualOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 @Primary
 @RequiredArgsConstructor
-public class PriceForIndividualOrderImpl implements PriceForIndividualOrderRep {
+public class PriceForIndividualOrderImpl implements PriceForIndividualOrderRepository {
 
   private final SessionFactory sessionFactory;
 

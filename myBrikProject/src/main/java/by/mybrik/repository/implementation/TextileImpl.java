@@ -1,7 +1,7 @@
-package by.mybrik.repository.newImplementation.implementation;
+package by.mybrik.repository.implementation;
 
-import by.mybrik.domain.entities.IndividualOrder;
-import by.mybrik.repository.newImplementation.IndividualOrderRep;
+import by.mybrik.domain.entities.Textile;
+import by.mybrik.repository.TextileRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,57 +15,57 @@ import java.util.Optional;
 @Repository
 @Primary
 @RequiredArgsConstructor
-public class IndividualOrderImpl implements IndividualOrderRep {
+public class TextileImpl implements TextileRepository {
 
   private final SessionFactory sessionFactory;
 
   @Override
-  public IndividualOrder save(IndividualOrder order) {
+  public Textile save(Textile textile) {
     try (Session session = sessionFactory.openSession()) {
-      session.saveOrUpdate(order);
-      return order;
+      session.saveOrUpdate(textile);
+      return textile;
     }
   }
 
   @Override
-  public List<IndividualOrder> findAll() {
+  public List<Textile> findAll() {
     try (Session session = sessionFactory.openSession()) {
-      String hqlQuery = "select u from IndividualOrder u";
-      return session.createQuery(hqlQuery, IndividualOrder.class).list();
+      String hqlQuery = "select u from Textile u";
+      return session.createQuery(hqlQuery, Textile.class).list();
     }
   }
 
   @Override
-  public IndividualOrder findById(Long key) {
+  public Textile findById(Long key) {
     try (Session session = sessionFactory.openSession()) {
-      return session.find(IndividualOrder.class, key);
+      return session.find(Textile.class, key);
     }
   }
 
   @Override
-  public Optional<IndividualOrder> findOne(Long key) {
+  public Optional<Textile> findOne(Long key) {
     return Optional.empty();
   }
 
   @Override
-  public IndividualOrder update(IndividualOrder order) {
+  public Textile update(Textile textile) {
     try (Session session = sessionFactory.openSession()) {
       Transaction transaction = session.getTransaction();
       transaction.begin();
-      session.saveOrUpdate(order);
+      session.saveOrUpdate(textile);
       transaction.commit();
-      return order;
+      return textile;
     }
   }
 
   @Override
-  public Long delete(IndividualOrder order) {
+  public Long delete(Textile textile) {
     try (Session session = sessionFactory.openSession()) {
       Transaction transaction = session.getTransaction();
       transaction.begin();
-      session.delete(order);
+      session.delete(textile);
       transaction.commit();
-      return order.getId();
+      return textile.getId();
     }
   }
 }
