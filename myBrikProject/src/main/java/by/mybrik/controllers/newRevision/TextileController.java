@@ -68,19 +68,19 @@ public class TextileController {
   }
 
   /*
- http://localhost:8080/new/rest/textile/6
-  {
-     "code": "someCodeUpdate",
-     "name": "someName6",
-     "color": "someColor",
-     "description": "someDescription",
-     "photo": "somePhoto",
-     "deleted": false
- }
-  */
+  http://localhost:8080/new/rest/textile/6
+   {
+      "code": "someCodeUpdate",
+      "name": "someName6",
+      "color": "someColor",
+      "description": "someDescription",
+      "photo": "somePhoto",
+      "deleted": false
+  }
+   */
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public Textile updateTextile(@PathVariable("id") Long id, @RequestBody TextileUpdate request){
+  public Textile updateTextile(@PathVariable("id") Long id, @RequestBody TextileUpdate request) {
 
     Textile updatedTextile = textileService.findById(id);
 
@@ -98,7 +98,7 @@ public class TextileController {
   // http://localhost:8080/new/rest/textile/6
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public List<Textile> deleteTextileById(@PathVariable("id") Long id){
+  public List<Textile> deleteTextileById(@PathVariable("id") Long id) {
     textileService.delete(textileService.findById(id));
     return textileService.findAll();
   }

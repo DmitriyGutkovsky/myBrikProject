@@ -21,7 +21,7 @@ import java.util.Set;
 @Entity
 @Table(name = "m_textile")
 @EqualsAndHashCode(exclude = {
-        "types"
+        "productTypes"
 })
 public class Textile {
 
@@ -53,7 +53,8 @@ public class Textile {
     @Column
     private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
-    @ManyToMany(mappedBy = "textiles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
     @JsonIgnoreProperties("textiles")
-    private Set<ProductType> types = Collections.emptySet();
+    @ManyToMany(mappedBy = "textiles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<ProductType> productTypes = Collections.emptySet();
 }
