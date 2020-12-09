@@ -1,6 +1,6 @@
 package by.mybrik.service.impl;
 
-import by.mybrik.domain.entities.PriceForIndividualOrder;
+import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.repository.PriceForIndividualOrderRepository;
 import by.mybrik.service.PriceForIndividualOrderService;
 import lombok.RequiredArgsConstructor;

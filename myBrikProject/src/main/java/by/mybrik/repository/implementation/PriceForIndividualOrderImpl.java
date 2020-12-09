@@ -1,6 +1,6 @@
 package by.mybrik.repository.implementation;
 
-import by.mybrik.domain.entities.PriceForIndividualOrder;
+import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.repository.PriceForIndividualOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;

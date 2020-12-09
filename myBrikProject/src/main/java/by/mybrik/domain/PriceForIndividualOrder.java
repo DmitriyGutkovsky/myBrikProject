@@ -1,39 +1,36 @@
 package by.mybrik.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 
-@Setter
-@Getter
-@Builder
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@Entity
+@Table(name = "m_price_for_individual_order")
 public class PriceForIndividualOrder {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "product_type")
     private String productType;
 
+    @Column
     private Double price;
 
+    @Column
     private Timestamp created = new Timestamp(System.currentTimeMillis());
 
+    @Column
     private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
+    @Column(name = "is_deleted")
     private boolean isDeleted;
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
-    }
-
 }

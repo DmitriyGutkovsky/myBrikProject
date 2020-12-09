@@ -1,6 +1,6 @@
 package by.mybrik.repository.implementation;
 
-import by.mybrik.domain.entities.StandardOrder;
+import by.mybrik.domain.StandardOrder;
 import by.mybrik.repository.StandardOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;

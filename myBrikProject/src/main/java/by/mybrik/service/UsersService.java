@@ -1,7 +1,7 @@
 package by.mybrik.service;
 
 
-import by.mybrik.domain.entities.Users;
+import by.mybrik.domain.Users;
 
 import java.util.List;
 import java.util.Optional;

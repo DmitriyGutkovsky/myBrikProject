@@ -2,7 +2,7 @@ package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.goodsRequests.GoodsCreate;
 import by.mybrik.controllers.requests.goodsRequests.GoodsUpdate;
-import by.mybrik.domain.entities.Goods;
+import by.mybrik.domain.Goods;
 import by.mybrik.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

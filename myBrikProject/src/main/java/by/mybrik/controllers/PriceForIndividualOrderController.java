@@ -2,7 +2,7 @@ package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualCreate;
 import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualUpdate;
-import by.mybrik.domain.entities.PriceForIndividualOrder;
+import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.service.PriceForIndividualOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

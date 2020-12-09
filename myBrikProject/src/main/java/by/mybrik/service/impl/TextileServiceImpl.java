@@ -1,6 +1,6 @@
 package by.mybrik.service.impl;
 
-import by.mybrik.domain.entities.Textile;
+import by.mybrik.domain.Textile;
 import by.mybrik.repository.TextileRepository;
 import by.mybrik.service.TextileService;
 import lombok.RequiredArgsConstructor;

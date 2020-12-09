@@ -1,6 +1,6 @@
 package by.mybrik.service;
 
-import by.mybrik.domain.entities.IndividualOrder;
+import by.mybrik.domain.IndividualOrder;
 
 import java.util.List;
 import java.util.Optional;

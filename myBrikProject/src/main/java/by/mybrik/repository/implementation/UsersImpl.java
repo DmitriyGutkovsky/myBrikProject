@@ -1,6 +1,6 @@
 package by.mybrik.repository.implementation;
 
-import by.mybrik.domain.entities.Users;
+import by.mybrik.domain.Users;
 import by.mybrik.repository.UsersRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

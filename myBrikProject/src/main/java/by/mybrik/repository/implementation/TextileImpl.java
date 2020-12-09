@@ -1,6 +1,6 @@
 package by.mybrik.repository.implementation;
 
-import by.mybrik.domain.entities.Textile;
+import by.mybrik.domain.Textile;
 import by.mybrik.repository.TextileRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;

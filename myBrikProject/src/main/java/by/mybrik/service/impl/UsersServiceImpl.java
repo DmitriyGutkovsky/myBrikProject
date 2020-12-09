@@ -1,6 +1,6 @@
 package by.mybrik.service.impl;
 
-import by.mybrik.domain.entities.Users;
+import by.mybrik.domain.Users;
 import by.mybrik.repository.UsersRepository;
 import by.mybrik.service.UsersService;
 import lombok.RequiredArgsConstructor;

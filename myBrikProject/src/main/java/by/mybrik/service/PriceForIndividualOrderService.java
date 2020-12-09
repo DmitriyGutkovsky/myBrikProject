@@ -1,6 +1,6 @@
 package by.mybrik.service;
 
-import by.mybrik.domain.entities.PriceForIndividualOrder;
+import by.mybrik.domain.PriceForIndividualOrder;
 
 import java.util.List;
 import java.util.Optional;

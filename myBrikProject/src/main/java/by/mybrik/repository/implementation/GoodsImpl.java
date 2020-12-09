@@ -1,6 +1,6 @@
 package by.mybrik.repository.implementation;
 
-import by.mybrik.domain.entities.Goods;
+import by.mybrik.domain.Goods;
 import by.mybrik.repository.GoodsRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

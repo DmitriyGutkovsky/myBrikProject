@@ -1,7 +1,7 @@
 package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.standardOrderRequests.StandardOrderCreate;
-import by.mybrik.domain.entities.StandardOrder;
+import by.mybrik.domain.StandardOrder;
 import by.mybrik.service.StandardOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

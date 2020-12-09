@@ -2,7 +2,7 @@ package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.usersRequests.UserCreate;
 import by.mybrik.controllers.requests.usersRequests.UsersUpdate;
-import by.mybrik.domain.entities.Users;
+import by.mybrik.domain.Users;
 import by.mybrik.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

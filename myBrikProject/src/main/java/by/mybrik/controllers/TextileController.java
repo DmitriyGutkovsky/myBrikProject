@@ -2,7 +2,7 @@ package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.textileRequests.TextileCreate;
 import by.mybrik.controllers.requests.textileRequests.TextileUpdate;
-import by.mybrik.domain.entities.Textile;
+import by.mybrik.domain.Textile;
 import by.mybrik.service.TextileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

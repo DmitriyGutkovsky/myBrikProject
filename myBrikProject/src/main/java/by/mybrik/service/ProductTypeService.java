@@ -1,7 +1,7 @@
 package by.mybrik.service;
 
 
-import by.mybrik.domain.entities.ProductType;
+import by.mybrik.domain.ProductType;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package by.mybrik.service.impl;
 
-import by.mybrik.domain.entities.ProductType;
+import by.mybrik.domain.ProductType;
 import by.mybrik.repository.ProductTypeRepository;
 import by.mybrik.service.ProductTypeService;
 import lombok.RequiredArgsConstructor;

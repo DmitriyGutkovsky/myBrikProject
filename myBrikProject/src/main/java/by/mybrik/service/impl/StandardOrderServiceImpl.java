@@ -1,6 +1,6 @@
 package by.mybrik.service.impl;
 
-import by.mybrik.domain.entities.StandardOrder;
+import by.mybrik.domain.StandardOrder;
 import by.mybrik.repository.StandardOrderRepository;
 import by.mybrik.service.StandardOrderService;
 import lombok.RequiredArgsConstructor;
