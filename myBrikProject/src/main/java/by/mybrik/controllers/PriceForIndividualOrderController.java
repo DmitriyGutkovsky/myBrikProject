@@ -3,7 +3,7 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualCreate;
 import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualUpdate;
 import by.mybrik.domain.entities.PriceForIndividualOrder;
-import by.mybrik.service.newImplementation.PriceForIndividualOrderSer;
+import by.mybrik.service.PriceForIndividualOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PriceForIndividualOrderController {
 
-    public final PriceForIndividualOrderSer priceForIndividualOrderService;
+    public final PriceForIndividualOrderService priceForIndividualOrderService;
 
     // http://localhost:8080/new/rest/individualorderprice
     @GetMapping

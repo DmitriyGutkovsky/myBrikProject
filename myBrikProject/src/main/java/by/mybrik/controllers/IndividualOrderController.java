@@ -3,7 +3,7 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderCreate;
 import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderUpdate;
 import by.mybrik.domain.entities.IndividualOrder;
-import by.mybrik.service.newImplementation.IndividualOrderSer;
+import by.mybrik.service.IndividualOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class IndividualOrderController {
 
-  public final IndividualOrderSer individualOrderService;
+  public final IndividualOrderService individualOrderService;
 
   // http://localhost:8080/new/rest/individualorder
   @GetMapping

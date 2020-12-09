@@ -1,22 +1,21 @@
 package by.mybrik.service;
 
-import by.mybrik.domain.StandardOrder;
+import by.mybrik.domain.entities.StandardOrder;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface StandardOrderService {
 
-    StandardOrder save(StandardOrder order);
+  StandardOrder save(StandardOrder order);
 
-    List<StandardOrder> findAll();
+  List<StandardOrder> findAll();
 
-    StandardOrder findById(Long id);
+  StandardOrder findById(Long id);
 
-    Optional<StandardOrder> findOne(Long id);
+  Optional<StandardOrder> findOne(Long id);
 
-    StandardOrder update(StandardOrder order);
+  StandardOrder update(StandardOrder order);
 
-    Long delete(StandardOrder order);
-
+  Long delete(StandardOrder order);
 }

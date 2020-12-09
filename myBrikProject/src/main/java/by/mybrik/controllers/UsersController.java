@@ -3,7 +3,7 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.usersRequests.UserCreate;
 import by.mybrik.controllers.requests.usersRequests.UsersUpdate;
 import by.mybrik.domain.entities.Users;
-import by.mybrik.service.newImplementation.UsersSer;
+import by.mybrik.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/new/rest/users")
 public class UsersController {
 
-  public final UsersSer usersService;
+  public final UsersService usersService;
 
   // http://localhost:8080/new/rest/users
   @GetMapping

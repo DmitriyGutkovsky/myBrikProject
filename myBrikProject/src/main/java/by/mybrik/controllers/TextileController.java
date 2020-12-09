@@ -3,7 +3,7 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.textileRequests.TextileCreate;
 import by.mybrik.controllers.requests.textileRequests.TextileUpdate;
 import by.mybrik.domain.entities.Textile;
-import by.mybrik.service.newImplementation.TextileSer;
+import by.mybrik.service.TextileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/new/rest/textile")
 public class TextileController {
 
-  public final TextileSer textileService;
+  public final TextileService textileService;
 
   // http://localhost:8080/new/rest/textile
   @GetMapping

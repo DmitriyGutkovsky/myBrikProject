@@ -1,6 +1,7 @@
 package by.mybrik.service;
 
-import by.mybrik.domain.Textile;
+
+import by.mybrik.domain.entities.Textile;
 
 import java.util.List;
 import java.util.Optional;

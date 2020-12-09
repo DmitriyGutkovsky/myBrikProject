@@ -1,7 +1,7 @@
 package by.mybrik.service.impl;
 
-import by.mybrik.domain.Users;
-import by.mybrik.repository.UsersRepository;
+import by.mybrik.domain.entities.Users;
+import by.mybrik.repository.newImplementation.UsersRep;
 import by.mybrik.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UsersServiceImpl implements UsersService {
 
-    private final UsersRepository usersRepository;
+    private final UsersRep usersRepository;
 
     @Override
     public Users save(Users user) {

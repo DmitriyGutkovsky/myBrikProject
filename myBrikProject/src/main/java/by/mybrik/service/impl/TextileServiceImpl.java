@@ -1,7 +1,7 @@
 package by.mybrik.service.impl;
 
-import by.mybrik.domain.Textile;
-import by.mybrik.repository.TextileRepository;
+import by.mybrik.domain.entities.Textile;
+import by.mybrik.repository.newImplementation.TextileRep;
 import by.mybrik.service.TextileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,8 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TextileServiceImpl implements TextileService {
 
-    private final TextileRepository textileRepository;
-
+    private final TextileRep textileRepository;
 
     @Override
     public Textile save(Textile textile) {
