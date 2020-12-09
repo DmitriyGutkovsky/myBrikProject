@@ -26,10 +26,10 @@ public class PriceForIndividualOrder {
     private Double price;
 
     @Column
-    private Timestamp created;
+    private Timestamp created = new Timestamp(System.currentTimeMillis());
 
     @Column
-    private Timestamp changed;
+    private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
     @Column(name = "is_deleted")
     private boolean isDeleted;
