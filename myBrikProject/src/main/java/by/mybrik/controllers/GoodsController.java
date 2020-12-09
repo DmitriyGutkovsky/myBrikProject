@@ -1,4 +1,4 @@
-package by.mybrik.controllers.newRevision;
+package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.goodsRequests.GoodsCreate;
 import by.mybrik.controllers.requests.goodsRequests.GoodsUpdate;
