@@ -1,6 +1,5 @@
 package by.mybrik.domain;
 
-import by.mybrik.domain.Gender;
 import lombok.Data;
 
 import javax.persistence.Column;
