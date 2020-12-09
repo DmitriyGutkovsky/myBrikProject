@@ -59,7 +59,7 @@ public class IndividualOrderRestController {
         "priceId": 1,
         "quantity": 1,
         "totalPrice": 10,
-        "orderStatus": "created",
+        "orderStatus": "created"
     }
      */
     @PostMapping

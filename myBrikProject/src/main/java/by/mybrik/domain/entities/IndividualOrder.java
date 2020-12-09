@@ -41,8 +41,8 @@ public class IndividualOrder {
     private String orderStatus;
 
     @Column
-    private Timestamp created;
+    private Timestamp created = new Timestamp(System.currentTimeMillis());
 
     @Column
-    private Timestamp changed;
+    private Timestamp changed = new Timestamp(System.currentTimeMillis());
 }
