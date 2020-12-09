@@ -15,7 +15,6 @@ public class TextileServiceImpl implements TextileService {
 
     private final TextileRepository textileRepository;
 
-
     @Override
     public Textile save(Textile textile) {
         return textileRepository.save(textile);

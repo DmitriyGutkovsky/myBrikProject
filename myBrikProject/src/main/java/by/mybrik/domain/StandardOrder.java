@@ -1,42 +1,39 @@
 package by.mybrik.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 
-@Setter
-@Getter
-@Builder
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@Entity
+@Table(name = "m_standard_order")
 public class StandardOrder {
 
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private Long goodId;
+  @Column(name = "good_id")
+  private Long goodId;
 
-    private  Long userId;
+  @Column(name = "user_id")
+  private Long userId;
 
-    private int quantity;
+  @Column private int quantity;
 
-    private Double totalPrice;
+  @Column(name = "total_price")
+  private Double totalPrice;
 
-    private String orderStatus;
+  @Column(name = "order_status")
+  private String orderStatus;
 
-    private Timestamp created = new Timestamp(System.currentTimeMillis());
+  @Column private Timestamp created = new Timestamp(System.currentTimeMillis());
 
-    private Timestamp changed = new Timestamp(System.currentTimeMillis());
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
-    }
+  @Column private Timestamp changed = new Timestamp(System.currentTimeMillis());
 }

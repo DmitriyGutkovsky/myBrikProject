@@ -1,9 +1,9 @@
-package by.mybrik.controllers.newRevision;
+package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.goodsRequests.GoodsCreate;
 import by.mybrik.controllers.requests.goodsRequests.GoodsUpdate;
-import by.mybrik.domain.entities.Goods;
-import by.mybrik.service.newImplementation.GoodsSer;
+import by.mybrik.domain.Goods;
+import by.mybrik.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/new/rest/goods")
 public class GoodsController {
 
-  public final GoodsSer goodsService;
+  public final GoodsService goodsService;
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)

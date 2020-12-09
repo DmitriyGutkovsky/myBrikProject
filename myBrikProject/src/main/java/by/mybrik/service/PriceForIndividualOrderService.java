@@ -1,6 +1,5 @@
 package by.mybrik.service;
 
-
 import by.mybrik.domain.PriceForIndividualOrder;
 
 import java.util.List;
@@ -8,17 +7,16 @@ import java.util.Optional;
 
 public interface PriceForIndividualOrderService {
 
-    PriceForIndividualOrder save(PriceForIndividualOrder price);
+  PriceForIndividualOrder save(PriceForIndividualOrder price);
 
-    List<PriceForIndividualOrder> findAll();
+  List<PriceForIndividualOrder> findAll();
 
-    PriceForIndividualOrder findById(Long id);
+  PriceForIndividualOrder findById(Long id);
 
-    Optional<PriceForIndividualOrder> findOne(Long id);
+  Optional<PriceForIndividualOrder> findOne(Long id);
 
-    PriceForIndividualOrder update(PriceForIndividualOrder price);
+  PriceForIndividualOrder update(PriceForIndividualOrder price);
 
-    Long delete(PriceForIndividualOrder price);
-
+  Long delete(PriceForIndividualOrder price);
 
 }

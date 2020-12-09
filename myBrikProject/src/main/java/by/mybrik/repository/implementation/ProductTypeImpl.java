@@ -1,7 +1,7 @@
-package by.mybrik.repository.newImplementation.implementation;
+package by.mybrik.repository.implementation;
 
-import by.mybrik.domain.entities.ProductType;
-import by.mybrik.repository.newImplementation.ProductTypeRep;
+import by.mybrik.domain.ProductType;
+import by.mybrik.repository.ProductTypeRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 @Primary
-public class ProductTypeImpl implements ProductTypeRep {
+public class ProductTypeImpl implements ProductTypeRepository {
 
   private final SessionFactory sessionFactory;
 

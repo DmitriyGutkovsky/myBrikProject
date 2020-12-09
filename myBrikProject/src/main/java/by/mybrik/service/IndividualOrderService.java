@@ -7,16 +7,15 @@ import java.util.Optional;
 
 public interface IndividualOrderService {
 
-    IndividualOrder save(IndividualOrder order);
+  IndividualOrder save(IndividualOrder order);
 
-    List<IndividualOrder> findAll();
+  List<IndividualOrder> findAll();
 
-    IndividualOrder findById(Long id);
+  IndividualOrder findById(Long id);
 
-    Optional<IndividualOrder> findOne(Long id);
+  Optional<IndividualOrder> findOne(Long id);
 
-    IndividualOrder update(IndividualOrder order);
+  IndividualOrder update(IndividualOrder order);
 
-    Long delete(IndividualOrder order);
-
+  Long delete(IndividualOrder order);
 }

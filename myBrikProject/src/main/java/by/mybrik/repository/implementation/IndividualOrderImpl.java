@@ -1,7 +1,7 @@
-package by.mybrik.repository.newImplementation.implementation;
+package by.mybrik.repository.implementation;
 
-import by.mybrik.domain.entities.StandardOrder;
-import by.mybrik.repository.newImplementation.StandardOrderRep;
+import by.mybrik.domain.IndividualOrder;
+import by.mybrik.repository.IndividualOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,12 +15,12 @@ import java.util.Optional;
 @Repository
 @Primary
 @RequiredArgsConstructor
-public class StandardOrderImpl implements StandardOrderRep {
+public class IndividualOrderImpl implements IndividualOrderRepository {
 
   private final SessionFactory sessionFactory;
 
   @Override
-  public StandardOrder save(StandardOrder order) {
+  public IndividualOrder save(IndividualOrder order) {
     try (Session session = sessionFactory.openSession()) {
       session.saveOrUpdate(order);
       return order;
@@ -28,27 +28,27 @@ public class StandardOrderImpl implements StandardOrderRep {
   }
 
   @Override
-  public List<StandardOrder> findAll() {
+  public List<IndividualOrder> findAll() {
     try (Session session = sessionFactory.openSession()) {
-      String hqlQuery = "select u from StandardOrder u";
-      return session.createQuery(hqlQuery, StandardOrder.class).list();
+      String hqlQuery = "select u from IndividualOrder u";
+      return session.createQuery(hqlQuery, IndividualOrder.class).list();
     }
   }
 
   @Override
-  public StandardOrder findById(Long key) {
+  public IndividualOrder findById(Long key) {
     try (Session session = sessionFactory.openSession()) {
-      return session.find(StandardOrder.class, key);
+      return session.find(IndividualOrder.class, key);
     }
   }
 
   @Override
-  public Optional<StandardOrder> findOne(Long key) {
+  public Optional<IndividualOrder> findOne(Long key) {
     return Optional.empty();
   }
 
   @Override
-  public StandardOrder update(StandardOrder order) {
+  public IndividualOrder update(IndividualOrder order) {
     try (Session session = sessionFactory.openSession()) {
       Transaction transaction = session.getTransaction();
       transaction.begin();
@@ -59,7 +59,7 @@ public class StandardOrderImpl implements StandardOrderRep {
   }
 
   @Override
-  public Long delete(StandardOrder order) {
+  public Long delete(IndividualOrder order) {
     try (Session session = sessionFactory.openSession()) {
       Transaction transaction = session.getTransaction();
       transaction.begin();

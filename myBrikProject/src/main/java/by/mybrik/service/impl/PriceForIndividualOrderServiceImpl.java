@@ -13,36 +13,35 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PriceForIndividualOrderServiceImpl implements PriceForIndividualOrderService {
 
-    private final PriceForIndividualOrderRepository priceForIndividualOrderRepository;
+  private final PriceForIndividualOrderRepository priceForIndividualOrderRepository;
 
+  @Override
+  public PriceForIndividualOrder save(PriceForIndividualOrder price) {
+    return priceForIndividualOrderRepository.save(price);
+  }
 
-    @Override
-    public PriceForIndividualOrder save(PriceForIndividualOrder price) {
-        return priceForIndividualOrderRepository.save(price);
-    }
+  @Override
+  public List<PriceForIndividualOrder> findAll() {
+    return priceForIndividualOrderRepository.findAll();
+  }
 
-    @Override
-    public List<PriceForIndividualOrder> findAll() {
-        return priceForIndividualOrderRepository.findAll();
-    }
+  @Override
+  public PriceForIndividualOrder findById(Long id) {
+    return priceForIndividualOrderRepository.findById(id);
+  }
 
-    @Override
-    public PriceForIndividualOrder findById(Long id) {
-        return priceForIndividualOrderRepository.findById(id);
-    }
+  @Override
+  public Optional<PriceForIndividualOrder> findOne(Long id) {
+    return priceForIndividualOrderRepository.findOne(id);
+  }
 
-    @Override
-    public Optional<PriceForIndividualOrder> findOne(Long id) {
-        return priceForIndividualOrderRepository.findOne(id);
-    }
+  @Override
+  public PriceForIndividualOrder update(PriceForIndividualOrder price) {
+    return priceForIndividualOrderRepository.update(price);
+  }
 
-    @Override
-    public PriceForIndividualOrder update(PriceForIndividualOrder price) {
-        return priceForIndividualOrderRepository.update(price);
-    }
-
-    @Override
-    public Long delete(PriceForIndividualOrder price) {
-        return priceForIndividualOrderRepository.delete(price);
-    }
+  @Override
+  public Long delete(PriceForIndividualOrder price) {
+    return priceForIndividualOrderRepository.delete(price);
+  }
 }

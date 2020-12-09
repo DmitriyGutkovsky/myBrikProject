@@ -1,8 +1,8 @@
-package by.mybrik.controllers.newRevision;
+package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.standardOrderRequests.StandardOrderCreate;
-import by.mybrik.domain.entities.StandardOrder;
-import by.mybrik.service.newImplementation.StandardOrderSer;
+import by.mybrik.domain.StandardOrder;
+import by.mybrik.service.StandardOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StandardOrderController {
 
-  public final StandardOrderSer orderService;
+  public final StandardOrderService orderService;
 
   // http://localhost:8080/new/rest/standardorder
   @GetMapping

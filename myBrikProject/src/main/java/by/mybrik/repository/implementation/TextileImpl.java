@@ -1,7 +1,7 @@
-package by.mybrik.repository.newImplementation.implementation;
+package by.mybrik.repository.implementation;
 
-import by.mybrik.domain.entities.Textile;
-import by.mybrik.repository.newImplementation.TextileRep;
+import by.mybrik.domain.Textile;
+import by.mybrik.repository.TextileRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 @Primary
 @RequiredArgsConstructor
-public class TextileImpl implements TextileRep {
+public class TextileImpl implements TextileRepository {
 
   private final SessionFactory sessionFactory;
 

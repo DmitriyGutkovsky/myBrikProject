@@ -44,4 +44,5 @@ public class GoodsServiceImpl implements GoodsService {
     public Long delete(Goods product) {
         return goodsRepository.delete(product);
     }
+
 }
