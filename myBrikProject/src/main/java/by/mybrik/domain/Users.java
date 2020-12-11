@@ -24,7 +24,7 @@ public class Users {
     @Column
     private String name;
 
-    @Column
+    @Column(name = "surname")
     private String surName;
 
     @Column
