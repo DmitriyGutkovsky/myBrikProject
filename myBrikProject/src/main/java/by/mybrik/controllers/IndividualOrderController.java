@@ -3,7 +3,7 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderCreate;
 import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderUpdate;
 import by.mybrik.domain.IndividualOrder;
-import by.mybrik.service.IndividualOrderService;
+import by.mybrik.repository.impl.IndividualOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,51 +18,53 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/new/rest/individualorder")
 @RequiredArgsConstructor
 public class IndividualOrderController {
 
-  public final IndividualOrderService individualOrderService;
+  public final IndividualOrderRepository individualOrderRepository;
 
   // http://localhost:8080/new/rest/individualorder
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<IndividualOrder> getListOfAllIndividualOrders() {
-    return individualOrderService.findAll();
+    return individualOrderRepository.findAll();
   }
 
   // http://localhost:8080/new/rest/individualorder/1
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public IndividualOrder getIndividualOrderById(@PathVariable Long id) {
-    return individualOrderService.findById(id);
+  public Optional<IndividualOrder> getIndividualOrderById(@PathVariable Long id) {
+    return individualOrderRepository.findById(id);
   }
 
   // http://localhost:8080/new/rest/individualorder/1
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<IndividualOrder> deleteIndividualOrder(@PathVariable Long id) {
-    IndividualOrder oderFordelete = individualOrderService.findById(id);
-    individualOrderService.delete(oderFordelete);
-    return individualOrderService.findAll();
+    if (!individualOrderRepository.existsById(id)) {
+      // TODO own Exception
+      throw new RuntimeException();
+    }
+    individualOrderRepository.deleteById(id);
+    return individualOrderRepository.findAll();
   }
 
   /*
-  http://localhost:8080/new/rest/individualorder
-
-{
-    "userId": 2,
-    "textileId": 1,
-    "productTypeId": 1,
-    "priceId": 1,
-    "quantity": 1,
-    "totalPrice": 10,
-    "orderStatus": "created"
-
-  }
-   */
+   http://localhost:8080/new/rest/individualorder
+  {
+     "userId": 2,
+     "textileId": 1,
+     "productTypeId": 1,
+     "priceId": 1,
+     "quantity": 1,
+     "totalPrice": 10,
+     "orderStatus": "created"
+   }
+    */
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public IndividualOrder createIndividualOrder(@RequestBody IndividualOrderCreate request) {
@@ -77,7 +79,7 @@ public class IndividualOrderController {
     order.setTotalPrice(request.getTotalPrice());
     order.setOrderStatus(request.getOrderStatus());
 
-    return individualOrderService.save(order);
+    return individualOrderRepository.save(order);
   }
 
   /*
@@ -98,7 +100,12 @@ public class IndividualOrderController {
   public IndividualOrder updateIndividualOrder(
       @PathVariable Long id, @RequestBody IndividualOrderUpdate request) {
 
-    IndividualOrder updateOrder = individualOrderService.findById(id);
+    if (!individualOrderRepository.existsById(id)) {
+      // TODO own Exception
+      throw new RuntimeException();
+    }
+
+    IndividualOrder updateOrder = individualOrderRepository.getOne(id);
 
     updateOrder.setUserId(request.getUserId());
     updateOrder.setTextileId(request.getTextileId());
@@ -109,6 +116,6 @@ public class IndividualOrderController {
     updateOrder.setOrderStatus(request.getOrderStatus());
     updateOrder.setChanged(new Timestamp(System.currentTimeMillis()));
 
-    return individualOrderService.update(updateOrder);
+    return individualOrderRepository.save(updateOrder);
   }
 }
