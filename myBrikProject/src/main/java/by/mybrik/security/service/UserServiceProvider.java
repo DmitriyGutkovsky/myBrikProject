@@ -32,7 +32,7 @@ public class UserServiceProvider implements UserDetailsService {
                 return new org.springframework.security.core.userdetails.User(
                         user.getLogin(),
                         user.getPassword(),
-//                        ["ROLE_USER", "ROLE_ADMIN"]
+//                      get array of roles that user have:  ["ROLE_USER", "ROLE_ADMIN"]
                         AuthorityUtils.commaSeparatedStringToAuthorityList(roleRepository.findUserRoles(user.getId()).stream().map(Role::getRoleName).map(SystemRoles::name).collect(Collectors.joining(",")))
                 );
             } else {
