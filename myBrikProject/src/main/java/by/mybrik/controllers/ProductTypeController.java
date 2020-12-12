@@ -3,7 +3,7 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.productTypeRequests.ProductTypeCreate;
 import by.mybrik.controllers.requests.productTypeRequests.ProductTypeUpdate;
 import by.mybrik.domain.ProductType;
-import by.mybrik.service.ProductTypeService;
+import by.mybrik.repository.impl.ProductTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,35 +18,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/new/rest/producttype")
 @RequiredArgsConstructor
 public class ProductTypeController {
 
-  public final ProductTypeService typeService;
+  public final ProductTypeRepository productTypeRepository;
 
   // http://localhost:8080/new/rest/producttype
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<ProductType> getListOfAllProductTypes() {
-    return typeService.findAll();
+    return productTypeRepository.findAll();
   }
 
   // http://localhost:8080/new/rest/producttype/4
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public ProductType getProductTypeById(@PathVariable("id") Long id) {
-    return typeService.findById(id);
+  public Optional<ProductType> getProductTypeById(@PathVariable("id") Long id) {
+    return productTypeRepository.findById(id);
   }
 
   // http://localhost:8080/new/rest/producttype/4
   @DeleteMapping("{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<ProductType> deleteTypeById(@PathVariable Long id) {
-    ProductType deletedType = typeService.findById(id);
-    typeService.delete(deletedType);
-    return typeService.findAll();
+    if (!productTypeRepository.existsById(id)) {
+      // TODO own Exception
+      throw new RuntimeException();
+    }
+    productTypeRepository.deleteById(id);
+    return productTypeRepository.findAll();
   }
 
   /*
@@ -67,7 +71,7 @@ public class ProductTypeController {
     newType.setPhoto(request.getPhoto());
     newType.setDeleted(request.isDeleted());
 
-    return typeService.save(newType);
+    return productTypeRepository.save(newType);
   }
 
   /*
@@ -83,13 +87,18 @@ public class ProductTypeController {
   public ProductType updateProductType(
       @PathVariable Long id, @RequestBody ProductTypeUpdate request) {
 
-    ProductType updateType = typeService.findById(id);
+    if (!productTypeRepository.existsById(id)) {
+      // TODO own Exception
+      throw new RuntimeException();
+    }
+
+    ProductType updateType = productTypeRepository.getOne(id);
 
     updateType.setProductType(request.getProductType());
     updateType.setPhoto(request.getPhoto());
     updateType.setDeleted(request.isDeleted());
     updateType.setChanged(new Timestamp(System.currentTimeMillis()));
 
-    return typeService.update(updateType);
+    return productTypeRepository.save(updateType);
   }
 }
