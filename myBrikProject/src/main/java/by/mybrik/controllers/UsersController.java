@@ -1,13 +1,18 @@
 package by.mybrik.controllers;
 
+import by.mybrik.controllers.requests.roleRequests.RoleUpdate;
 import by.mybrik.controllers.requests.usersRequests.UserCreate;
 import by.mybrik.controllers.requests.usersRequests.UsersUpdate;
+import by.mybrik.domain.Role;
+import by.mybrik.domain.SystemRoles;
 import by.mybrik.domain.Users;
 import by.mybrik.repository.impl.UsersRepository;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -67,6 +74,7 @@ public class UsersController {
   "deleted": false
   }
    */
+  @ApiOperation(value = "Endpoint for creation users")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Users registerUser(@RequestBody UserCreate request) {
@@ -82,6 +90,8 @@ public class UsersController {
     user.setPhone(request.getPhone());
     user.setAddress(request.getAddress());
     user.setDeleted(request.isDeleted());
+
+    user.setRoles(Collections.singleton(new Role(SystemRoles.ROLE_USER, user)));
 
     return usersRepository.save(user);
   }
@@ -103,6 +113,7 @@ public class UsersController {
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Users updateUserDetails(@PathVariable Long id, @RequestBody UsersUpdate request) {
+//  public Users updateUserDetails(@PathVariable Long id, @RequestBody UsersUpdate request, @ModelAttribute RoleUpdate roleUpdate) {
 
     if (!usersRepository.existsById(id)) {
       // TODO own Exception
@@ -121,6 +132,8 @@ public class UsersController {
     user.setAddress(request.getAddress());
     user.setDeleted(request.isDeleted());
     user.setChanged(new Timestamp(System.currentTimeMillis()));
+//    user.setRoles(request.getRole());
+//    user.setRoles(Collections.singleton(new Role(roleUpdate.getSystemRoles(), user)));
 
     return usersRepository.save(user);
   }
