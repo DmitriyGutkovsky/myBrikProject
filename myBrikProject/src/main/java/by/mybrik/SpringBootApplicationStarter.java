@@ -14,7 +14,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableJpaRepositories
-@Import({ApplicationBeans.class, PersistenceContextBeansConfiguration.class})
+@Import({ApplicationBeans.class,
+        PersistenceContextBeansConfiguration.class})
 public class SpringBootApplicationStarter {
 
   public static void main(String[] args) {

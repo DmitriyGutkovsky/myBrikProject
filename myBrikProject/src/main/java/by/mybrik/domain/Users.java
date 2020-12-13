@@ -1,6 +1,7 @@
 package by.mybrik.domain;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,46 +14,38 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Data
+@RequiredArgsConstructor
 @Entity
 @Table(name = "m_users")
 public class Users {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column
-    private String name;
+  @Column private String name;
 
-    @Column(name = "surname")
-    private String surName;
+  @Column(name = "surname")
+  private String surName;
 
-    @Column
-    private String login;
+  @Column private String login;
 
-    @Column
-    private String password;
+  @Column private String password;
 
-    @Column
-    private String email;
+  @Column private String email;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+  @Column
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
 
-    @Column
-    private Timestamp created = new Timestamp(System.currentTimeMillis());
+  @Column private Timestamp created = new Timestamp(System.currentTimeMillis());
 
-    @Column
-    private Timestamp changed = new Timestamp(System.currentTimeMillis());
+  @Column private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
-    @Column
-    private String phone;
+  @Column private String phone;
 
-    @Column
-    private String address;
+  @Column private String address;
 
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
-
+  @Column(name = "is_deleted")
+  private boolean isDeleted;
 }
