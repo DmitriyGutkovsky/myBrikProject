@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/*
+user login via existing credentials
+ */
 @RestController
 @RequestMapping("/authentication")
 @RequiredArgsConstructor
@@ -32,14 +36,16 @@ public class AuthenticationController {
     /*Check login and password*/
     Authentication authenticate =
         authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
+            new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword())
+        );
     SecurityContextHolder.getContext().setAuthentication(authenticate);
 
     /*Generate token with answer to user*/
     return ResponseEntity.ok(
-        AuthResponse.builder()
-            .username(request.getLogin())
-            .token(tokenUtils.generateToken(userProvider.loadUserByUsername(request.getLogin())))
-            .build());
+        AuthResponse
+                .builder()
+                .username(request.getLogin())
+                .token(tokenUtils.generateToken(userProvider.loadUserByUsername(request.getLogin())))
+                .build());
   }
 }
