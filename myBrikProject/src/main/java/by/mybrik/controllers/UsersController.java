@@ -77,7 +77,7 @@ public class UsersController {
   @ApiOperation(value = "Endpoint for creation users")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Users registerUser(@RequestBody UserCreate request) {
+  public Users createNewUser(@RequestBody UserCreate request) {
 
     Users user = new Users();
 
