@@ -26,6 +26,7 @@ import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @RestController
@@ -143,5 +144,12 @@ public class UsersController {
   @ResponseStatus(HttpStatus.OK)
   public Optional<Users> findUserByLogin(@RequestParam(name = "login") String login) {
     return usersRepository.findByLogin(login);
+  }
+
+  @GetMapping("/roles/{userId}")
+  @ResponseStatus(HttpStatus.OK)
+  public Set<Role> findUserRoles(@PathVariable(name = "userId") Long userId) {
+    Set<Role> roles = usersRepository.getOne(userId).getRoles();
+    return roles;
   }
 }

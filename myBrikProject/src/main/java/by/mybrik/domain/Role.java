@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Data
+@EqualsAndHashCode(exclude = "user")
 @Entity
 @Table(name = "m_roles")
 public class Role {
