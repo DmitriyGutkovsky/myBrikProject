@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -136,5 +137,11 @@ public class UsersController {
 //    user.setRoles(Collections.singleton(new Role(roleUpdate.getSystemRoles(), user)));
 
     return usersRepository.save(user);
+  }
+
+  @GetMapping("/{findbylogin}")
+  @ResponseStatus(HttpStatus.OK)
+  public Optional<Users> findUserByLogin(@RequestParam(name = "login") String login) {
+    return usersRepository.findByLogin(login);
   }
 }
