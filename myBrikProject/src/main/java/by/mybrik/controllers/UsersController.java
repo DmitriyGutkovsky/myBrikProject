@@ -143,7 +143,7 @@ public class UsersController {
     return usersRepository.save(user);
   }
 
-  @GetMapping("/{findbylogin}")
+  @GetMapping("/findbylogin")
   @ResponseStatus(HttpStatus.OK)
   public Optional<Users> findUserByLogin(@RequestParam(name = "login") String login) {
     return usersRepository.findByLogin(login);
