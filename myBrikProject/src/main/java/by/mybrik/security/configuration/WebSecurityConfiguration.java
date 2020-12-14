@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RequiredArgsConstructor
@@ -25,14 +24,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserServiceProvider userServiceProvider;
 
-    private final NoOpPasswordEncoder noOpPasswordEncoder;
-
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder,
                                         PasswordEncoder passwordEncoder) throws Exception {
         authenticationManagerBuilder
                 .userDetailsService(userServiceProvider)
-                .passwordEncoder(noOpPasswordEncoder);
+                .passwordEncoder(passwordEncoder);
     }
 
     @Bean

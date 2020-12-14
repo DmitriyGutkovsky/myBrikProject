@@ -10,6 +10,7 @@ import by.mybrik.repository.impl.UsersRepository;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,6 +36,8 @@ import java.util.Set;
 public class UsersController {
 
   public final UsersRepository usersRepository;
+
+  private final PasswordEncoder passwordEncoder;
 
   // http://localhost:8080/new/rest/users
   @GetMapping
@@ -86,7 +89,7 @@ public class UsersController {
     user.setName(request.getName());
     user.setSurName(request.getSurName());
     user.setLogin(request.getLogin());
-    user.setPassword(request.getPassword());
+    user.setPassword(passwordEncoder.encode(request.getPassword()));
     user.setEmail(request.getEmail());
     user.setGender(request.getGender());
     user.setPhone(request.getPhone());
