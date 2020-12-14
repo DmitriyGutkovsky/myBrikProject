@@ -7,6 +7,8 @@ import by.mybrik.domain.Role;
 import by.mybrik.domain.SystemRoles;
 import by.mybrik.domain.Users;
 import by.mybrik.repository.impl.UsersRepository;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -80,6 +82,10 @@ public class UsersController {
   }
    */
   @ApiOperation(value = "Endpoint for creation users")
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Users registerUser(@RequestBody UserCreate request) {

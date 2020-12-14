@@ -5,6 +5,9 @@ import by.mybrik.domain.Role;
 import by.mybrik.domain.SystemRoles;
 import by.mybrik.domain.Users;
 import by.mybrik.repository.impl.UsersRepository;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,7 @@ public class RegistrationController {
 
     private final PasswordEncoder passwordEncoder;
 
+    @ApiOperation(value = "End point for registration users")
     @PostMapping
     public ResponseEntity<Map<String, Object>> registration(@RequestBody UserCreate request){
         Users user = new Users();

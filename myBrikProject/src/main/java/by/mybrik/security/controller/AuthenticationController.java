@@ -3,6 +3,9 @@ package by.mybrik.security.controller;
 import by.mybrik.security.model.AuthRequest;
 import by.mybrik.security.model.AuthResponse;
 import by.mybrik.security.util.TokenUtils;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +33,12 @@ public class AuthenticationController {
 
   private final UserDetailsService userProvider;
 
+  @ApiOperation(value = "login user in the system", notes = "Return Auth-Token with user login")
+  @ApiResponses({
+            @ApiResponse(code = 200, message = "Successful authorization"),
+            @ApiResponse(code = 400, message = "Request error"),
+            @ApiResponse(code = 500, message = "Server error")
+    })
   @PostMapping
   public ResponseEntity<AuthResponse> loginUser(@RequestBody AuthRequest request) {
 
