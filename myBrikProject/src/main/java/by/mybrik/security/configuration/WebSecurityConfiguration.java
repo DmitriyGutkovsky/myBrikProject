@@ -19,7 +19,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true
+)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserServiceProvider userServiceProvider;
@@ -38,6 +41,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+//        @Bean
+//    public AuthenticationTokenFilter authenticationTokenFilterBean(AuthenticationManager authenticationManager) throws Exception {
+//        AuthenticationTokenFilter authenticationTokenFilter = new AuthenticationTokenFilter(tokenUtils, userDetailsService);
+//        authenticationTokenFilter.setAuthenticationManager(authenticationManager);
+//        return authenticationTokenFilter;
+//    }
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -55,13 +65,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html#").permitAll()
 
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/guest/**").permitAll()
-                .antMatchers("/new/rest/users/**").permitAll()
+//                .antMatchers("/guest/**").permitAll()
+//                .antMatchers("/new/rest/users/**").permitAll()
                 .antMatchers("/registration/**").permitAll()
-
+//
                 .antMatchers("/authentication/**").permitAll()
-                .antMatchers("/rest/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/rest/**").permitAll()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
 
