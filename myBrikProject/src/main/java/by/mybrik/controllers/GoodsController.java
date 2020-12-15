@@ -35,7 +35,7 @@ public class GoodsController {
 
   @Secured("ROLE_USER")
   @ApiImplicitParams(
-          @ApiImplicitParam(name = "Auth-Token", defaultValue = "token",
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
                   required = true, paramType = "header", dataType = "String")
   )
   @GetMapping
