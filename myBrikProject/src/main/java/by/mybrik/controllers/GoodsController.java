@@ -33,11 +33,11 @@ public class GoodsController {
 
   //  http://localhost:8080/new/rest/goods
 
-  @Secured("ROLE_USER")
-  @ApiImplicitParams(
-          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
-                  required = true, paramType = "header", dataType = "String")
-  )
+//  @Secured("ROLE_USER")
+//  @ApiImplicitParams(
+//          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+//                  required = true, paramType = "header", dataType = "String")
+//  )
   @GetMapping
   public ResponseEntity<List<Goods>> findAllGoods() {
     return new ResponseEntity<>(goodsRepository.findAll(), HttpStatus.OK);

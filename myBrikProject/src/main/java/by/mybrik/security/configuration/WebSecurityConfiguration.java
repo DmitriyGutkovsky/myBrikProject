@@ -1,6 +1,10 @@
 package by.mybrik.security.configuration;
 
+import by.mybrik.security.controller.AuthenticationController;
+import by.mybrik.security.filters.JwtTokenVerifier;
+import by.mybrik.security.filters.JwtUsernameAndPasswordAuthenticationFilter;
 import by.mybrik.security.service.UserServiceProvider;
+import by.mybrik.security.util.TokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +19,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.crypto.SecretKey;
 
 @RequiredArgsConstructor
 @Configuration
@@ -26,6 +33,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserServiceProvider userServiceProvider;
+
+    private  final SecretKey secretKey;
+
+    private final JwtTokenConfig jwtConfig;
+
+    private final TokenUtils tokenUtils;
 
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder,
@@ -43,10 +56,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 //        @Bean
 //    public AuthenticationTokenFilter authenticationTokenFilterBean(AuthenticationManager authenticationManager) throws Exception {
-//        AuthenticationTokenFilter authenticationTokenFilter = new AuthenticationTokenFilter(tokenUtils, userDetailsService);
+//        AuthenticationTokenFilter authenticationTokenFilter = new AuthenticationTokenFilter(tokenUtils, userServiceProvider);
 //        authenticationTokenFilter.setAuthenticationManager(authenticationManager);
 //        return authenticationTokenFilter;
 //    }
+
+            @Bean
+    public JwtTokenVerifier authenticationTokenFilterBean(AuthenticationManager authenticationManager) throws Exception {
+                JwtTokenVerifier authenticationTokenFilter = new JwtTokenVerifier(secretKey, jwtConfig);
+//        authenticationTokenFilter.setAuthenticationManager(authenticationManager);
+        return authenticationTokenFilter;
+    }
+
+
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -58,19 +80,25 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+
+
+
+
                 .authorizeRequests()
+
                 /*For swagger access only*/
                 .antMatchers("/v2/api-docs", "/configuration/ui/**", "/swagger-resources/**", "/configuration/security/**", "/swagger-ui.html", "/webjars/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html#").permitAll()
 
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
 //                .antMatchers("/guest/**").permitAll()
 //                .antMatchers("/new/rest/users/**").permitAll()
                 .antMatchers("/registration/**").permitAll()
 //
                 .antMatchers("/authentication/**").permitAll()
-//                .antMatchers("/rest/**").permitAll()
+                .antMatchers("/new/rest/goods/**").hasRole("USER")
 //                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
