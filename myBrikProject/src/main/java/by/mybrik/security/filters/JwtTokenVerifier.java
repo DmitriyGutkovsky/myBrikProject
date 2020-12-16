@@ -34,6 +34,8 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
     private final JwtTokenConfig jwtConfig;
 
 
+
+
     /*
     calls filter one per every single request from the client
      */
@@ -60,6 +62,24 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
                                   .setSigningKey(secretKey)
 //              .setSigningKey(jwtConfig.getSecret())
               .parseClaimsJws(token);
+
+            Claims body = claimsJws.getBody();
+
+            String login = body.getSubject();
+
+            var roles = (List<Map<String, String>>) body.get("roles");
+
+            Set<SimpleGrantedAuthority> simpleGrantedAuthorities = roles.stream()
+                    .map(m -> new SimpleGrantedAuthority(m.get("roles")))
+                    .collect(Collectors.toSet());
+
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    login,
+                    null,
+                    simpleGrantedAuthorities
+            );
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
         }
         catch (JwtException e) {

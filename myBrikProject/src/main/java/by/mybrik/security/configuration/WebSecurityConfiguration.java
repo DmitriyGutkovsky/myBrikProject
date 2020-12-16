@@ -1,6 +1,7 @@
 package by.mybrik.security.configuration;
 
 import by.mybrik.security.controller.AuthenticationController;
+import by.mybrik.security.filters.JwtTokenFilter;
 import by.mybrik.security.filters.JwtTokenVerifier;
 import by.mybrik.security.filters.JwtUsernameAndPasswordAuthenticationFilter;
 import by.mybrik.security.service.UserServiceProvider;
@@ -34,11 +35,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserServiceProvider userServiceProvider;
 
-    private  final SecretKey secretKey;
+    @Autowired
+    private JwtTokenFilter jwtFilter;
 
+//    private  final SecretKey secretKey;
+//
     private final JwtTokenConfig jwtConfig;
+//
+//    private final TokenUtils tokenUtils;
 
-    private final TokenUtils tokenUtils;
+//    @Autowired
+//    private final JwtTokenVerifier jwtTokenVerifier;
 
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder,
@@ -61,14 +68,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        return authenticationTokenFilter;
 //    }
 
-            @Bean
-    public JwtTokenVerifier authenticationTokenFilterBean(AuthenticationManager authenticationManager) throws Exception {
-                JwtTokenVerifier authenticationTokenFilter = new JwtTokenVerifier(secretKey, jwtConfig);
-//        authenticationTokenFilter.setAuthenticationManager(authenticationManager);
-        return authenticationTokenFilter;
-    }
-
-
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -80,9 +79,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-
-
-
 
                 .authorizeRequests()
 
@@ -101,6 +97,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/new/rest/goods/**").hasRole("USER")
 //                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
+
+//        httpSecurity.addFilterBefore(jwtTokenVerifier, UsernamePasswordAuthenticationFilter.class);
+
+        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
     }
 
     //For swagger access only

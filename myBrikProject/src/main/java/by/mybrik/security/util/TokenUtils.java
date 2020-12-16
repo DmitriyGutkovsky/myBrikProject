@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static io.jsonwebtoken.Claims.SUBJECT;
@@ -115,5 +116,23 @@ public class TokenUtils {
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         return username.equals(userDetails.getUsername());
+    }
+
+    //////
+
+    public String extractAuthorities(String token) {
+        Function<Claims, String> claimsListFunction = claims -> {
+            return (String)claims.get("roles");
+        };
+        return extractClaim(token, claimsListFunction);
+    }
+
+    private  <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
+    return Jwts.parser().setSigningKey(jwtTokenConfig.getSecret()).parseClaimsJws(token).getBody();
     }
 }
