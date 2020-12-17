@@ -32,12 +32,6 @@ public class GoodsController {
   public final GoodsRepository goodsRepository;
 
   //  http://localhost:8080/new/rest/goods
-
-  @Secured("ROLE_USER")
-  @ApiImplicitParams(
-          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
-                  required = true, paramType = "header", dataType = "String")
-  )
   @GetMapping
   public ResponseEntity<List<Goods>> findAllGoods() {
     return new ResponseEntity<>(goodsRepository.findAll(), HttpStatus.OK);
@@ -51,6 +45,11 @@ public class GoodsController {
   }
 
   //  http://localhost:8080/new/rest/goods/14
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<Goods> deleteProduct(@PathVariable Long id) {
@@ -78,6 +77,11 @@ public class GoodsController {
   "deleted": false
   }
    */
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Goods createProduct(@RequestBody GoodsCreate createRequest) {
@@ -115,6 +119,11 @@ public class GoodsController {
   "deleted": false
   }
    */
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Goods updateProduct(@PathVariable Long id, @RequestBody GoodsUpdate request) {

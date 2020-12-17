@@ -62,22 +62,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/swagger-resources/**",
             "/configuration/security/**",
             "/swagger-ui.html",
-            "/webjars/**")
-        .permitAll()
-        .antMatchers("/actuator/**")
-        .permitAll()
-        .antMatchers(HttpMethod.GET, "/swagger-ui.html#")
-        .permitAll()
-        .antMatchers(HttpMethod.OPTIONS, "/**")
-        .permitAll()
+            "/webjars/**").permitAll()
+        .antMatchers("/actuator/**").permitAll()
+        .antMatchers(HttpMethod.GET, "/swagger-ui.html#").permitAll()
 
-        //                .antMatchers("/guest/**").permitAll()
-        //                .antMatchers("/new/rest/users/**").permitAll()
-        .antMatchers("/registration/**")
-        .permitAll()
-        //
-        .antMatchers("/authentication/**")
-        .permitAll()
+        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+        .antMatchers("/registration/**").permitAll()
+        .antMatchers("/authentication/**").permitAll()
+        .antMatchers("/new/rest/goods").permitAll()
+        .antMatchers("/new/rest/goods/*").permitAll()
         //                .antMatchers("/admin/**").hasRole("ADMIN")
         .anyRequest()
         .authenticated();
