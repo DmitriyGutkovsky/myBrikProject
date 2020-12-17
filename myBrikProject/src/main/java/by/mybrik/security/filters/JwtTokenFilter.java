@@ -1,8 +1,12 @@
 package by.mybrik.security.filters;
 
+import by.mybrik.domain.Role;
+import by.mybrik.domain.SystemRoles;
+import by.mybrik.repository.impl.UsersRepository;
 import by.mybrik.security.CustomHeaders;
 import by.mybrik.security.service.UserServiceProvider;
 import by.mybrik.security.util.TokenUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,18 +21,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final TokenUtils tokenUtils;
 
-    @Autowired
-    UserServiceProvider  userServiceProvider;
+    private final UsersRepository usersRepository;
 
-    public JwtTokenFilter(TokenUtils tokenUtils) {
-        this.tokenUtils = tokenUtils;
-    }
+//    @Autowired
+//    UserServiceProvider  userServiceProvider;
+
+//    public JwtTokenFilter(TokenUtils tokenUtils) {
+//        this.tokenUtils = tokenUtils;
+//    }
 
 
     @Override
@@ -48,12 +56,20 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
 
         if (login != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            String commaSeparatedListOfAuthorities = tokenUtils.extractAuthorities(jwt);
+//            String commaSeparatedListOfAuthorities = tokenUtils.extractAuthorities(jwt);
 
-            List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(commaSeparatedListOfAuthorities);
+
+            List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(usersRepository.findByLogin(login).get().getRoles().stream()
+                    .map(Role::getRoleName).map(SystemRoles::name)
+                    .collect(Collectors.joining(",")));
+
+
+//            List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(commaSeparatedListOfAuthorities);
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                     new UsernamePasswordAuthenticationToken(
-                            login, null, authorities);
+                            login, null,
+//                            authorities
+                            grantedAuthorities);
 
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
