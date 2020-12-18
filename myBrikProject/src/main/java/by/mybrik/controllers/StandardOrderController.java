@@ -3,8 +3,11 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.standardOrderRequests.StandardOrderCreate;
 import by.mybrik.domain.StandardOrder;
 import by.mybrik.repository.impl.StandardOrderRepository;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +30,14 @@ public class StandardOrderController {
   public final StandardOrderRepository standardOrderRepository;
 
   // http://localhost:8080/new/rest/standardorder
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<StandardOrder> getListOfAllStandardOrders() {
@@ -34,6 +45,14 @@ public class StandardOrderController {
   }
 
   // http://localhost:8080/new/rest/standardorder/1
+  @Secured({"ROLE_ADMIN", "ROLE_USER"})
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<StandardOrder> getStandardOrderById(@PathVariable Long id) {
@@ -41,6 +60,14 @@ public class StandardOrderController {
   }
 
   // http://localhost:8080/new/rest/standardorder/1
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<StandardOrder> deleteStandardOrder(@PathVariable Long id) {
@@ -62,6 +89,14 @@ public class StandardOrderController {
       "orderStatus": "in progress"
   }
    */
+  @Secured({"ROLE_ADMIN", "ROLE_USER"})
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public StandardOrder createStandardOrder(@RequestBody StandardOrderCreate request) {
@@ -87,6 +122,14 @@ public class StandardOrderController {
           "orderStatus": "in progress"
   }
    */
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public StandardOrder updateStandardOrder(

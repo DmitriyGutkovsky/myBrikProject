@@ -4,8 +4,11 @@ import by.mybrik.controllers.requests.textileRequests.TextileCreate;
 import by.mybrik.controllers.requests.textileRequests.TextileUpdate;
 import by.mybrik.domain.Textile;
 import by.mybrik.repository.impl.TextileRepository;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +45,14 @@ public class TextileController {
   }
 
   // http://localhost:8080/new/rest/textile/6
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<Textile> deleteTextileById(@PathVariable("id") Long id) {
@@ -65,6 +76,14 @@ public class TextileController {
       "deleted": false
   }
    */
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Textile addNewTextile(@RequestBody TextileCreate request) {
@@ -92,6 +111,14 @@ public class TextileController {
       "deleted": false
   }
    */
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Textile updateTextile(@PathVariable("id") Long id, @RequestBody TextileUpdate request) {

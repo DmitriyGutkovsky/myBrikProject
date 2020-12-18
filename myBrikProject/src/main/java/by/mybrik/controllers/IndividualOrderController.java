@@ -4,9 +4,12 @@ import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderCre
 import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderUpdate;
 import by.mybrik.domain.IndividualOrder;
 import by.mybrik.repository.impl.IndividualOrderRepository;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +33,11 @@ public class IndividualOrderController {
 
   // http://localhost:8080/new/rest/individualorder
   @ApiOperation(value = "Endpoint for getting full list of individual orders")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<IndividualOrder> getListOfAllIndividualOrders() {
@@ -38,6 +46,11 @@ public class IndividualOrderController {
 
   // http://localhost:8080/new/rest/individualorder/1
   @ApiOperation(value = "Endpoint for getting an individual order by id")
+  @Secured({"ROLE_ADMIN", "ROLE_ADMIN"})
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<IndividualOrder> getIndividualOrderById(@PathVariable Long id) {
@@ -46,6 +59,11 @@ public class IndividualOrderController {
 
   // http://localhost:8080/new/rest/individualorder/1
   @ApiOperation(value = "Endpoint for hard deleting an individual order from database by id")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<IndividualOrder> deleteIndividualOrder(@PathVariable Long id) {
@@ -70,6 +88,11 @@ public class IndividualOrderController {
    }
     */
   @ApiOperation(value = "Endpoint for creating an individual order")
+  @Secured({"ROLE_ADMIN", "ROLE_USER"})
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public IndividualOrder createIndividualOrder(@RequestBody IndividualOrderCreate request) {
@@ -100,7 +123,12 @@ public class IndividualOrderController {
       "orderStatus": "updated"
   }
   */
-  @ApiOperation(value = "Endpoint for update an individual order")
+  @ApiOperation(value = "Endpoint for creating an individual order")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public IndividualOrder updateIndividualOrder(

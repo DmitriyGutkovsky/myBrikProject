@@ -4,10 +4,13 @@ import by.mybrik.controllers.requests.goodsRequests.GoodsCreate;
 import by.mybrik.controllers.requests.goodsRequests.GoodsUpdate;
 import by.mybrik.domain.Goods;
 import by.mybrik.repository.impl.GoodsRepository;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +49,11 @@ public class GoodsController {
 
   //  http://localhost:8080/new/rest/goods/14
   @ApiOperation(value = "Endpoint for hard deleting product from database by id")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<Goods> deleteProduct(@PathVariable Long id) {
@@ -74,6 +82,11 @@ public class GoodsController {
   }
    */
   @ApiOperation(value = "Endpoint for creating a new product")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Goods createProduct(@RequestBody GoodsCreate createRequest) {
@@ -112,6 +125,11 @@ public class GoodsController {
   }
    */
   @ApiOperation(value = "Endpoint for updating specific product by id")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
+                  required = true, paramType = "header", dataType = "String")
+  )
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Goods updateProduct(@PathVariable Long id, @RequestBody GoodsUpdate request) {
