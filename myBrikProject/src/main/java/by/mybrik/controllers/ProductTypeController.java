@@ -4,8 +4,11 @@ import by.mybrik.controllers.requests.productTypeRequests.ProductTypeCreate;
 import by.mybrik.controllers.requests.productTypeRequests.ProductTypeUpdate;
 import by.mybrik.domain.ProductType;
 import by.mybrik.repository.impl.ProductTypeRepository;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +45,14 @@ public class ProductTypeController {
   }
 
   // http://localhost:8080/new/rest/producttype/4
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @DeleteMapping("{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<ProductType> deleteTypeById(@PathVariable Long id) {
@@ -61,6 +72,14 @@ public class ProductTypeController {
       "deleted": false
   }
    */
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public ProductType addProductType(@RequestBody ProductTypeCreate request) {
@@ -82,6 +101,14 @@ public class ProductTypeController {
       "deleted": false
   }
    */
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public ProductType updateProductType(
