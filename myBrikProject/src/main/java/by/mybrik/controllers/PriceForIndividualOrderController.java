@@ -4,8 +4,11 @@ import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndivid
 import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualUpdate;
 import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.repository.impl.PriceForIndividualOrderRepository;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +46,14 @@ public class PriceForIndividualOrderController {
   }
 
   // http://localhost:8080/new/rest/individualorderprice/3
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<PriceForIndividualOrder> deleteIndividualOrderPriceById(@PathVariable Long id) {
@@ -62,6 +73,14 @@ public class PriceForIndividualOrderController {
       "deleted": false
   }
    */
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public PriceForIndividualOrder addPriceForIndividualOrder(
@@ -83,6 +102,14 @@ public class PriceForIndividualOrderController {
       "deleted": false
   }
   */
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public PriceForIndividualOrder updatePriceForIndividualOrder(
