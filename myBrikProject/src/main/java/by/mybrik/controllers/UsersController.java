@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

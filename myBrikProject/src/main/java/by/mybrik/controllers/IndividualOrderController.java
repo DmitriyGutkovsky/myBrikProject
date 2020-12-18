@@ -45,6 +45,7 @@ public class IndividualOrderController {
   }
 
   // http://localhost:8080/new/rest/individualorder/1
+  @ApiOperation(value = "Endpoint for getting an individual order by id")
   @Secured({"ROLE_ADMIN", "ROLE_ADMIN"})
   @ApiImplicitParams(
           @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
