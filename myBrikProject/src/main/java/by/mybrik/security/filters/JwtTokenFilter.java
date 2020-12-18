@@ -5,6 +5,7 @@ import by.mybrik.domain.SystemRoles;
 import by.mybrik.repository.impl.UsersRepository;
 import by.mybrik.security.CustomHeaders;
 import by.mybrik.security.util.TokenUtils;
+import com.google.common.base.Strings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,11 +39,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     String login = null;
 
-    if (jwt != null) {
+    if (!Strings.isNullOrEmpty(jwt)) {
       login = tokenUtils.getUsernameFromToken(jwt);
     }
 
-    if (login != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+    if (!Strings.isNullOrEmpty(login)  &&
+            SecurityContextHolder.getContext().getAuthentication() == null) {
 
       List<GrantedAuthority> grantedAuthorities =
           AuthorityUtils.commaSeparatedStringToAuthorityList(
