@@ -6,6 +6,7 @@ import by.mybrik.domain.Goods;
 import by.mybrik.repository.impl.GoodsRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,14 @@ public class GoodsController {
   public final GoodsRepository goodsRepository;
 
   //  http://localhost:8080/new/rest/goods
+  @ApiOperation(value = "Endpoint for getting list of all goods")
   @GetMapping
   public ResponseEntity<List<Goods>> findAllGoods() {
     return new ResponseEntity<>(goodsRepository.findAll(), HttpStatus.OK);
   }
 
   // http://localhost:8080/new/rest/goods/13
+  @ApiOperation(value = "Endpoint for getting specific product by id ")
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<Goods> findProductById(@PathVariable("id") Long id) {
@@ -45,6 +48,7 @@ public class GoodsController {
   }
 
   //  http://localhost:8080/new/rest/goods/14
+  @ApiOperation(value = "Endpoint for hard deleting product from database by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
           @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
@@ -77,6 +81,7 @@ public class GoodsController {
   "deleted": false
   }
    */
+  @ApiOperation(value = "Endpoint for creating a new product")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
           @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
@@ -119,6 +124,7 @@ public class GoodsController {
   "deleted": false
   }
    */
+  @ApiOperation(value = "Endpoint for updating specific product by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
           @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",

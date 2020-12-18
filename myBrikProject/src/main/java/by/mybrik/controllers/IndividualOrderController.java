@@ -6,6 +6,7 @@ import by.mybrik.domain.IndividualOrder;
 import by.mybrik.repository.impl.IndividualOrderRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -31,6 +32,7 @@ public class IndividualOrderController {
   public final IndividualOrderRepository individualOrderRepository;
 
   // http://localhost:8080/new/rest/individualorder
+  @ApiOperation(value = "Endpoint for getting full list of individual orders")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
           @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
@@ -55,6 +57,7 @@ public class IndividualOrderController {
   }
 
   // http://localhost:8080/new/rest/individualorder/1
+  @ApiOperation(value = "Endpoint for hard deleting an individual order from database by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
           @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
@@ -83,6 +86,7 @@ public class IndividualOrderController {
      "orderStatus": "created"
    }
     */
+  @ApiOperation(value = "Endpoint for creating an individual order")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(
           @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
@@ -118,6 +122,7 @@ public class IndividualOrderController {
       "orderStatus": "updated"
   }
   */
+  @ApiOperation(value = "Endpoint for creating an individual order")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
           @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
