@@ -3,6 +3,7 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.Criteria;
 import by.mybrik.controllers.requests.goodsRequests.GoodsCreate;
 import by.mybrik.controllers.requests.goodsRequests.GoodsUpdate;
+import by.mybrik.controllers.requests.goodsRequests.Sign;
 import by.mybrik.domain.Goods;
 import by.mybrik.repository.impl.GoodsRepository;
 import io.swagger.annotations.ApiImplicitParam;
@@ -219,5 +220,22 @@ public class GoodsController {
   @GetMapping("/goods_with_price_equal_to")
   public ResponseEntity<List<Goods>> findAllWithPriceEqualQuery(@RequestParam Double price) {
     return new ResponseEntity<>(goodsRepository.findAllByPriceEqualQuery(price), HttpStatus.OK);
+  }
+
+  @ApiOperation(value = "Endpoint for getting a list of all goods with specified size")
+  @GetMapping("/goods_with_size")
+  public ResponseEntity<List<Goods>> findAllSizeQuery(
+      @RequestParam Sign sign, @RequestParam Integer size) {
+
+    switch (sign) {
+      case LESS:
+        return new ResponseEntity<>(goodsRepository.findAllBySizeBefore(size), HttpStatus.OK);
+      case MORE:
+        return new ResponseEntity<>(goodsRepository.findAllBySizeAfter(size), HttpStatus.OK);
+      case EQUAL:
+        return new ResponseEntity<>(goodsRepository.findAllBySize(size), HttpStatus.OK);
+      default:
+        return new ResponseEntity<>(goodsRepository.findAll(), HttpStatus.OK);
+    }
   }
 }

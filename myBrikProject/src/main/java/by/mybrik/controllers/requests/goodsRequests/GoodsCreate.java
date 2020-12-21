@@ -14,7 +14,7 @@ public class GoodsCreate {
 
     private Gender gender;
 
-    private String size;
+    private Integer size;
 
     private String color;
 

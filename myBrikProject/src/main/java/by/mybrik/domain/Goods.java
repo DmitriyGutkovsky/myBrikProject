@@ -35,7 +35,7 @@ public class Goods {
     private Gender gender;
 
     @Column
-    private String size;
+    private Integer size;
 
     @Column
     private String color;
