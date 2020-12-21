@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -164,5 +165,11 @@ public class TextileController {
     product.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return textileRepository.save(product);
+  }
+
+  @ApiOperation(value = "Endpoint for getting a list of all available textile")
+  @GetMapping("/available_textile")
+  public ResponseEntity<List<Textile>> findAllAvailableTextile() {
+    return new ResponseEntity<>(textileRepository.findAllByIsDeletedIsFalse(), HttpStatus.OK);
   }
 }
