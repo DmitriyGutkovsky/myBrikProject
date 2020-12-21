@@ -3,7 +3,7 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.Criteria;
 import by.mybrik.controllers.requests.goodsRequests.GoodsCreate;
 import by.mybrik.controllers.requests.goodsRequests.GoodsUpdate;
-import by.mybrik.controllers.requests.goodsRequests.Sign;
+import by.mybrik.controllers.requests.Comparison;
 import by.mybrik.domain.Goods;
 import by.mybrik.repository.impl.GoodsRepository;
 import io.swagger.annotations.ApiImplicitParam;
@@ -225,9 +225,9 @@ public class GoodsController {
   @ApiOperation(value = "Endpoint for getting a list of all goods with specified size")
   @GetMapping("/goods_with_size")
   public ResponseEntity<List<Goods>> findAllSizeQuery(
-      @RequestParam Sign sign, @RequestParam Integer size) {
+          @RequestParam Comparison comparison, @RequestParam Integer size) {
 
-    switch (sign) {
+    switch (comparison) {
       case LESS:
         return new ResponseEntity<>(goodsRepository.findAllBySizeBefore(size), HttpStatus.OK);
       case MORE:
