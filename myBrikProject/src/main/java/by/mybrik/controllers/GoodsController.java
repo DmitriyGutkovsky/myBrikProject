@@ -192,4 +192,10 @@ public class GoodsController {
 
     return goodsRepository.save(product);
   }
+
+  @ApiOperation(value = "Endpoint for getting a list of all available goods")
+  @GetMapping("/available_goods")
+  public ResponseEntity<List<Goods>> findAllAvailableGoods() {
+    return new ResponseEntity<>(goodsRepository.findAllByisDeletedIsFalse(), HttpStatus.OK);
+  }
 }
