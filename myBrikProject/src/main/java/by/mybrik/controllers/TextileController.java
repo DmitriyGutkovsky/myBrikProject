@@ -6,6 +6,7 @@ import by.mybrik.domain.Textile;
 import by.mybrik.repository.impl.TextileRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -138,5 +140,29 @@ public class TextileController {
     updatedTextile.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return textileRepository.save(updatedTextile);
+  }
+
+  @ApiOperation(
+      value =
+          "Endpoint for  changing status availability for textile: "
+              + "if textile is available - isDeleted should be put on false, "
+              + "if textile is not available - isDeleted should be put on true.")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @PostMapping("/changestatus")
+  public Textile changeStatus(@RequestParam String code, @RequestParam Boolean status) {
+
+    Textile product = textileRepository.findByCode(code);
+
+    product.setDeleted(status);
+    product.setChanged(new Timestamp(System.currentTimeMillis()));
+
+    return textileRepository.save(product);
   }
 }
