@@ -1,5 +1,6 @@
 package by.mybrik.controllers;
 
+import by.mybrik.controllers.requests.Criteria;
 import by.mybrik.controllers.requests.goodsRequests.GoodsCreate;
 import by.mybrik.controllers.requests.goodsRequests.GoodsUpdate;
 import by.mybrik.domain.Goods;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -51,9 +53,12 @@ public class GoodsController {
   @ApiOperation(value = "Endpoint for hard deleting product from database by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
-          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
-                  required = true, paramType = "header", dataType = "String")
-  )
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<Goods> deleteProduct(@PathVariable Long id) {
@@ -84,9 +89,12 @@ public class GoodsController {
   @ApiOperation(value = "Endpoint for creating a new product")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
-          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
-                  required = true, paramType = "header", dataType = "String")
-  )
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Goods createProduct(@RequestBody GoodsCreate createRequest) {
@@ -127,9 +135,12 @@ public class GoodsController {
   @ApiOperation(value = "Endpoint for updating specific product by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
-          @ApiImplicitParam(name = "X-Auth-Token", defaultValue = "token",
-                  required = true, paramType = "header", dataType = "String")
-  )
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Goods updateProduct(@PathVariable Long id, @RequestBody GoodsUpdate request) {
@@ -153,6 +164,30 @@ public class GoodsController {
     product.setPrice(request.getPrice());
     product.setQuantity(request.getQuantity());
     product.setCategory(request.getCategory());
+    product.setChanged(new Timestamp(System.currentTimeMillis()));
+
+    return goodsRepository.save(product);
+  }
+
+  @ApiOperation(
+      value =
+          "Endpoint for  changing status availability for goods: "
+              + "if product is available - isDeleted should be put on false, "
+              + "if product is not available - isDeleted should be put on true.")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @PostMapping("/changestatus")
+  public Goods changeStatus(@ModelAttribute Criteria criteria) {
+
+    Goods product = goodsRepository.findByOrderCode(criteria.getParam());
+
+    product.setDeleted(criteria.getCriteria());
     product.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return goodsRepository.save(product);
