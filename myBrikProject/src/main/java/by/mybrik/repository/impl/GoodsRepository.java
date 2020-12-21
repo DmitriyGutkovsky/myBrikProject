@@ -18,4 +18,7 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
 
   @Query("select u from Goods u where u.price > :query")
   List<Goods> findAllByPriceMoreThanQuery(@Param("query") Double query);
+
+  @Query("select u from Goods u where u.price = :query")
+  List<Goods> findAllByPriceEqualQuery(@Param("query") Double query);
 }

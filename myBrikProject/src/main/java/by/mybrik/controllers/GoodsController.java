@@ -213,4 +213,11 @@ public class GoodsController {
   public ResponseEntity<List<Goods>> findAllWithPriceMoreThanQuery(@RequestParam Double price) {
     return new ResponseEntity<>(goodsRepository.findAllByPriceMoreThanQuery(price), HttpStatus.OK);
   }
+
+  @ApiOperation(
+      value = "Endpoint for getting a list of all goods with a price equal to given price")
+  @GetMapping("/goods_with_price_equal_to")
+  public ResponseEntity<List<Goods>> findAllWithPriceEqualQuery(@RequestParam Double price) {
+    return new ResponseEntity<>(goodsRepository.findAllByPriceEqualQuery(price), HttpStatus.OK);
+  }
 }
