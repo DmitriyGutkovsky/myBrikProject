@@ -10,4 +10,5 @@ public class Criteria {
     private Long id;
 
     private String param;
+
 }

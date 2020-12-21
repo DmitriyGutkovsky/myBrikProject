@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -197,5 +198,11 @@ public class GoodsController {
   @GetMapping("/available_goods")
   public ResponseEntity<List<Goods>> findAllAvailableGoods() {
     return new ResponseEntity<>(goodsRepository.findAllByisDeletedIsFalse(), HttpStatus.OK);
+  }
+
+  @ApiOperation(value = "Endpoint for getting a list of all goods with a price less than given price")
+  @GetMapping("/goods_with_price_less_than")
+  public ResponseEntity<List<Goods>> findAllWithPriceLessThanQuery(@RequestParam Double price) {
+    return new ResponseEntity<>(goodsRepository.findAllByPriceLessThanQuery(price), HttpStatus.OK);
   }
 }
