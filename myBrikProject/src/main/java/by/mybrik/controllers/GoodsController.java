@@ -198,7 +198,7 @@ public class GoodsController {
   @ApiOperation(value = "Endpoint for getting a list of all available goods")
   @GetMapping("/available_goods")
   public ResponseEntity<List<Goods>> findAllAvailableGoods() {
-    return new ResponseEntity<>(goodsRepository.findAllByisDeletedIsFalse(), HttpStatus.OK);
+    return new ResponseEntity<>(goodsRepository.findAllByIsDeletedIsFalse(), HttpStatus.OK);
   }
 
   @ApiOperation(

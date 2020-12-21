@@ -11,7 +11,7 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
 
   Goods findByOrderCode(String orderCode);
 
-  List<Goods> findAllByisDeletedIsFalse();
+  List<Goods> findAllByIsDeletedIsFalse();
 
   @Query("select u from Goods u where u.price < :query")
   List<Goods> findAllByPriceLessThanQuery(@Param("query") Double query);
