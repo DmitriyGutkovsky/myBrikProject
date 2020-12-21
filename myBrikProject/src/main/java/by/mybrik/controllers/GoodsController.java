@@ -200,9 +200,17 @@ public class GoodsController {
     return new ResponseEntity<>(goodsRepository.findAllByisDeletedIsFalse(), HttpStatus.OK);
   }
 
-  @ApiOperation(value = "Endpoint for getting a list of all goods with a price less than given price")
+  @ApiOperation(
+      value = "Endpoint for getting a list of all goods with a price less than given price")
   @GetMapping("/goods_with_price_less_than")
   public ResponseEntity<List<Goods>> findAllWithPriceLessThanQuery(@RequestParam Double price) {
     return new ResponseEntity<>(goodsRepository.findAllByPriceLessThanQuery(price), HttpStatus.OK);
+  }
+
+  @ApiOperation(
+      value = "Endpoint for getting a list of all goods with a price more than given price")
+  @GetMapping("/goods_with_price_more_than")
+  public ResponseEntity<List<Goods>> findAllWithPriceMoreThanQuery(@RequestParam Double price) {
+    return new ResponseEntity<>(goodsRepository.findAllByPriceMoreThanQuery(price), HttpStatus.OK);
   }
 }
