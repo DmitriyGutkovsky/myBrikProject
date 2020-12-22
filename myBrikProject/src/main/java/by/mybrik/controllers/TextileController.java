@@ -172,4 +172,11 @@ public class TextileController {
   public ResponseEntity<List<Textile>> findAllAvailableTextile() {
     return new ResponseEntity<>(textileRepository.findAllByIsDeletedIsFalse(), HttpStatus.OK);
   }
+
+  @ApiOperation(value = "Endpoint for getting a textile  specified by name")
+  @GetMapping("/textile_name")
+  @ResponseStatus(HttpStatus.OK)
+  public Textile findTextileByName(@RequestParam String name) {
+    return textileRepository.findByName(name);
+  }
 }

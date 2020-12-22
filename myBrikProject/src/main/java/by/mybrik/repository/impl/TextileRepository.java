@@ -10,4 +10,6 @@ public interface TextileRepository extends JpaRepository<Textile, Long> {
     Textile findByCode(String code);
 
     List<Textile> findAllByIsDeletedIsFalse();
+
+    Textile findByName(String name);
 }
