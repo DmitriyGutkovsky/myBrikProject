@@ -179,4 +179,11 @@ public class TextileController {
   public Textile findTextileByName(@RequestParam String name) {
     return textileRepository.findByName(name);
   }
+
+  @ApiOperation(value = "Endpoint for getting a list of textile specified by color")
+  @GetMapping("/textile_color")
+  @ResponseStatus(HttpStatus.OK)
+  public List<Textile> findTextileByColor(@RequestParam String color) {
+    return textileRepository.findAllByColor(color);
+  }
 }
