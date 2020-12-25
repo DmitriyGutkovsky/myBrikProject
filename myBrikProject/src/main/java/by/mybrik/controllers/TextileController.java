@@ -2,6 +2,7 @@ package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.textileRequests.TextileCreate;
 import by.mybrik.controllers.requests.textileRequests.TextileUpdate;
+import by.mybrik.domain.ProductType;
 import by.mybrik.domain.Textile;
 import by.mybrik.repository.impl.TextileRepository;
 import io.swagger.annotations.ApiImplicitParam;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -185,5 +187,18 @@ public class TextileController {
   @ResponseStatus(HttpStatus.OK)
   public List<Textile> findTextileByColor(@RequestParam String color) {
     return textileRepository.findAllByColor(color);
+  }
+
+  @ApiOperation(
+      value = "Endpoint for getting a list of all available products for specified textile")
+  @GetMapping("/available_product_types")
+  public ResponseEntity<Set<ProductType>> findAvailableTypes(@RequestParam String name) {
+    if (!textileRepository.existsByName(name)) {
+      // TODO make own Exception
+      throw new RuntimeException();
+    }
+    Textile specifiedTextile = textileRepository.findByName(name);
+    Set<ProductType> productTypes = specifiedTextile.getProductTypes();
+    return new ResponseEntity<>(productTypes, HttpStatus.OK);
   }
 }
