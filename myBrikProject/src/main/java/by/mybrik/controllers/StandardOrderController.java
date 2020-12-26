@@ -202,4 +202,23 @@ public class StandardOrderController {
     }
     return standardOrderRepository.findAllByUserId(id);
   }
+
+  @ApiOperation(value = "Endpoint for calculating a sum of all orders from one user")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @GetMapping("/sum_of_orders_from_one_user")
+  @ResponseStatus(HttpStatus.OK)
+  public Double calculateSumOfOrdersByUser(@RequestParam Long id) {
+    if (!usersRepository.existsById(id)) {
+      // TODO own Exception
+      throw new RuntimeException("there is no such user");
+    }
+    return standardOrderRepository.findSumOfAllStandardOrdersFromUser(id);
+  }
 }
