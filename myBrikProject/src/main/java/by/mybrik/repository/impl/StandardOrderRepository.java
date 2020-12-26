@@ -12,4 +12,7 @@ public interface StandardOrderRepository extends JpaRepository<StandardOrder, Lo
 
     @Query(value = "select sum(orders.totalPrice) from StandardOrder orders where orders.userId = :userId")
     Double findSumOfAllStandardOrdersFromUser(Long userId);
+
+    @Query(value = "select sum(orders.totalPrice) from StandardOrder orders")
+    Double calculateTotalSumOfOrders();
 }
