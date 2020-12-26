@@ -5,6 +5,7 @@ import by.mybrik.domain.StandardOrder;
 import by.mybrik.repository.impl.StandardOrderRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -30,6 +31,7 @@ public class StandardOrderController {
   public final StandardOrderRepository standardOrderRepository;
 
   // http://localhost:8080/new/rest/standardorder
+  @ApiOperation(value = "Endpoint for getting a list of all standard orders")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -45,6 +47,7 @@ public class StandardOrderController {
   }
 
   // http://localhost:8080/new/rest/standardorder/1
+  @ApiOperation(value = "Endpoint for getting a standard order by id")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -55,11 +58,12 @@ public class StandardOrderController {
           dataType = "String"))
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public Optional<StandardOrder> getStandardOrderById(@PathVariable Long id) {
+  public Optional<StandardOrder> findStandardOrderById(@PathVariable Long id) {
     return standardOrderRepository.findById(id);
   }
 
   // http://localhost:8080/new/rest/standardorder/1
+  @ApiOperation(value = "Endpoint for deleting a standard order by id from database")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -89,6 +93,7 @@ public class StandardOrderController {
       "orderStatus": "in progress"
   }
    */
+  @ApiOperation(value = "Endpoint for creating a standard")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -122,6 +127,7 @@ public class StandardOrderController {
           "orderStatus": "in progress"
   }
    */
+  @ApiOperation(value = "Endpoint for updating standard order with specified id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
