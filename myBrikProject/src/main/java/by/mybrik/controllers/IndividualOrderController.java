@@ -236,4 +236,19 @@ public class IndividualOrderController {
     }
     return individualOrderRepository.findSumOfAllIndividualOrdersFromUser(id);
   }
+
+  @ApiOperation(value = "Endpoint for calculating a sum of all individual orders")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @GetMapping("/calculate_total_sum_for_individual_orders")
+  @ResponseStatus(HttpStatus.OK)
+  public Double calculateSumOfAllOrders() {
+    return individualOrderRepository.calculateTotalSumOfOrders();
+  }
 }
