@@ -33,14 +33,14 @@ public class ProductTypeController {
   // http://localhost:8080/new/rest/producttype
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  public List<ProductType> getListOfAllProductTypes() {
+  public List<ProductType> findListOfAllProductTypes() {
     return productTypeRepository.findAll();
   }
 
   // http://localhost:8080/new/rest/producttype/4
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public Optional<ProductType> getProductTypeById(@PathVariable("id") Long id) {
+  public Optional<ProductType> findProductTypeById(@PathVariable("id") Long id) {
     return productTypeRepository.findById(id);
   }
 

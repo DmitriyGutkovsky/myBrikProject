@@ -20,6 +20,5 @@ public interface TextileRepository extends JpaRepository<Textile, Long> {
             "join m_textile mt on mt.id = m.textile_id where mt.name = :name", nativeQuery = true)
     List<Textile> findAllByProductTypes(String name);
 
-
     boolean existsByName(String name);
 }
