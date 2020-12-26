@@ -42,6 +42,7 @@ public class UsersController {
   private final PasswordEncoder passwordEncoder;
 
   // http://localhost:8080/new/rest/users
+  @ApiOperation(value = "Endpoint for getting a list of all users")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -52,11 +53,12 @@ public class UsersController {
           dataType = "String"))
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  public List<Users> getAllUsers() {
+  public List<Users> findAllUsers() {
     return usersRepository.findAll();
   }
 
   // http://localhost:8080/new/rest/users/20
+  @ApiOperation(value = "Endpoint for getting a specified user by id")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -72,6 +74,7 @@ public class UsersController {
   }
 
   // http://localhost:8080/new/rest/users/21
+  @ApiOperation(value = "Endpoint for deleting from Database a specified user by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -105,7 +108,7 @@ public class UsersController {
   "deleted": false
   }
    */
-  @ApiOperation(value = "Endpoint for creation users")
+  @ApiOperation(value = "Endpoint for user creation")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -149,6 +152,7 @@ public class UsersController {
    "deleted": false
    }
    */
+  @ApiOperation(value = "Endpoint for updating user details")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -186,6 +190,7 @@ public class UsersController {
     return usersRepository.save(user);
   }
 
+  @ApiOperation(value = "Endpoint for finding a user by login")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -200,6 +205,7 @@ public class UsersController {
     return usersRepository.findByLogin(login);
   }
 
+  @ApiOperation(value = "Endpoint for getting user roles by user id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
