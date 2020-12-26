@@ -4,7 +4,9 @@ import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderCre
 import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderUpdate;
 import by.mybrik.domain.IndividualOrder;
 import by.mybrik.domain.OrderStatus;
+import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.repository.impl.IndividualOrderRepository;
+import by.mybrik.repository.impl.PriceForIndividualOrderRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +34,8 @@ import java.util.Optional;
 public class IndividualOrderController {
 
   public final IndividualOrderRepository individualOrderRepository;
+
+  public final PriceForIndividualOrderRepository priceForIndividualOrderRepository;
 
   // http://localhost:8080/new/rest/individualorder
   @ApiOperation(value = "Endpoint for getting full list of individual orders")
@@ -111,6 +115,18 @@ public class IndividualOrderController {
   @ResponseStatus(HttpStatus.CREATED)
   public IndividualOrder createIndividualOrder(@RequestBody IndividualOrderCreate request) {
 
+    Long priceId = request.getPriceId();
+
+    if (!priceForIndividualOrderRepository.existsById(priceId)) {
+      // TODO make own Exception
+      throw new RuntimeException("there is no such price");
+    }
+
+    Optional<PriceForIndividualOrder> individualOrderPrice =
+        priceForIndividualOrderRepository.findById(priceId);
+    Double pricePerOnePcs = individualOrderPrice.get().getPrice();
+    Double totalPrice = pricePerOnePcs * request.getQuantity();
+
     IndividualOrder order = new IndividualOrder();
 
     order.setUserId(request.getUserId());
@@ -118,7 +134,7 @@ public class IndividualOrderController {
     order.setProductTypeId(request.getProductTypeId());
     order.setPriceId(request.getPriceId());
     order.setQuantity(request.getQuantity());
-    order.setTotalPrice(request.getTotalPrice());
+    order.setTotalPrice(totalPrice);
     order.setOrderStatus(OrderStatus.SEND);
 
     return individualOrderRepository.save(order);
@@ -153,10 +169,18 @@ public class IndividualOrderController {
       @RequestBody IndividualOrderUpdate request,
       @RequestParam OrderStatus orderStatus) {
 
-    if (!individualOrderRepository.existsById(id)) {
+    Long priceId = request.getPriceId();
+
+    if (!individualOrderRepository.existsById(id)
+        || !priceForIndividualOrderRepository.existsById(priceId)) {
       // TODO own Exception
-      throw new RuntimeException();
+      throw new RuntimeException("there is no such price or individual order");
     }
+
+    Optional<PriceForIndividualOrder> individualOrderPrice =
+        priceForIndividualOrderRepository.findById(priceId);
+    Double pricePerOnePcs = individualOrderPrice.get().getPrice();
+    Double totalPrice = pricePerOnePcs * request.getQuantity();
 
     IndividualOrder updateOrder = individualOrderRepository.getOne(id);
 
@@ -165,7 +189,7 @@ public class IndividualOrderController {
     updateOrder.setProductTypeId(request.getProductTypeId());
     updateOrder.setPriceId(request.getPriceId());
     updateOrder.setQuantity(request.getQuantity());
-    updateOrder.setTotalPrice(request.getTotalPrice());
+    updateOrder.setTotalPrice(totalPrice);
     updateOrder.setOrderStatus(orderStatus);
     updateOrder.setChanged(new Timestamp(System.currentTimeMillis()));
 

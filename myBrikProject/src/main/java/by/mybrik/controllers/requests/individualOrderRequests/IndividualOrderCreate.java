@@ -14,6 +14,4 @@ public class IndividualOrderCreate {
   private long priceId;
 
   private int quantity;
-
-  private double totalPrice;
 }
