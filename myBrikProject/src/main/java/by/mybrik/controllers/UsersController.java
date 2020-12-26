@@ -238,6 +238,12 @@ public class UsersController {
   @ResponseStatus(HttpStatus.OK)
   public Users changeStatus(
       @RequestParam(name = "login") String login, @RequestParam(name = "status") Boolean status) {
+
+    if (!usersRepository.existsByLogin(login)) {
+      // TODO own Exception
+      throw new RuntimeException("user is not exist");
+    }
+
     Users user = usersRepository.findByLogin(login).get();
 
     user.setDeleted(status);
