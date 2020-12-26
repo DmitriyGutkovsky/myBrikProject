@@ -1,6 +1,7 @@
 package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.standardOrderRequests.StandardOrderCreate;
+import by.mybrik.domain.OrderStatus;
 import by.mybrik.domain.StandardOrder;
 import by.mybrik.repository.impl.StandardOrderRepository;
 import io.swagger.annotations.ApiImplicitParam;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -90,7 +92,7 @@ public class StandardOrderController {
       "userId": 10,
       "quantity": 12,
       "totalPrice": 12.0,
-      "orderStatus": "in progress"
+      "orderStatus": "SEND"
   }
    */
   @ApiOperation(value = "Endpoint for creating a standard")
@@ -112,7 +114,7 @@ public class StandardOrderController {
     order.setUserId(request.getUserId());
     order.setQuantity(request.getQuantity());
     order.setTotalPrice(request.getTotalPrice());
-    order.setOrderStatus(request.getOrderStatus());
+    order.setOrderStatus(OrderStatus.SEND);
 
     return standardOrderRepository.save(order);
   }
@@ -139,7 +141,9 @@ public class StandardOrderController {
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public StandardOrder updateStandardOrder(
-      @PathVariable Long id, @RequestBody StandardOrderCreate request) {
+      @PathVariable Long id,
+      @RequestBody StandardOrderCreate request,
+      @RequestParam OrderStatus orderStatus) {
     if (!standardOrderRepository.existsById(id)) {
       // TODO own Exception
       throw new RuntimeException();
@@ -151,7 +155,7 @@ public class StandardOrderController {
     updateOrder.setUserId(request.getUserId());
     updateOrder.setQuantity(request.getQuantity());
     updateOrder.setTotalPrice(request.getTotalPrice());
-    updateOrder.setOrderStatus(request.getOrderStatus());
+    updateOrder.setOrderStatus(orderStatus);
     updateOrder.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return standardOrderRepository.save(updateOrder);

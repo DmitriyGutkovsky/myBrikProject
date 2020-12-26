@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +33,8 @@ public class StandardOrder {
   private Double totalPrice;
 
   @Column(name = "order_status")
-  private String orderStatus;
+  @Enumerated(EnumType.STRING)
+  private OrderStatus orderStatus;
 
   @Column private Timestamp created = new Timestamp(System.currentTimeMillis());
 

@@ -1,5 +1,6 @@
 package by.mybrik.controllers.requests.standardOrderRequests;
 
+import by.mybrik.domain.OrderStatus;
 import lombok.Data;
 
 @Data
@@ -12,7 +13,5 @@ public class StandardOrderCreate {
     private int quantity;
 
     private double totalPrice;
-
-    private String orderStatus;
 
 }
