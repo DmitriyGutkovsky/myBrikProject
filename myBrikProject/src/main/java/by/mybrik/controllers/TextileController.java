@@ -36,6 +36,7 @@ public class TextileController {
   public final TextileRepository textileRepository;
 
   // http://localhost:8080/new/rest/textile
+  @ApiOperation(value = "Endpoint for getting a list of all textile")
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<Textile> getListOfAllTextile() {
@@ -43,6 +44,7 @@ public class TextileController {
   }
 
   // http://localhost:8080/new/rest/textile/5
+  @ApiOperation(value = "Endpoint for getting a textile with specified id")
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<Textile> findTextileById(@PathVariable("id") Long id) {
@@ -50,6 +52,7 @@ public class TextileController {
   }
 
   // http://localhost:8080/new/rest/textile/6
+  @ApiOperation(value = "Endpoint deleting from Database a specified textile by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -81,6 +84,7 @@ public class TextileController {
       "deleted": false
   }
    */
+  @ApiOperation(value = "Endpoint for adding a new textile")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -116,6 +120,7 @@ public class TextileController {
       "deleted": false
   }
    */
+  @ApiOperation(value = "Endpoint for updating information about textile")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
