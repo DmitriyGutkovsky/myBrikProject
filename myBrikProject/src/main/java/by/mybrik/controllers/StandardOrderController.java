@@ -1,8 +1,10 @@
 package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.standardOrderRequests.StandardOrderCreate;
+import by.mybrik.domain.Goods;
 import by.mybrik.domain.OrderStatus;
 import by.mybrik.domain.StandardOrder;
+import by.mybrik.repository.impl.GoodsRepository;
 import by.mybrik.repository.impl.StandardOrderRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -31,6 +33,8 @@ import java.util.Optional;
 public class StandardOrderController {
 
   public final StandardOrderRepository standardOrderRepository;
+
+  public final GoodsRepository goodsRepository;
 
   // http://localhost:8080/new/rest/standardorder
   @ApiOperation(value = "Endpoint for getting a list of all standard orders")
@@ -108,12 +112,22 @@ public class StandardOrderController {
   @ResponseStatus(HttpStatus.CREATED)
   public StandardOrder createStandardOrder(@RequestBody StandardOrderCreate request) {
 
+    if (!goodsRepository.existsById(request.getGoodId())) {
+      // TODO make own Exception
+      throw new RuntimeException();
+    }
+
+    Long productId = request.getGoodId();
+    Optional<Goods> productForPurchase = goodsRepository.findById(productId);
+    Double pricePerOnePcs = productForPurchase.get().getPrice();
+    Double totalPrice = pricePerOnePcs * request.getQuantity();
+
     StandardOrder order = new StandardOrder();
 
     order.setGoodId(request.getGoodId());
     order.setUserId(request.getUserId());
     order.setQuantity(request.getQuantity());
-    order.setTotalPrice(request.getTotalPrice());
+    order.setTotalPrice(totalPrice);
     order.setOrderStatus(OrderStatus.SEND);
 
     return standardOrderRepository.save(order);
@@ -144,17 +158,23 @@ public class StandardOrderController {
       @PathVariable Long id,
       @RequestBody StandardOrderCreate request,
       @RequestParam OrderStatus orderStatus) {
-    if (!standardOrderRepository.existsById(id)) {
+    if (!standardOrderRepository.existsById(id)
+        || !goodsRepository.existsById(request.getGoodId())) {
       // TODO own Exception
-      throw new RuntimeException();
+      throw new RuntimeException("there is no such order or product");
     }
+
+    Long productId = request.getGoodId();
+    Optional<Goods> productForPurchase = goodsRepository.findById(productId);
+    Double pricePerOnePcs = productForPurchase.get().getPrice();
+    Double totalPrice = pricePerOnePcs * request.getQuantity();
 
     StandardOrder updateOrder = standardOrderRepository.getOne(id);
 
     updateOrder.setGoodId(request.getGoodId());
     updateOrder.setUserId(request.getUserId());
     updateOrder.setQuantity(request.getQuantity());
-    updateOrder.setTotalPrice(request.getTotalPrice());
+    updateOrder.setTotalPrice(totalPrice);
     updateOrder.setOrderStatus(orderStatus);
     updateOrder.setChanged(new Timestamp(System.currentTimeMillis()));
 
