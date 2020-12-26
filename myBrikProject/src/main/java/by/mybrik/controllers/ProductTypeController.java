@@ -6,6 +6,7 @@ import by.mybrik.domain.ProductType;
 import by.mybrik.repository.impl.ProductTypeRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -127,5 +129,12 @@ public class ProductTypeController {
     updateType.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return productTypeRepository.save(updateType);
+  }
+
+  @ApiOperation(value = "Endpoint for getting a specified product type")
+  @GetMapping("/product_type")
+  @ResponseStatus(HttpStatus.OK)
+  public ProductType findTextileByColor(@RequestParam String type) {
+    return productTypeRepository.findByProductType(type);
   }
 }
