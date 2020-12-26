@@ -220,4 +220,29 @@ public class UsersController {
     Set<Role> roles = usersRepository.getOne(userId).getRoles();
     return roles;
   }
+
+  @ApiOperation(
+      value =
+          "Endpoint for changing user status: "
+              + "if account is active isDeleted should be put on false, "
+              + "if account is not active isDeleted should be put on true")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @GetMapping("/change_status")
+  @ResponseStatus(HttpStatus.OK)
+  public Users changeStatus(
+      @RequestParam(name = "login") String login, @RequestParam(name = "status") Boolean status) {
+    Users user = usersRepository.findByLogin(login).get();
+
+    user.setDeleted(status);
+    user.setChanged(new Timestamp(System.currentTimeMillis()));
+
+    return usersRepository.save(user);
+  }
 }
