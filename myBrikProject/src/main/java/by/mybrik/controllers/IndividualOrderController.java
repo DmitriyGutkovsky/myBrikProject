@@ -7,6 +7,7 @@ import by.mybrik.domain.OrderStatus;
 import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.repository.impl.IndividualOrderRepository;
 import by.mybrik.repository.impl.PriceForIndividualOrderRepository;
+import by.mybrik.repository.impl.UsersRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +37,8 @@ public class IndividualOrderController {
   public final IndividualOrderRepository individualOrderRepository;
 
   public final PriceForIndividualOrderRepository priceForIndividualOrderRepository;
+
+  public final UsersRepository usersRepository;
 
   // http://localhost:8080/new/rest/individualorder
   @ApiOperation(value = "Endpoint for getting full list of individual orders")
@@ -194,5 +197,24 @@ public class IndividualOrderController {
     updateOrder.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return individualOrderRepository.save(updateOrder);
+  }
+
+  @ApiOperation(value = "Endpoint for getting a list of all individual orders for specified user")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @GetMapping("/user_order_list")
+  @ResponseStatus(HttpStatus.OK)
+  public List<IndividualOrder> getListOfAllStandardOrdersByUser(@RequestParam Long id) {
+    if (!usersRepository.existsById(id)) {
+      // TODO own Exception
+      throw new RuntimeException("there is no such user");
+    }
+    return individualOrderRepository.findAllByUserId(id);
   }
 }
