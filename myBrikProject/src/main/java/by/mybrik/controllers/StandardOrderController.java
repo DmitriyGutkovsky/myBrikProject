@@ -6,6 +6,7 @@ import by.mybrik.domain.OrderStatus;
 import by.mybrik.domain.StandardOrder;
 import by.mybrik.repository.impl.GoodsRepository;
 import by.mybrik.repository.impl.StandardOrderRepository;
+import by.mybrik.repository.impl.UsersRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -35,6 +36,8 @@ public class StandardOrderController {
   public final StandardOrderRepository standardOrderRepository;
 
   public final GoodsRepository goodsRepository;
+
+  public final UsersRepository usersRepository;
 
   // http://localhost:8080/new/rest/standardorder
   @ApiOperation(value = "Endpoint for getting a list of all standard orders")
@@ -179,5 +182,24 @@ public class StandardOrderController {
     updateOrder.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return standardOrderRepository.save(updateOrder);
+  }
+
+  @ApiOperation(value = "Endpoint for getting a list of all standard orders for specified user")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @GetMapping("/user_order_list")
+  @ResponseStatus(HttpStatus.OK)
+  public List<StandardOrder> getListOfAllStandardOrdersByUser(@RequestParam Long id) {
+    if (!usersRepository.existsById(id)) {
+      // TODO own Exception
+      throw new RuntimeException("there is no such user");
+    }
+    return standardOrderRepository.findAllByUserId(id);
   }
 }
