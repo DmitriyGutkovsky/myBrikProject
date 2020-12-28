@@ -5,9 +5,9 @@
   <nodes>
     <node x="204.0" y="55.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_textile</node>
     <node x="389.0" y="88.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_price_for_individual_order</node>
-    <node x="897.5" y="0.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_goods</node>
-    <node x="44.625" y="478.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_textile_product_type</node>
     <node x="330.375" y="401.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_individual_order</node>
+    <node x="44.625" y="478.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_textile_product_type</node>
+    <node x="897.5" y="0.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_goods</node>
     <node x="8.0" y="88.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_product_type</node>
     <node x="842.0" y="423.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_standard_order</node>
     <node x="663.0" y="478.0">9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_roles</node>
@@ -31,27 +31,21 @@
       <point x="140.0" y="371.0" />
       <point x="44.0" y="82.5" />
     </edge>
-    <edge source="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_roles" target="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_users">
-      <point x="0.0" y="-49.5" />
-      <point x="0.0" y="148.5" />
-    </edge>
     <edge source="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_individual_order" target="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_price_for_individual_order">
       <point x="23.0" y="-126.5" />
       <point x="445.375" y="371.0" />
       <point x="517.0" y="371.0" />
       <point x="0.0" y="82.5" />
     </edge>
+    <edge source="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_roles" target="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_users">
+      <point x="0.0" y="-49.5" />
+      <point x="0.0" y="148.5" />
+    </edge>
     <edge source="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_textile_product_type" target="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_product_type">
       <point x="-52.0" y="-49.5" />
       <point x="96.625" y="381.0" />
       <point x="52.0" y="381.0" />
       <point x="-44.0" y="82.5" />
-    </edge>
-    <edge source="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_individual_order" target="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_textile">
-      <point x="-23.0" y="-126.5" />
-      <point x="399.375" y="361.0" />
-      <point x="327.75" y="361.0" />
-      <point x="41.25" y="115.5" />
     </edge>
     <edge source="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_individual_order" target="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_users">
       <point x="69.0" y="-126.5" />
@@ -65,8 +59,14 @@
       <point x="245.25" y="381.0" />
       <point x="-41.25" y="115.5" />
     </edge>
+    <edge source="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_individual_order" target="9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_textile">
+      <point x="-23.0" y="-126.5" />
+      <point x="399.375" y="361.0" />
+      <point x="327.75" y="361.0" />
+      <point x="41.25" y="115.5" />
+    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.7818991097922848" x="531.5" y="327.0" />
+  <settings layout="Hierarchic Group" zoom="0.7818991097922848" x="369.0749525616699" y="327.0" />
   <SelectedNodes>
     <node>9e1adeb2-8761-49ca-8d2c-417eb77c3c29.TABLE:my_brik_database.public.m_goods</node>
   </SelectedNodes>

@@ -6,6 +6,7 @@ import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.repository.impl.PriceForIndividualOrderRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -31,6 +32,7 @@ public class PriceForIndividualOrderController {
   public final PriceForIndividualOrderRepository priceForIndividualOrderRepository;
 
   // http://localhost:8080/new/rest/individualorderprice
+  @ApiOperation(value = "Endpoint for getting a list of all prices for individual orders")
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<PriceForIndividualOrder> getListOfAllPrices() {
@@ -38,6 +40,7 @@ public class PriceForIndividualOrderController {
   }
 
   // http://localhost:8080/new/rest/individualorderprice/3
+  @ApiOperation(value = "Endpoint for getting a price for individual order specified by id")
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<PriceForIndividualOrder> getIndividualOrderPriceById(
@@ -46,6 +49,7 @@ public class PriceForIndividualOrderController {
   }
 
   // http://localhost:8080/new/rest/individualorderprice/3
+  @ApiOperation(value = "Endpoint for deleting a price for individual order from database")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -73,6 +77,7 @@ public class PriceForIndividualOrderController {
       "deleted": false
   }
    */
+  @ApiOperation(value = "Endpoint for adding a price for individual order")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -102,6 +107,7 @@ public class PriceForIndividualOrderController {
       "deleted": false
   }
   */
+  @ApiOperation(value = "Endpoint for updating information about price for individual order")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
