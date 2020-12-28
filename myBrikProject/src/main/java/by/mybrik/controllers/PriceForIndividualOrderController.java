@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -183,5 +184,12 @@ public class PriceForIndividualOrderController {
     }
 
     return pricebyProductType;
+  }
+
+  @ApiOperation(value = "Endpoint for getting a list of all available prices")
+  @GetMapping("/available_prices")
+  public ResponseEntity<List<PriceForIndividualOrder>> findAllAvailablePrices() {
+    return new ResponseEntity<>(
+        priceForIndividualOrderRepository.findAllByIsDeletedIsFalse(), HttpStatus.OK);
   }
 }
