@@ -5,6 +5,7 @@ import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderUpd
 import by.mybrik.domain.IndividualOrder;
 import by.mybrik.domain.OrderStatus;
 import by.mybrik.domain.PriceForIndividualOrder;
+import by.mybrik.exceptions.EntityNotFoundException;
 import by.mybrik.repository.impl.IndividualOrderRepository;
 import by.mybrik.repository.impl.PriceForIndividualOrderRepository;
 import by.mybrik.repository.impl.UsersRepository;
@@ -86,8 +87,7 @@ public class IndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<IndividualOrder> deleteIndividualOrder(@PathVariable Long id) {
     if (!individualOrderRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no individual order with id = " + id);
     }
     individualOrderRepository.deleteById(id);
     return individualOrderRepository.findAll();
@@ -121,8 +121,7 @@ public class IndividualOrderController {
     Long priceId = request.getPriceId();
 
     if (!priceForIndividualOrderRepository.existsById(priceId)) {
-      // TODO make own Exception
-      throw new RuntimeException("there is no such price");
+      throw new EntityNotFoundException("There is no such price for individual order");
     }
 
     Optional<PriceForIndividualOrder> individualOrderPrice =
@@ -176,8 +175,7 @@ public class IndividualOrderController {
 
     if (!individualOrderRepository.existsById(id)
         || !priceForIndividualOrderRepository.existsById(priceId)) {
-      // TODO own Exception
-      throw new RuntimeException("there is no such price or individual order");
+      throw new EntityNotFoundException("There is no such price for individual order");
     }
 
     Optional<PriceForIndividualOrder> individualOrderPrice =
@@ -212,8 +210,7 @@ public class IndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<IndividualOrder> getListOfAllStandardOrdersByUser(@RequestParam Long id) {
     if (!usersRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException("there is no such user");
+      throw new EntityNotFoundException("There is such user, please check again");
     }
     return individualOrderRepository.findAllByUserId(id);
   }
@@ -231,8 +228,7 @@ public class IndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public Double calculateSumOfOrdersByUser(@RequestParam Long id) {
     if (!usersRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException("there is no such user");
+      throw new EntityNotFoundException("There is such user, please check again");
     }
     return individualOrderRepository.findSumOfAllIndividualOrdersFromUser(id);
   }
