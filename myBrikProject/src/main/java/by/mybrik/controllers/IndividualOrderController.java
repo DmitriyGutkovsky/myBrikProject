@@ -156,7 +156,7 @@ public class IndividualOrderController {
       "orderStatus": "updated"
   }
   */
-  @ApiOperation(value = "Endpoint for creating an individual order")
+  @ApiOperation(value = "Endpoint for updating information about individual order")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
