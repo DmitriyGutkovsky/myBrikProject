@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -144,19 +145,19 @@ public class ProductTypeController {
   }
 
   @ApiOperation(
-          value =
-                  "Endpoint for  changing status availability for product type: "
-                          + "if product type is available - isDeleted should be put on false, "
-                          + "if product type is not available - isDeleted should be put on true.")
+      value =
+          "Endpoint for  changing status availability for product type: "
+              + "if product type is available - isDeleted should be put on false, "
+              + "if product type is not available - isDeleted should be put on true.")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
-          @ApiImplicitParam(
-                  name = "X-Auth-Token",
-                  defaultValue = "token",
-                  required = true,
-                  paramType = "header",
-                  dataType = "String"))
-  @PostMapping("/changestatus")
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @PostMapping("/change_status")
   public ProductType changeStatus(@RequestParam String productType, @RequestParam Boolean status) {
 
     ProductType product = productTypeRepository.findByProductType(productType);
@@ -165,5 +166,11 @@ public class ProductTypeController {
     product.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return productTypeRepository.save(product);
+  }
+
+  @ApiOperation(value = "Endpoint for getting a list of all available product types")
+  @GetMapping("/available_product_types")
+  public ResponseEntity<List<ProductType>> findAllAvailableProductTypes() {
+    return new ResponseEntity<>(productTypeRepository.findAllByIsDeletedIsFalse(), HttpStatus.OK);
   }
 }
