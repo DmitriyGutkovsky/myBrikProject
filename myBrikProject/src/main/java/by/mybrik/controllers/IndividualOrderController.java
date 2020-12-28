@@ -175,7 +175,7 @@ public class IndividualOrderController {
 
     if (!individualOrderRepository.existsById(id)
         || !priceForIndividualOrderRepository.existsById(priceId)) {
-      throw new EntityNotFoundException("There is no such price for individual order");
+      throw new EntityNotFoundException("There is no such individual order or price for it");
     }
 
     Optional<PriceForIndividualOrder> individualOrderPrice =

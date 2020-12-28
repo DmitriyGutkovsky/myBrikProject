@@ -3,6 +3,7 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualCreate;
 import by.mybrik.controllers.requests.priceForIndividualRequests.PriceForIndividualUpdate;
 import by.mybrik.domain.PriceForIndividualOrder;
+import by.mybrik.exceptions.EntityNotFoundException;
 import by.mybrik.repository.impl.PriceForIndividualOrderRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -64,8 +65,7 @@ public class PriceForIndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<PriceForIndividualOrder> deleteIndividualOrderPriceById(@PathVariable Long id) {
     if (!priceForIndividualOrderRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no such price for individual order");
     }
     priceForIndividualOrderRepository.deleteById(id);
     return priceForIndividualOrderRepository.findAll();
@@ -124,8 +124,7 @@ public class PriceForIndividualOrderController {
       @PathVariable("id") Long id, @RequestBody PriceForIndividualUpdate request) {
 
     if (!priceForIndividualOrderRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no such price for individual order");
     }
 
     PriceForIndividualOrder price = priceForIndividualOrderRepository.getOne(id);
@@ -171,16 +170,14 @@ public class PriceForIndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public PriceForIndividualOrder getIndividualOrderPriceByProductType(@RequestParam String type) {
     if (!priceForIndividualOrderRepository.existsByProductType(type)) {
-      // TODO make own exception
-      throw new RuntimeException("there is no price for such product");
+      throw new EntityNotFoundException("There is no price for such product");
     }
 
     PriceForIndividualOrder pricebyProductType =
         priceForIndividualOrderRepository.findPriceForIndividualOrderByProductType(type);
 
     if (pricebyProductType.isDeleted()) {
-      // TODO: make own exception
-      throw new RuntimeException("price for this product is not active");
+      throw new EntityNotFoundException("Price for this product is not active");
     }
 
     return pricebyProductType;
