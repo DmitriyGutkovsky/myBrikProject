@@ -3,6 +3,7 @@ package by.mybrik.controllers;
 import by.mybrik.controllers.requests.productTypeRequests.ProductTypeCreate;
 import by.mybrik.controllers.requests.productTypeRequests.ProductTypeUpdate;
 import by.mybrik.domain.ProductType;
+import by.mybrik.exceptions.EntityNotFoundException;
 import by.mybrik.repository.impl.ProductTypeRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -63,8 +64,7 @@ public class ProductTypeController {
   @ResponseStatus(HttpStatus.OK)
   public List<ProductType> deleteTypeById(@PathVariable Long id) {
     if (!productTypeRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no product with id = " + id);
     }
     productTypeRepository.deleteById(id);
     return productTypeRepository.findAll();
@@ -123,8 +123,7 @@ public class ProductTypeController {
       @PathVariable Long id, @RequestBody ProductTypeUpdate request) {
 
     if (!productTypeRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no product with id = " + id);
     }
 
     ProductType updateType = productTypeRepository.getOne(id);
