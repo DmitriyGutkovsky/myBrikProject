@@ -5,6 +5,7 @@ import by.mybrik.controllers.requests.Criteria;
 import by.mybrik.controllers.requests.goodsRequests.GoodsCreate;
 import by.mybrik.controllers.requests.goodsRequests.GoodsUpdate;
 import by.mybrik.domain.Goods;
+import by.mybrik.exceptions.EntityNotFoundException;
 import by.mybrik.repository.impl.GoodsRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -65,8 +66,7 @@ public class GoodsController {
   @ResponseStatus(HttpStatus.OK)
   public List<Goods> deleteProduct(@PathVariable Long id) {
     if (!goodsRepository.existsById(id)) {
-      // TODO make own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no product with id= " + id);
     }
     goodsRepository.deleteById(id);
     return goodsRepository.findAll();
@@ -148,8 +148,7 @@ public class GoodsController {
   public Goods updateProduct(@PathVariable Long id, @RequestBody GoodsUpdate request) {
 
     if (!goodsRepository.existsById(id)) {
-      // TODO make own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no product with id= " + id);
     }
 
     Goods product = goodsRepository.getOne(id);
