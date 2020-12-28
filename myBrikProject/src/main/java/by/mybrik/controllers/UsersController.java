@@ -261,7 +261,7 @@ public class UsersController {
           required = true,
           paramType = "header",
           dataType = "String"))
-  @PostMapping("/adding_role_to_user")
+  @PutMapping("/adding_role_to_user")
   @ResponseStatus(HttpStatus.OK)
   public Role addRole(@RequestParam Long userId, @RequestParam SystemRoles grantedRole) {
 
@@ -283,5 +283,36 @@ public class UsersController {
     role.setUser(user.get());
 
     return roleRepository.save(role);
+  }
+
+  @ApiOperation(value = "Endpoint for deleting a role from user")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @DeleteMapping("/delete_role_from_user")
+  @ResponseStatus(HttpStatus.OK)
+  public List<Users> deleteRole(@RequestParam Long userId, @RequestParam SystemRoles grantedRole) {
+
+    if (!usersRepository.existsById(userId)) {
+      throw new EntityNotFoundException("There is no user with id = " + userId);
+    }
+
+    Optional<Users> user = usersRepository.findById(userId);
+
+    List<SystemRoles> collectedRoles =
+        user.get().getRoles().stream().map(Role::getRoleName).collect(Collectors.toList());
+
+    if (!collectedRoles.contains(grantedRole)) {
+      throw new EntityNotFoundException("User doesn't have such role");
+    }
+
+    roleRepository.deleteQuery(userId, grantedRole.name());
+
+    return usersRepository.findAll();
   }
 }
