@@ -6,6 +6,7 @@ import by.mybrik.domain.Role;
 import by.mybrik.domain.SystemRoles;
 import by.mybrik.domain.Users;
 import by.mybrik.exceptions.EntityNotFoundException;
+import by.mybrik.repository.impl.RoleRepository;
 import by.mybrik.repository.impl.UsersRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -30,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -246,5 +248,40 @@ public class UsersController {
     user.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return usersRepository.save(user);
+  }
+
+  public final RoleRepository roleRepository;
+
+  @ApiOperation(value = "Endpoint for granting to user new role")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @PostMapping("/adding_role_to_user")
+  @ResponseStatus(HttpStatus.OK)
+  public Role addRole(@RequestParam Long userId, @RequestParam SystemRoles grantedRole) {
+
+    if (!usersRepository.existsById(userId)) {
+      throw new EntityNotFoundException("There is no user with id = " + userId);
+    }
+
+    Optional<Users> user = usersRepository.findById(userId);
+
+    List<SystemRoles> collectedRoles =
+        user.get().getRoles().stream().map(Role::getRoleName).collect(Collectors.toList());
+
+    if (collectedRoles.contains(grantedRole)) {
+      throw new EntityNotFoundException("User already has such role");
+    }
+
+    Role role = new Role();
+    role.setRoleName(grantedRole);
+    role.setUser(user.get());
+
+    return roleRepository.save(role);
   }
 }
