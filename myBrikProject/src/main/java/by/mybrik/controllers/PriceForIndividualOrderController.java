@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -131,6 +132,32 @@ public class PriceForIndividualOrderController {
     price.setProductType(request.getProductType());
     price.setPrice(request.getPrice());
     price.setDeleted(request.isDeleted());
+    price.setChanged(new Timestamp(System.currentTimeMillis()));
+
+    return priceForIndividualOrderRepository.save(price);
+  }
+
+  @ApiOperation(
+      value =
+          "Endpoint for changing status availability of price for individual order: "
+              + "if price is available - isDeleted should be put on false, "
+              + "if price is not available - isDeleted should be put on true.")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @PostMapping("/change_status")
+  public PriceForIndividualOrder changeStatus(
+      @RequestParam String productType, @RequestParam Boolean status) {
+
+    PriceForIndividualOrder price =
+        priceForIndividualOrderRepository.findPriceForIndividualOrderByProductType(productType);
+
+    price.setDeleted(status);
     price.setChanged(new Timestamp(System.currentTimeMillis()));
 
     return priceForIndividualOrderRepository.save(price);
