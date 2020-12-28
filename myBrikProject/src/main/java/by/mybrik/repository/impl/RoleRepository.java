@@ -14,5 +14,5 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
   @Query(
       value = "delete from m_roles where user_id = :userId and role_name = :roleName",
       nativeQuery = true)
-  int deleteQuery(@Param("userId") Long userId, @Param("roleName") String roles);
+  void deleteQuery(@Param("userId") Long userId, @Param("roleName") String roles);
 }

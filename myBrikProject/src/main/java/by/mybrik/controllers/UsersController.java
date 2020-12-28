@@ -296,7 +296,7 @@ public class UsersController {
           dataType = "String"))
   @DeleteMapping("/delete_role_from_user")
   @ResponseStatus(HttpStatus.OK)
-  public List<Users> deleteRole(@RequestParam Long userId, @RequestParam SystemRoles grantedRole) {
+  public List<Users> deleteRole(@RequestParam Long userId, @RequestParam SystemRoles deletedRole) {
 
     if (!usersRepository.existsById(userId)) {
       throw new EntityNotFoundException("There is no user with id = " + userId);
@@ -307,11 +307,11 @@ public class UsersController {
     List<SystemRoles> collectedRoles =
         user.get().getRoles().stream().map(Role::getRoleName).collect(Collectors.toList());
 
-    if (!collectedRoles.contains(grantedRole)) {
+    if (!collectedRoles.contains(deletedRole)) {
       throw new EntityNotFoundException("User doesn't have such role");
     }
 
-    roleRepository.deleteQuery(userId, grantedRole.name());
+    roleRepository.deleteQuery(userId, deletedRole.name());
 
     return usersRepository.findAll();
   }
