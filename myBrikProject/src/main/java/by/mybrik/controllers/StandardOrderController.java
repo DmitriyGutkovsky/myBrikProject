@@ -4,6 +4,7 @@ import by.mybrik.controllers.requests.standardOrderRequests.StandardOrderCreate;
 import by.mybrik.domain.Goods;
 import by.mybrik.domain.OrderStatus;
 import by.mybrik.domain.StandardOrder;
+import by.mybrik.exceptions.EntityNotFoundException;
 import by.mybrik.repository.impl.GoodsRepository;
 import by.mybrik.repository.impl.StandardOrderRepository;
 import by.mybrik.repository.impl.UsersRepository;
@@ -85,8 +86,7 @@ public class StandardOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<StandardOrder> deleteStandardOrder(@PathVariable Long id) {
     if (!standardOrderRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no order with id = " + id);
     }
     standardOrderRepository.deleteById(id);
     return standardOrderRepository.findAll();
@@ -116,8 +116,7 @@ public class StandardOrderController {
   public StandardOrder createStandardOrder(@RequestBody StandardOrderCreate request) {
 
     if (!goodsRepository.existsById(request.getGoodId())) {
-      // TODO make own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no such product, please check again");
     }
 
     Long productId = request.getGoodId();
@@ -163,8 +162,7 @@ public class StandardOrderController {
       @RequestParam OrderStatus orderStatus) {
     if (!standardOrderRepository.existsById(id)
         || !goodsRepository.existsById(request.getGoodId())) {
-      // TODO own Exception
-      throw new RuntimeException("there is no such order or product");
+      throw new EntityNotFoundException("There is no order or product");
     }
 
     Long productId = request.getGoodId();
@@ -197,8 +195,7 @@ public class StandardOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<StandardOrder> getListOfAllStandardOrdersByUser(@RequestParam Long id) {
     if (!usersRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException("there is no such user");
+      throw new EntityNotFoundException("There is no such user");
     }
     return standardOrderRepository.findAllByUserId(id);
   }
@@ -216,8 +213,7 @@ public class StandardOrderController {
   @ResponseStatus(HttpStatus.OK)
   public Double calculateSumOfOrdersByUser(@RequestParam Long id) {
     if (!usersRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException("there is no such user");
+      throw new EntityNotFoundException("There is no such user");
     }
     return standardOrderRepository.findSumOfAllStandardOrdersFromUser(id);
   }
