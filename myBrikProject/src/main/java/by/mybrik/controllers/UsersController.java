@@ -1,11 +1,11 @@
 package by.mybrik.controllers;
 
-import by.mybrik.controllers.requests.roleRequests.RoleUpdate;
 import by.mybrik.controllers.requests.usersRequests.UserCreate;
 import by.mybrik.controllers.requests.usersRequests.UsersUpdate;
 import by.mybrik.domain.Role;
 import by.mybrik.domain.SystemRoles;
 import by.mybrik.domain.Users;
+import by.mybrik.exceptions.EntityNotFoundException;
 import by.mybrik.repository.impl.UsersRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -16,7 +16,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -87,8 +86,7 @@ public class UsersController {
   @ResponseStatus(HttpStatus.OK)
   public List<Users> deleteUserById(@PathVariable("id") Long id) {
     if (!usersRepository.existsById(id)) {
-      // TODO make own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no user with id = " + id);
     }
     usersRepository.deleteById(id);
     return usersRepository.findAll();
@@ -168,8 +166,7 @@ public class UsersController {
     // @ModelAttribute RoleUpdate roleUpdate) {
 
     if (!usersRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no user with id = " + id);
     }
 
     Users user = usersRepository.getOne(id);
@@ -240,8 +237,7 @@ public class UsersController {
       @RequestParam(name = "login") String login, @RequestParam(name = "status") Boolean status) {
 
     if (!usersRepository.existsByLogin(login)) {
-      // TODO own Exception
-      throw new RuntimeException("user is not exist");
+      throw new EntityNotFoundException("There is no user with login = " + login);
     }
 
     Users user = usersRepository.findByLogin(login).get();
