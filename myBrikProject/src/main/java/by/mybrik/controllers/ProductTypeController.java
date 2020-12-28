@@ -142,4 +142,28 @@ public class ProductTypeController {
   public ProductType findProductByType(@RequestParam String type) {
     return productTypeRepository.findByProductType(type);
   }
+
+  @ApiOperation(
+          value =
+                  "Endpoint for  changing status availability for product type: "
+                          + "if product type is available - isDeleted should be put on false, "
+                          + "if product type is not available - isDeleted should be put on true.")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+          @ApiImplicitParam(
+                  name = "X-Auth-Token",
+                  defaultValue = "token",
+                  required = true,
+                  paramType = "header",
+                  dataType = "String"))
+  @PostMapping("/changestatus")
+  public ProductType changeStatus(@RequestParam String productType, @RequestParam Boolean status) {
+
+    ProductType product = productTypeRepository.findByProductType(productType);
+
+    product.setDeleted(status);
+    product.setChanged(new Timestamp(System.currentTimeMillis()));
+
+    return productTypeRepository.save(product);
+  }
 }
