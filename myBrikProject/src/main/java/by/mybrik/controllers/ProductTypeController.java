@@ -33,6 +33,7 @@ public class ProductTypeController {
   public final ProductTypeRepository productTypeRepository;
 
   // http://localhost:8080/new/rest/producttype
+  @ApiOperation(value = "Endpoint for getting a list of all product types")
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<ProductType> findListOfAllProductTypes() {
@@ -40,6 +41,7 @@ public class ProductTypeController {
   }
 
   // http://localhost:8080/new/rest/producttype/4
+  @ApiOperation(value = "Endpoint for getting a product type specified by id")
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<ProductType> findProductTypeById(@PathVariable("id") Long id) {
@@ -47,6 +49,7 @@ public class ProductTypeController {
   }
 
   // http://localhost:8080/new/rest/producttype/4
+  @ApiOperation(value = "Endpoint for deleting product type from database")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -74,6 +77,7 @@ public class ProductTypeController {
       "deleted": false
   }
    */
+  @ApiOperation(value = "Endpoint for adding a new product type")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -103,6 +107,7 @@ public class ProductTypeController {
       "deleted": false
   }
    */
+  @ApiOperation(value = "Endpoint for updating information about a product type")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -134,7 +139,7 @@ public class ProductTypeController {
   @ApiOperation(value = "Endpoint for getting a specified product type")
   @GetMapping("/product_type")
   @ResponseStatus(HttpStatus.OK)
-  public ProductType findTextileByColor(@RequestParam String type) {
+  public ProductType findProductByType(@RequestParam String type) {
     return productTypeRepository.findByProductType(type);
   }
 }
