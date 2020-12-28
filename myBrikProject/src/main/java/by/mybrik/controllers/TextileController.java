@@ -4,6 +4,7 @@ import by.mybrik.controllers.requests.textileRequests.TextileCreate;
 import by.mybrik.controllers.requests.textileRequests.TextileUpdate;
 import by.mybrik.domain.ProductType;
 import by.mybrik.domain.Textile;
+import by.mybrik.exceptions.EntityNotFoundException;
 import by.mybrik.repository.impl.TextileRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -66,8 +67,7 @@ public class TextileController {
   public List<Textile> deleteTextileById(@PathVariable("id") Long id) {
 
     if (!textileRepository.existsById(id)) {
-      // TODO make own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no textile with id = " + id);
     }
     textileRepository.deleteById(id);
     return textileRepository.findAll();
@@ -133,8 +133,7 @@ public class TextileController {
   @ResponseStatus(HttpStatus.OK)
   public Textile updateTextile(@PathVariable("id") Long id, @RequestBody TextileUpdate request) {
     if (!textileRepository.existsById(id)) {
-      // TODO own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no textile with id = " + id);
     }
 
     Textile updatedTextile = textileRepository.getOne(id);
@@ -199,8 +198,7 @@ public class TextileController {
   @GetMapping("/available_product_types")
   public ResponseEntity<Set<ProductType>> findAvailableTypes(@RequestParam String name) {
     if (!textileRepository.existsByName(name)) {
-      // TODO make own Exception
-      throw new RuntimeException();
+      throw new EntityNotFoundException("There is no textile with name = " + name);
     }
     Textile specifiedTextile = textileRepository.findByName(name);
     Set<ProductType> productTypes = specifiedTextile.getProductTypes();
