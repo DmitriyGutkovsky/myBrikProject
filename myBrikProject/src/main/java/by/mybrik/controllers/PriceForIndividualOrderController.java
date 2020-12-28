@@ -162,4 +162,26 @@ public class PriceForIndividualOrderController {
 
     return priceForIndividualOrderRepository.save(price);
   }
+
+  @ApiOperation(
+      value =
+          "Endpoint for getting a price for individual order specified by product type and active price")
+  @GetMapping("/price_by_product_type")
+  @ResponseStatus(HttpStatus.OK)
+  public PriceForIndividualOrder getIndividualOrderPriceByProductType(@RequestParam String type) {
+    if (!priceForIndividualOrderRepository.existsByProductType(type)) {
+      // TODO make own exception
+      throw new RuntimeException("there is no price for such product");
+    }
+
+    PriceForIndividualOrder pricebyProductType =
+        priceForIndividualOrderRepository.findPriceForIndividualOrderByProductType(type);
+
+    if (pricebyProductType.isDeleted()) {
+      // TODO: make own exception
+      throw new RuntimeException("price for this product is not active");
+    }
+
+    return pricebyProductType;
+  }
 }
