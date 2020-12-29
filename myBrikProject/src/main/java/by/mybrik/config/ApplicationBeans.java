@@ -63,7 +63,7 @@ public class ApplicationBeans {
     // Cache: Caffeine configuration
     @Bean
     public CacheManager cacheManager() {
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager("goods");
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager("goods", "textile");
         cacheManager.setCaffeine(cacheProperties());
         return cacheManager;
     }
