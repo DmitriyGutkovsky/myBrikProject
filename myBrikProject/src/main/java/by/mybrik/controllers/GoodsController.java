@@ -186,7 +186,7 @@ public class GoodsController {
   @PostMapping("/changestatus")
   public Goods changeStatus(@ModelAttribute Criteria criteria) {
 
-    Goods product = goodsRepository.findByOrderCode(criteria.getParam());
+    Goods product = goodsRepository.findByOrderCode(criteria.getOrderCode());
 
     product.setDeleted(criteria.getCriteria());
     product.setChanged(new Timestamp(System.currentTimeMillis()));
