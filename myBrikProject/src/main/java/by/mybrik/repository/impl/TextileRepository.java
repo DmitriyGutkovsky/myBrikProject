@@ -16,7 +16,7 @@ public interface TextileRepository extends JpaRepository<Textile, Long> {
 
     List<Textile> findAllByColor(String color);
 
-    @Query(value = "select * from (select * from m_product_type join m_textile_product_type mtpt on m_product_type.id = mtpt.product_type_id) as m " +
+    @Query(value = "select * from (select * from m_product_type join l_textile_product_type ltpt on m_product_type.id = ltpt.product_type_id) as m " +
             "join m_textile mt on mt.id = m.textile_id where mt.name = :name", nativeQuery = true)
     List<Textile> findAllByProductTypes(String name);
 

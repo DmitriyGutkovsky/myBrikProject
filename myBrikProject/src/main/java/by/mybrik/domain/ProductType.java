@@ -47,7 +47,7 @@ public class ProductType {
     private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "m_textile_product_type",
+    @JoinTable(name = "l_textile_product_type",
                 joinColumns = @JoinColumn(name = "product_type_id"),
                 inverseJoinColumns = @JoinColumn(name = "textile_id")
     )
