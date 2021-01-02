@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,33 +26,64 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class RegistrationController {
 
-    private final UsersRepository usersRepository;
+  private final UsersRepository usersRepository;
 
-    private final PasswordEncoder passwordEncoder;
+  private final PasswordEncoder passwordEncoder;
 
-    @ApiOperation(value = "End point for registration users")
-    @PostMapping
-    public ResponseEntity<Map<String, Object>> registration(@RequestBody UserCreate request){
-        Users user = new Users();
+  public final JavaMailSender emailSender;
 
-        user.setName(request.getName());
-        user.setSurName(request.getSurName());
-        user.setLogin(request.getLogin());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setEmail(request.getEmail());
-        user.setGender(request.getGender());
-        user.setPhone(request.getPhone());
-        user.setAddress(request.getAddress());
-        user.setDeleted(request.isDeleted());
-        user.setRoles(Collections.singleton(new Role(SystemRoles.ROLE_USER, user)));
+  /*
+  {
+    "name": "Nastya",
+    "surName": "Gutkovskaya",
+    "login": "nastlenka",
+    "password": "password",
+    "email": "gutrovsky@mail.ru",
+    "gender": "FEMALE",
+    "phone": "3500555689",
+    "address": "test",
+    "deleted": "false"
+  }
+   */
 
-        Users savedUser = usersRepository.save(user);
+  @ApiOperation(value = "End point for registration users")
+  @PostMapping
+  public ResponseEntity<Map<String, Object>> registration(@RequestBody UserCreate request) {
+    Users user = new Users();
 
-        Map<String, Object> result = new HashMap<>();
+    user.setName(request.getName());
+    user.setSurName(request.getSurName());
+    user.setLogin(request.getLogin());
+    user.setPassword(passwordEncoder.encode(request.getPassword()));
+    user.setEmail(request.getEmail());
+    user.setGender(request.getGender());
+    user.setPhone(request.getPhone());
+    user.setAddress(request.getAddress());
+    user.setDeleted(request.isDeleted());
+    user.setRoles(Collections.singleton(new Role(SystemRoles.ROLE_USER, user)));
 
-        result.put("id", savedUser.getId());
-        result.put("login", savedUser.getLogin());
+    Users savedUser = usersRepository.save(user);
 
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
-    }
+    Map<String, Object> result = new HashMap<>();
+
+    result.put("id", savedUser.getId());
+    result.put("login", savedUser.getLogin());
+
+    sendWelcomeMessage(user.getEmail());
+
+    return new ResponseEntity<>(result, HttpStatus.CREATED);
+  }
+
+  public void sendWelcomeMessage(String email){
+    // Create a Simple MailMessage.
+    SimpleMailMessage message = new SimpleMailMessage();
+
+    message.setTo(email);
+    message.setSubject("Shop \"Brik\" - registration!");
+    message.setText("Congratulation! You have successfully registered into shop \"Brik\"!");
+
+    // Send Message
+    this.emailSender.send(message);
+  }
+
 }
