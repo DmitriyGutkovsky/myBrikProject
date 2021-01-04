@@ -48,6 +48,9 @@ public class PriceForIndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public Optional<PriceForIndividualOrder> getIndividualOrderPriceById(
       @PathVariable("id") Long id) {
+    if (!priceForIndividualOrderRepository.existsById(id)) {
+      throw new EntityNotFoundException(String.format("There is no such price for individual order with id = %d", id));
+    }
     return priceForIndividualOrderRepository.findById(id);
   }
 
@@ -65,7 +68,7 @@ public class PriceForIndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<PriceForIndividualOrder> deleteIndividualOrderPriceById(@PathVariable Long id) {
     if (!priceForIndividualOrderRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no such price for individual order");
+      throw new EntityNotFoundException(String.format("There is no such price for individual order with id = %d", id));
     }
     priceForIndividualOrderRepository.deleteById(id);
     return priceForIndividualOrderRepository.findAll();
@@ -124,7 +127,7 @@ public class PriceForIndividualOrderController {
       @PathVariable("id") Long id, @RequestBody PriceForIndividualUpdate request) {
 
     if (!priceForIndividualOrderRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no such price for individual order");
+      throw new EntityNotFoundException(String.format("There is no such price for individual order with id = %d", id));
     }
 
     PriceForIndividualOrder price = priceForIndividualOrderRepository.getOne(id);

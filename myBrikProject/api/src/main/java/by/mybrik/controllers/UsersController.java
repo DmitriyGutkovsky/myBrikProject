@@ -71,6 +71,9 @@ public class UsersController {
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<Users> findUserById(@PathVariable Long id) {
+    if (!usersRepository.existsById(id)) {
+      throw new EntityNotFoundException(String.format("There is no user with id = %d", id));
+    }
     return usersRepository.findById(id);
   }
 
@@ -88,7 +91,7 @@ public class UsersController {
   @ResponseStatus(HttpStatus.OK)
   public List<Users> deleteUserById(@PathVariable("id") Long id) {
     if (!usersRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no user with id = " + id);
+      throw new EntityNotFoundException(String.format("There is no user with id = %d", id));
     }
     usersRepository.deleteById(id);
     return usersRepository.findAll();
@@ -168,7 +171,7 @@ public class UsersController {
     // @ModelAttribute RoleUpdate roleUpdate) {
 
     if (!usersRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no user with id = " + id);
+      throw new EntityNotFoundException(String.format("There is no user with id = %d", id));
     }
 
     Users user = usersRepository.getOne(id);
@@ -266,7 +269,7 @@ public class UsersController {
   public Role addRole(@RequestParam Long userId, @RequestParam SystemRoles grantedRole) {
 
     if (!usersRepository.existsById(userId)) {
-      throw new EntityNotFoundException("There is no user with id = " + userId);
+      throw new EntityNotFoundException(String.format("There is no user with id = %d", userId));
     }
 
     Optional<Users> user = usersRepository.findById(userId);
@@ -299,7 +302,7 @@ public class UsersController {
   public List<Users> deleteRole(@RequestParam Long userId, @RequestParam SystemRoles deletedRole) {
 
     if (!usersRepository.existsById(userId)) {
-      throw new EntityNotFoundException("There is no user with id = " + userId);
+      throw new EntityNotFoundException(String.format("There is no user with id = %d", userId));
     }
 
     Optional<Users> user = usersRepository.findById(userId);

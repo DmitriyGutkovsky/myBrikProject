@@ -47,6 +47,9 @@ public class ProductTypeController {
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<ProductType> findProductTypeById(@PathVariable("id") Long id) {
+    if (!productTypeRepository.existsById(id)) {
+      throw new EntityNotFoundException(String.format("There is no product with id = %d", id));
+    }
     return productTypeRepository.findById(id);
   }
 
@@ -64,7 +67,7 @@ public class ProductTypeController {
   @ResponseStatus(HttpStatus.OK)
   public List<ProductType> deleteTypeById(@PathVariable Long id) {
     if (!productTypeRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no product with id = " + id);
+      throw new EntityNotFoundException(String.format("There is no product with id = %d", id));
     }
     productTypeRepository.deleteById(id);
     return productTypeRepository.findAll();
@@ -123,7 +126,7 @@ public class ProductTypeController {
       @PathVariable Long id, @RequestBody ProductTypeUpdate request) {
 
     if (!productTypeRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no product with id = " + id);
+      throw new EntityNotFoundException(String.format("There is no product with id = %d", id));
     }
 
     ProductType updateType = productTypeRepository.getOne(id);

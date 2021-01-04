@@ -70,6 +70,9 @@ public class IndividualOrderController {
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<IndividualOrder> getIndividualOrderById(@PathVariable Long id) {
+    if (!individualOrderRepository.existsById(id)) {
+      throw new EntityNotFoundException(String.format("There is no individual order with id = %d", id));
+    }
     return individualOrderRepository.findById(id);
   }
 
@@ -87,7 +90,7 @@ public class IndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<IndividualOrder> deleteIndividualOrder(@PathVariable Long id) {
     if (!individualOrderRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no individual order with id = " + id);
+      throw new EntityNotFoundException(String.format("There is no individual order with id = %d", id));
     }
     individualOrderRepository.deleteById(id);
     return individualOrderRepository.findAll();

@@ -49,6 +49,9 @@ public class TextileController {
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<Textile> findTextileById(@PathVariable("id") Long id) {
+    if (!textileRepository.existsById(id)) {
+      throw new EntityNotFoundException(String.format("There is no textile with id = %d", id));
+    }
     return textileRepository.findById(id);
   }
 
@@ -65,9 +68,8 @@ public class TextileController {
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public List<Textile> deleteTextileById(@PathVariable("id") Long id) {
-
     if (!textileRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no textile with id = " + id);
+      throw new EntityNotFoundException(String.format("There is no textile with id = %d", id));
     }
     textileRepository.deleteById(id);
     return textileRepository.findAll();
@@ -133,7 +135,7 @@ public class TextileController {
   @ResponseStatus(HttpStatus.OK)
   public Textile updateTextile(@PathVariable("id") Long id, @RequestBody TextileUpdate request) {
     if (!textileRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no textile with id = " + id);
+      throw new EntityNotFoundException(String.format("There is no textile with id = %d", id));
     }
 
     Textile updatedTextile = textileRepository.getOne(id);

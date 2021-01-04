@@ -69,6 +69,9 @@ public class StandardOrderController {
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<StandardOrder> findStandardOrderById(@PathVariable Long id) {
+    if (!standardOrderRepository.existsById(id)) {
+      throw new EntityNotFoundException(String.format("There is no order with id = %d", id));
+    }
     return standardOrderRepository.findById(id);
   }
 
@@ -86,7 +89,7 @@ public class StandardOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<StandardOrder> deleteStandardOrder(@PathVariable Long id) {
     if (!standardOrderRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no order with id = " + id);
+      throw new EntityNotFoundException(String.format("There is no order with id = %d", id));
     }
     standardOrderRepository.deleteById(id);
     return standardOrderRepository.findAll();
@@ -162,7 +165,7 @@ public class StandardOrderController {
       @RequestParam OrderStatus orderStatus) {
     if (!standardOrderRepository.existsById(id)
         || !goodsRepository.existsById(request.getGoodId())) {
-      throw new EntityNotFoundException("There is no order or product");
+      throw new EntityNotFoundException("There is no such order or product");
     }
 
     Long productId = request.getGoodId();
@@ -195,7 +198,7 @@ public class StandardOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<StandardOrder> getListOfAllStandardOrdersByUser(@RequestParam Long id) {
     if (!usersRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no such user");
+      throw new EntityNotFoundException("There is no such user, please check again");
     }
     return standardOrderRepository.findAllByUserId(id);
   }
@@ -213,7 +216,7 @@ public class StandardOrderController {
   @ResponseStatus(HttpStatus.OK)
   public Double calculateSumOfOrdersByUser(@RequestParam Long id) {
     if (!usersRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no such user");
+      throw new EntityNotFoundException("There is no such user, please check again");
     }
     return standardOrderRepository.findSumOfAllStandardOrdersFromUser(id);
   }

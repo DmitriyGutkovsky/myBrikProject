@@ -49,6 +49,9 @@ public class GoodsController {
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Optional<Goods> findProductById(@PathVariable("id") Long id) {
+    if (!goodsRepository.existsById(id)) {
+      throw new EntityNotFoundException(String.format("There is no product with id = %d", id));
+    }
     return goodsRepository.findById(id);
   }
 
@@ -66,7 +69,7 @@ public class GoodsController {
   @ResponseStatus(HttpStatus.OK)
   public List<Goods> deleteProduct(@PathVariable Long id) {
     if (!goodsRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no product with id= " + id);
+      throw new EntityNotFoundException(String.format("There is no product with id = %d", id));
     }
     goodsRepository.deleteById(id);
     return goodsRepository.findAll();
@@ -148,7 +151,7 @@ public class GoodsController {
   public Goods updateProduct(@PathVariable Long id, @RequestBody GoodsUpdate request) {
 
     if (!goodsRepository.existsById(id)) {
-      throw new EntityNotFoundException("There is no product with id= " + id);
+      throw new EntityNotFoundException(String.format("There is no product with id = %d", id));
     }
 
     Goods product = goodsRepository.getOne(id);
