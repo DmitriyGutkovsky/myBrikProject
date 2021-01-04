@@ -1,9 +1,9 @@
 package by.mybrik.repository.impl;
 
 import by.mybrik.domain.Textile;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import springfox.documentation.annotations.Cacheable;
 
 import java.util.List;
 
