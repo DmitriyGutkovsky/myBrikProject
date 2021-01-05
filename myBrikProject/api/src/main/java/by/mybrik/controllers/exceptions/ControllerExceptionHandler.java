@@ -1,6 +1,7 @@
 package by.mybrik.controllers.exceptions;
 
 import by.mybrik.controllers.responces.ErrorMessage;
+import by.mybrik.exceptions.EntityNotFoundException;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Log4j
 public class ControllerExceptionHandler {
 
-  @ExceptionHandler(Exception.class)
+  @ExceptionHandler(EntityNotFoundException.class)
   public ResponseEntity<ErrorMessage> handleOthersException(Exception e) {
     /* Handles all other exceptions. Status code 500. */
     log.error(e.getMessage(), e);
