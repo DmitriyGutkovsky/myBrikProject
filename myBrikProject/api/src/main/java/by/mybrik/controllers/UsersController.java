@@ -12,9 +12,9 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -40,7 +39,7 @@ public class UsersController {
 
   public final UsersRepository usersRepository;
 
-  private final PasswordEncoder passwordEncoder;
+  public final ConversionService conversionService;
 
   // http://localhost:8080/new/rest/users
   @ApiOperation(value = "Endpoint for getting a list of all users")
@@ -124,19 +123,7 @@ public class UsersController {
   @ResponseStatus(HttpStatus.CREATED)
   public Users createNewUser(@RequestBody UserCreate request) {
 
-    Users user = new Users();
-
-    user.setName(request.getName());
-    user.setSurName(request.getSurName());
-    user.setLogin(request.getLogin());
-    user.setPassword(passwordEncoder.encode(request.getPassword()));
-    user.setEmail(request.getEmail());
-    user.setGender(request.getGender());
-    user.setPhone(request.getPhone());
-    user.setAddress(request.getAddress());
-    user.setDeleted(request.isDeleted());
-
-    user.setRoles(Collections.singleton(new Role(SystemRoles.ROLE_USER, user)));
+    Users user = conversionService.convert(request, Users.class);
 
     return usersRepository.save(user);
   }
@@ -167,27 +154,9 @@ public class UsersController {
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Users updateUserDetails(@PathVariable Long id, @RequestBody UsersUpdate request) {
-    //  public Users updateUserDetails(@PathVariable Long id, @RequestBody UsersUpdate request,
-    // @ModelAttribute RoleUpdate roleUpdate) {
 
-    if (!usersRepository.existsById(id)) {
-      throw new EntityNotFoundException(String.format("There is no user with id = %d", id));
-    }
-
-    Users user = usersRepository.getOne(id);
-
-    user.setName(request.getName());
-    user.setSurName(request.getSurName());
-    user.setLogin(request.getLogin());
-    user.setPassword(passwordEncoder.encode(request.getPassword()));
-    user.setEmail(request.getEmail());
-    user.setGender(request.getGender());
-    user.setPhone(request.getPhone());
-    user.setAddress(request.getAddress());
-    user.setDeleted(request.isDeleted());
-    user.setChanged(new Timestamp(System.currentTimeMillis()));
-    //    user.setRoles(request.getRole());
-    //    user.setRoles(Collections.singleton(new Role(roleUpdate.getSystemRoles(), user)));
+    request.setId(id);
+    Users user = conversionService.convert(request, Users.class);
 
     return usersRepository.save(user);
   }
