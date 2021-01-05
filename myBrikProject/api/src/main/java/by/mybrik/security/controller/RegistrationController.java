@@ -1,23 +1,20 @@
 package by.mybrik.security.controller;
 
 import by.mybrik.controllers.requests.usersRequests.UserCreate;
-import by.mybrik.domain.Role;
-import by.mybrik.domain.SystemRoles;
 import by.mybrik.domain.Users;
 import by.mybrik.repository.impl.UsersRepository;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,9 +25,9 @@ public class RegistrationController {
 
   private final UsersRepository usersRepository;
 
-  private final PasswordEncoder passwordEncoder;
-
   public final JavaMailSender emailSender;
+
+  public final ConversionService conversionService;
 
   /*
   {
@@ -49,18 +46,8 @@ public class RegistrationController {
   @ApiOperation(value = "End point for registration users")
   @PostMapping
   public ResponseEntity<Map<String, Object>> registration(@RequestBody UserCreate request) {
-    Users user = new Users();
 
-    user.setName(request.getName());
-    user.setSurName(request.getSurName());
-    user.setLogin(request.getLogin());
-    user.setPassword(passwordEncoder.encode(request.getPassword()));
-    user.setEmail(request.getEmail());
-    user.setGender(request.getGender());
-    user.setPhone(request.getPhone());
-    user.setAddress(request.getAddress());
-    user.setDeleted(request.isDeleted());
-    user.setRoles(Collections.singleton(new Role(SystemRoles.ROLE_USER, user)));
+    Users user = conversionService.convert(request, Users.class);
 
     Users savedUser = usersRepository.save(user);
 
@@ -74,7 +61,7 @@ public class RegistrationController {
     return new ResponseEntity<>(result, HttpStatus.CREATED);
   }
 
-  public void sendWelcomeMessage(String email){
+  public void sendWelcomeMessage(String email) {
     // Create a Simple MailMessage.
     SimpleMailMessage message = new SimpleMailMessage();
 
@@ -85,5 +72,4 @@ public class RegistrationController {
     // Send Message
     this.emailSender.send(message);
   }
-
 }
