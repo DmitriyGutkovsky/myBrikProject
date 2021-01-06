@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -36,6 +37,8 @@ import java.util.Optional;
 public class GoodsController {
 
   public final GoodsRepository goodsRepository;
+
+  public final ConversionService conversionService;
 
   //  http://localhost:8080/new/rest/goods
   @ApiOperation(value = "Endpoint for getting list of all goods")
@@ -104,19 +107,7 @@ public class GoodsController {
   @ResponseStatus(HttpStatus.CREATED)
   public Goods createProduct(@RequestBody GoodsCreate createRequest) {
 
-    Goods product = new Goods();
-
-    product.setOrderCode(createRequest.getOrderCode());
-    product.setName(createRequest.getName());
-    product.setPhoto(createRequest.getPhoto());
-    product.setGender(createRequest.getGender());
-    product.setSize(createRequest.getSize());
-    product.setColor(createRequest.getColor());
-    product.setDescription(createRequest.getDescription());
-    product.setDeleted(createRequest.isDeleted());
-    product.setPrice(createRequest.getPrice());
-    product.setQuantity(createRequest.getQuantity());
-    product.setCategory(createRequest.getCategory());
+    Goods product = conversionService.convert(createRequest, Goods.class);
 
     return goodsRepository.save(product);
   }
@@ -150,25 +141,8 @@ public class GoodsController {
   @ResponseStatus(HttpStatus.OK)
   public Goods updateProduct(@PathVariable Long id, @RequestBody GoodsUpdate request) {
 
-    if (!goodsRepository.existsById(id)) {
-      throw new EntityNotFoundException(String.format("There is no product with id = %d", id));
-    }
-
-    Goods product = goodsRepository.getOne(id);
-
-    product.setId(id);
-    product.setOrderCode(request.getOrderCode());
-    product.setName(request.getName());
-    product.setPhoto(request.getPhoto());
-    product.setGender(request.getGender());
-    product.setSize(request.getSize());
-    product.setColor(request.getColor());
-    product.setDescription(request.getDescription());
-    product.setDeleted(request.isDeleted());
-    product.setPrice(request.getPrice());
-    product.setQuantity(request.getQuantity());
-    product.setCategory(request.getCategory());
-    product.setChanged(new Timestamp(System.currentTimeMillis()));
+    request.setId(id);
+    Goods product = conversionService.convert(request, Goods.class);
 
     return goodsRepository.save(product);
   }
