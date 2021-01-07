@@ -5,6 +5,7 @@ import by.mybrik.controllers.requests.textileRequests.TextileUpdate;
 import by.mybrik.domain.ProductType;
 import by.mybrik.domain.Textile;
 import by.mybrik.exceptions.EntityNotFoundException;
+import by.mybrik.repository.impl.ProductTypeRepository;
 import by.mybrik.repository.impl.TextileRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,6 +31,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,6 +39,8 @@ import java.util.Set;
 public class TextileController {
 
   public final TextileRepository textileRepository;
+
+  public final ProductTypeRepository productTypeRepository;
 
   public final ConversionService conversionService;
 
@@ -191,5 +196,43 @@ public class TextileController {
     Textile specifiedTextile = textileRepository.findByName(name);
     Set<ProductType> productTypes = specifiedTextile.getProductTypes();
     return new ResponseEntity<>(productTypes, HttpStatus.OK);
+  }
+
+  @ApiOperation(value = "Endpoint for adding a possible product type for for specified textile")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @PatchMapping("/adding_product_type")
+  @ResponseStatus(HttpStatus.OK)
+  public Textile addingPossibleProductType(
+      @RequestParam Long textileId, @RequestParam String productType) {
+
+    if (!textileRepository.existsById(textileId)) {
+      throw new EntityNotFoundException(
+          String.format("There is no textile with id = %d", textileId));
+    }
+
+    Optional<Textile> textile = textileRepository.findById(textileId);
+
+    List<String> listOfExistingProductTypes =
+        textile.get().getProductTypes().stream()
+            .map(ProductType::getProductType)
+            .collect(Collectors.toList());
+
+    if (listOfExistingProductTypes.contains(productType)) {
+      throw new EntityNotFoundException("This textile already has such product type");
+    }
+
+    ProductType addingProductType = productTypeRepository.findByProductType(productType);
+    Long addingProductTypeId = addingProductType.getId();
+
+    textileRepository.addingPossibleProductType(textileId, addingProductTypeId);
+
+    return textileRepository.getOne(textileId);
   }
 }
