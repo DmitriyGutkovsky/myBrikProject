@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -35,6 +36,8 @@ import java.util.Set;
 public class TextileController {
 
   public final TextileRepository textileRepository;
+
+  public final ConversionService conversionService;
 
   // http://localhost:8080/new/rest/textile
   @ApiOperation(value = "Endpoint for getting a list of all textile")
@@ -99,14 +102,7 @@ public class TextileController {
   @ResponseStatus(HttpStatus.CREATED)
   public Textile addNewTextile(@RequestBody TextileCreate request) {
 
-    Textile textile = new Textile();
-
-    textile.setCode(request.getCode());
-    textile.setName(request.getName());
-    textile.setColor(request.getColor());
-    textile.setDescription(request.getDescription());
-    textile.setPhoto(request.getPhoto());
-    textile.setDeleted(request.isDeleted());
+    Textile textile = conversionService.convert(request, Textile.class);
 
     return textileRepository.save(textile);
   }
@@ -134,19 +130,9 @@ public class TextileController {
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Textile updateTextile(@PathVariable("id") Long id, @RequestBody TextileUpdate request) {
-    if (!textileRepository.existsById(id)) {
-      throw new EntityNotFoundException(String.format("There is no textile with id = %d", id));
-    }
 
-    Textile updatedTextile = textileRepository.getOne(id);
-
-    updatedTextile.setCode(request.getCode());
-    updatedTextile.setName(request.getName());
-    updatedTextile.setColor(request.getColor());
-    updatedTextile.setDescription(request.getDescription());
-    updatedTextile.setPhoto(request.getPhoto());
-    updatedTextile.setDeleted(request.isDeleted());
-    updatedTextile.setChanged(new Timestamp(System.currentTimeMillis()));
+    request.setId(id);
+    Textile updatedTextile = conversionService.convert(request, Textile.class);
 
     return textileRepository.save(updatedTextile);
   }
