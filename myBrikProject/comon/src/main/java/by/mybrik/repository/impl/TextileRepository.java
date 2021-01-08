@@ -43,4 +43,13 @@ public interface TextileRepository extends JpaRepository<Textile, Long> {
       nativeQuery = true)
   void addingPossibleProductType(
       @Param("textile_id") Long textileId, @Param("product_type_id") Long productTypeId);
+
+  @Transactional
+  @Modifying(flushAutomatically = true)
+  @Query(
+      value =
+          "delete from l_textile_product_type where textile_id = :textile_id and product_type_id = :product_type_id",
+      nativeQuery = true)
+  void deletePossibleProductType(
+      @Param("textile_id") Long textileId, @Param("product_type_id") Long productTypeId);
 }

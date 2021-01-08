@@ -198,7 +198,7 @@ public class TextileController {
     return new ResponseEntity<>(productTypes, HttpStatus.OK);
   }
 
-  @ApiOperation(value = "Endpoint for adding a possible product type for for specified textile")
+  @ApiOperation(value = "Endpoint for adding a possible product type for specified textile")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
       @ApiImplicitParam(
@@ -232,6 +232,44 @@ public class TextileController {
     Long addingProductTypeId = addingProductType.getId();
 
     textileRepository.addingPossibleProductType(textileId, addingProductTypeId);
+
+    return textileRepository.getOne(textileId);
+  }
+
+  @ApiOperation(value = "Endpoint for deleting a possible product type for specified textile")
+  @Secured("ROLE_ADMIN")
+  @ApiImplicitParams(
+      @ApiImplicitParam(
+          name = "X-Auth-Token",
+          defaultValue = "token",
+          required = true,
+          paramType = "header",
+          dataType = "String"))
+  @PatchMapping("/deleting_product_type")
+  @ResponseStatus(HttpStatus.OK)
+  public Textile deletingPossibleProductType(
+      @RequestParam Long textileId, @RequestParam String productType) {
+
+    if (!textileRepository.existsById(textileId)) {
+      throw new EntityNotFoundException(
+          String.format("There is no textile with id = %d", textileId));
+    }
+
+    Optional<Textile> textile = textileRepository.findById(textileId);
+
+    List<String> listOfExistingProductTypes =
+        textile.get().getProductTypes().stream()
+            .map(ProductType::getProductType)
+            .collect(Collectors.toList());
+
+    if (!listOfExistingProductTypes.contains(productType)) {
+      throw new EntityNotFoundException("This is no such product type for this textile");
+    }
+
+    ProductType addingProductType = productTypeRepository.findByProductType(productType);
+    Long deletingProductTypeId = addingProductType.getId();
+
+    textileRepository.deletePossibleProductType(textileId, deletingProductTypeId);
 
     return textileRepository.getOne(textileId);
   }
