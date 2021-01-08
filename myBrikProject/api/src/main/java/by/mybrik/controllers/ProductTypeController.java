@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -33,6 +34,8 @@ import java.util.Optional;
 public class ProductTypeController {
 
   public final ProductTypeRepository productTypeRepository;
+
+  public final ConversionService conversionService;
 
   // http://localhost:8080/new/rest/producttype
   @ApiOperation(value = "Endpoint for getting a list of all product types")
@@ -94,11 +97,7 @@ public class ProductTypeController {
   @ResponseStatus(HttpStatus.CREATED)
   public ProductType addProductType(@RequestBody ProductTypeCreate request) {
 
-    ProductType newType = new ProductType();
-
-    newType.setProductType(request.getProductType());
-    newType.setPhoto(request.getPhoto());
-    newType.setDeleted(request.isDeleted());
+    ProductType newType = conversionService.convert(request, ProductType.class);
 
     return productTypeRepository.save(newType);
   }
@@ -125,16 +124,8 @@ public class ProductTypeController {
   public ProductType updateProductType(
       @PathVariable Long id, @RequestBody ProductTypeUpdate request) {
 
-    if (!productTypeRepository.existsById(id)) {
-      throw new EntityNotFoundException(String.format("There is no product with id = %d", id));
-    }
-
-    ProductType updateType = productTypeRepository.getOne(id);
-
-    updateType.setProductType(request.getProductType());
-    updateType.setPhoto(request.getPhoto());
-    updateType.setDeleted(request.isDeleted());
-    updateType.setChanged(new Timestamp(System.currentTimeMillis()));
+    request.setId(id);
+    ProductType updateType = conversionService.convert(request, ProductType.class);
 
     return productTypeRepository.save(updateType);
   }
