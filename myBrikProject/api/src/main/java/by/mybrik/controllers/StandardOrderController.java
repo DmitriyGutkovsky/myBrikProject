@@ -1,7 +1,7 @@
 package by.mybrik.controllers;
 
 import by.mybrik.controllers.requests.standardOrderRequests.StandardOrderCreate;
-import by.mybrik.domain.Goods;
+import by.mybrik.controllers.requests.standardOrderRequests.StandardOrderUpdate;
 import by.mybrik.domain.OrderStatus;
 import by.mybrik.domain.StandardOrder;
 import by.mybrik.exceptions.EntityNotFoundException;
@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +39,8 @@ public class StandardOrderController {
   public final GoodsRepository goodsRepository;
 
   public final UsersRepository usersRepository;
+
+  public final ConversionService conversionService;
 
   // http://localhost:8080/new/rest/standardorder
   @ApiOperation(value = "Endpoint for getting a list of all standard orders")
@@ -118,22 +120,7 @@ public class StandardOrderController {
   @ResponseStatus(HttpStatus.CREATED)
   public StandardOrder createStandardOrder(@RequestBody StandardOrderCreate request) {
 
-    if (!goodsRepository.existsById(request.getGoodId())) {
-      throw new EntityNotFoundException("There is no such product, please check again");
-    }
-
-    Long productId = request.getGoodId();
-    Optional<Goods> productForPurchase = goodsRepository.findById(productId);
-    Double pricePerOnePcs = productForPurchase.get().getPrice();
-    Double totalPrice = pricePerOnePcs * request.getQuantity();
-
-    StandardOrder order = new StandardOrder();
-
-    order.setGoodId(request.getGoodId());
-    order.setUserId(request.getUserId());
-    order.setQuantity(request.getQuantity());
-    order.setTotalPrice(totalPrice);
-    order.setOrderStatus(OrderStatus.SEND);
+    StandardOrder order = conversionService.convert(request, StandardOrder.class);
 
     return standardOrderRepository.save(order);
   }
@@ -161,26 +148,13 @@ public class StandardOrderController {
   @ResponseStatus(HttpStatus.OK)
   public StandardOrder updateStandardOrder(
       @PathVariable Long id,
-      @RequestBody StandardOrderCreate request,
+      @RequestBody StandardOrderUpdate request,
       @RequestParam OrderStatus orderStatus) {
-    if (!standardOrderRepository.existsById(id)
-        || !goodsRepository.existsById(request.getGoodId())) {
-      throw new EntityNotFoundException("There is no such order or product");
-    }
 
-    Long productId = request.getGoodId();
-    Optional<Goods> productForPurchase = goodsRepository.findById(productId);
-    Double pricePerOnePcs = productForPurchase.get().getPrice();
-    Double totalPrice = pricePerOnePcs * request.getQuantity();
+    request.setId(id);
+    request.setOrderStatus(orderStatus);
 
-    StandardOrder updateOrder = standardOrderRepository.getOne(id);
-
-    updateOrder.setGoodId(request.getGoodId());
-    updateOrder.setUserId(request.getUserId());
-    updateOrder.setQuantity(request.getQuantity());
-    updateOrder.setTotalPrice(totalPrice);
-    updateOrder.setOrderStatus(orderStatus);
-    updateOrder.setChanged(new Timestamp(System.currentTimeMillis()));
+    StandardOrder updateOrder = conversionService.convert(request, StandardOrder.class);
 
     return standardOrderRepository.save(updateOrder);
   }
