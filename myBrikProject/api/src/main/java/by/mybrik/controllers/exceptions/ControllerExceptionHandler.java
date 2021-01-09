@@ -14,9 +14,9 @@ public class ControllerExceptionHandler {
 
   @ExceptionHandler(EntityNotFoundException.class)
   public ResponseEntity<ErrorMessage> handleOthersException(Exception e) {
-    /* Handles all other exceptions. Status code 500. */
+    /* Handles all other exceptions. Status code 400. */
     log.error(e.getMessage(), e);
     log.info(e.getMessage(), e);
-    return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
   }
 }
