@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -34,6 +35,8 @@ public class PriceForIndividualOrderController {
 
   public final PriceForIndividualOrderRepository priceForIndividualOrderRepository;
 
+  public final ConversionService conversionService;
+
   // http://localhost:8080/new/rest/individualorderprice
   @ApiOperation(value = "Endpoint for getting a list of all prices for individual orders")
   @GetMapping
@@ -49,7 +52,8 @@ public class PriceForIndividualOrderController {
   public Optional<PriceForIndividualOrder> getIndividualOrderPriceById(
       @PathVariable("id") Long id) {
     if (!priceForIndividualOrderRepository.existsById(id)) {
-      throw new EntityNotFoundException(String.format("There is no such price for individual order with id = %d", id));
+      throw new EntityNotFoundException(
+          String.format("There is no such price for individual order with id = %d", id));
     }
     return priceForIndividualOrderRepository.findById(id);
   }
@@ -68,7 +72,8 @@ public class PriceForIndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<PriceForIndividualOrder> deleteIndividualOrderPriceById(@PathVariable Long id) {
     if (!priceForIndividualOrderRepository.existsById(id)) {
-      throw new EntityNotFoundException(String.format("There is no such price for individual order with id = %d", id));
+      throw new EntityNotFoundException(
+          String.format("There is no such price for individual order with id = %d", id));
     }
     priceForIndividualOrderRepository.deleteById(id);
     return priceForIndividualOrderRepository.findAll();
@@ -96,10 +101,8 @@ public class PriceForIndividualOrderController {
   public PriceForIndividualOrder addPriceForIndividualOrder(
       @RequestBody PriceForIndividualCreate request) {
 
-    PriceForIndividualOrder price = new PriceForIndividualOrder();
-    price.setProductType(request.getProductType());
-    price.setPrice(request.getPrice());
-    price.setDeleted(request.isDeleted());
+    PriceForIndividualOrder price =
+        conversionService.convert(request, PriceForIndividualOrder.class);
 
     return priceForIndividualOrderRepository.save(price);
   }
@@ -126,16 +129,9 @@ public class PriceForIndividualOrderController {
   public PriceForIndividualOrder updatePriceForIndividualOrder(
       @PathVariable("id") Long id, @RequestBody PriceForIndividualUpdate request) {
 
-    if (!priceForIndividualOrderRepository.existsById(id)) {
-      throw new EntityNotFoundException(String.format("There is no such price for individual order with id = %d", id));
-    }
-
-    PriceForIndividualOrder price = priceForIndividualOrderRepository.getOne(id);
-
-    price.setProductType(request.getProductType());
-    price.setPrice(request.getPrice());
-    price.setDeleted(request.isDeleted());
-    price.setChanged(new Timestamp(System.currentTimeMillis()));
+    request.setId(id);
+    PriceForIndividualOrder price =
+        conversionService.convert(request, PriceForIndividualOrder.class);
 
     return priceForIndividualOrderRepository.save(price);
   }
