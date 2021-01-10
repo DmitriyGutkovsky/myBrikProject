@@ -4,7 +4,6 @@ import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderCre
 import by.mybrik.controllers.requests.individualOrderRequests.IndividualOrderUpdate;
 import by.mybrik.domain.IndividualOrder;
 import by.mybrik.domain.OrderStatus;
-import by.mybrik.domain.PriceForIndividualOrder;
 import by.mybrik.exceptions.EntityNotFoundException;
 import by.mybrik.repository.impl.IndividualOrderRepository;
 import by.mybrik.repository.impl.PriceForIndividualOrderRepository;
@@ -13,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +39,8 @@ public class IndividualOrderController {
   public final PriceForIndividualOrderRepository priceForIndividualOrderRepository;
 
   public final UsersRepository usersRepository;
+
+  public final ConversionService conversionService;
 
   // http://localhost:8080/new/rest/individualorder
   @ApiOperation(value = "Endpoint for getting full list of individual orders")
@@ -71,7 +72,8 @@ public class IndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public Optional<IndividualOrder> getIndividualOrderById(@PathVariable Long id) {
     if (!individualOrderRepository.existsById(id)) {
-      throw new EntityNotFoundException(String.format("There is no individual order with id = %d", id));
+      throw new EntityNotFoundException(
+          String.format("There is no individual order with id = %d", id));
     }
     return individualOrderRepository.findById(id);
   }
@@ -90,7 +92,8 @@ public class IndividualOrderController {
   @ResponseStatus(HttpStatus.OK)
   public List<IndividualOrder> deleteIndividualOrder(@PathVariable Long id) {
     if (!individualOrderRepository.existsById(id)) {
-      throw new EntityNotFoundException(String.format("There is no individual order with id = %d", id));
+      throw new EntityNotFoundException(
+          String.format("There is no individual order with id = %d", id));
     }
     individualOrderRepository.deleteById(id);
     return individualOrderRepository.findAll();
@@ -121,26 +124,7 @@ public class IndividualOrderController {
   @ResponseStatus(HttpStatus.CREATED)
   public IndividualOrder createIndividualOrder(@RequestBody IndividualOrderCreate request) {
 
-    Long priceId = request.getPriceId();
-
-    if (!priceForIndividualOrderRepository.existsById(priceId)) {
-      throw new EntityNotFoundException("There is no such price for individual order");
-    }
-
-    Optional<PriceForIndividualOrder> individualOrderPrice =
-        priceForIndividualOrderRepository.findById(priceId);
-    Double pricePerOnePcs = individualOrderPrice.get().getPrice();
-    Double totalPrice = pricePerOnePcs * request.getQuantity();
-
-    IndividualOrder order = new IndividualOrder();
-
-    order.setUserId(request.getUserId());
-    order.setTextileId(request.getTextileId());
-    order.setProductTypeId(request.getProductTypeId());
-    order.setPriceId(request.getPriceId());
-    order.setQuantity(request.getQuantity());
-    order.setTotalPrice(totalPrice);
-    order.setOrderStatus(OrderStatus.SEND);
+    IndividualOrder order = conversionService.convert(request, IndividualOrder.class);
 
     return individualOrderRepository.save(order);
   }
@@ -174,28 +158,9 @@ public class IndividualOrderController {
       @RequestBody IndividualOrderUpdate request,
       @RequestParam OrderStatus orderStatus) {
 
-    Long priceId = request.getPriceId();
-
-    if (!individualOrderRepository.existsById(id)
-        || !priceForIndividualOrderRepository.existsById(priceId)) {
-      throw new EntityNotFoundException("There is no such individual order or price for it");
-    }
-
-    Optional<PriceForIndividualOrder> individualOrderPrice =
-        priceForIndividualOrderRepository.findById(priceId);
-    Double pricePerOnePcs = individualOrderPrice.get().getPrice();
-    Double totalPrice = pricePerOnePcs * request.getQuantity();
-
-    IndividualOrder updateOrder = individualOrderRepository.getOne(id);
-
-    updateOrder.setUserId(request.getUserId());
-    updateOrder.setTextileId(request.getTextileId());
-    updateOrder.setProductTypeId(request.getProductTypeId());
-    updateOrder.setPriceId(request.getPriceId());
-    updateOrder.setQuantity(request.getQuantity());
-    updateOrder.setTotalPrice(totalPrice);
-    updateOrder.setOrderStatus(orderStatus);
-    updateOrder.setChanged(new Timestamp(System.currentTimeMillis()));
+    request.setId(id);
+    request.setOrderStatus(orderStatus);
+    IndividualOrder updateOrder = conversionService.convert(request, IndividualOrder.class);
 
     return individualOrderRepository.save(updateOrder);
   }
