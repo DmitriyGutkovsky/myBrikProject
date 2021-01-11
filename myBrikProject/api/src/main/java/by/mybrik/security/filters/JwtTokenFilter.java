@@ -43,8 +43,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
       login = tokenUtils.getUsernameFromToken(jwt);
     }
 
-    if (!Strings.isNullOrEmpty(login)  &&
-            SecurityContextHolder.getContext().getAuthentication() == null) {
+    if (!Strings.isNullOrEmpty(login)
+        && SecurityContextHolder.getContext().getAuthentication() == null) {
 
       List<GrantedAuthority> grantedAuthorities =
           AuthorityUtils.commaSeparatedStringToAuthorityList(

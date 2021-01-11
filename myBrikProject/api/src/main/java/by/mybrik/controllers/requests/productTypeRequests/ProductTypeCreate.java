@@ -5,10 +5,9 @@ import lombok.Data;
 @Data
 public class ProductTypeCreate {
 
-    private String productType;
+  private String productType;
 
-    private String photo;
+  private String photo;
 
-    private boolean isDeleted;
-
+  private boolean isDeleted;
 }

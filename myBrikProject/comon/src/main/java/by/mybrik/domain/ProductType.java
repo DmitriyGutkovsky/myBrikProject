@@ -22,36 +22,32 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "m_product_type")
-@EqualsAndHashCode(exclude = {
-        "textiles"
-})
+@EqualsAndHashCode(exclude = {"textiles"})
 public class ProductType {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "product_type")
-    private String productType;
+  @Column(name = "product_type")
+  private String productType;
 
-    @Column
-    private String photo;
+  @Column private String photo;
 
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
+  @Column(name = "is_deleted")
+  private boolean isDeleted;
 
-    @Column
-    private Timestamp created = new Timestamp(System.currentTimeMillis());
+  @Column
+  private Timestamp created = new Timestamp(System.currentTimeMillis());
 
-    @Column
-    private Timestamp changed = new Timestamp(System.currentTimeMillis());
+  @Column
+  private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "l_textile_product_type",
-                joinColumns = @JoinColumn(name = "product_type_id"),
-                inverseJoinColumns = @JoinColumn(name = "textile_id")
-    )
-    @JsonIgnoreProperties("productTypes")
-    private Set<Textile>  textiles = Collections.emptySet();
-
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinTable(
+      name = "l_textile_product_type",
+      joinColumns = @JoinColumn(name = "product_type_id"),
+      inverseJoinColumns = @JoinColumn(name = "textile_id"))
+  @JsonIgnoreProperties("productTypes")
+  private Set<Textile> textiles = Collections.emptySet();
 }

@@ -5,6 +5,5 @@ import lombok.Data;
 @Data
 public class ProductTypeUpdate extends ProductTypeCreate {
 
-    private Long id;
-
+  private Long id;
 }

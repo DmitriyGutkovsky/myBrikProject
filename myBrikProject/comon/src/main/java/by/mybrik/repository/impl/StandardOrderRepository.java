@@ -8,11 +8,13 @@ import java.util.List;
 
 public interface StandardOrderRepository extends JpaRepository<StandardOrder, Long> {
 
-    List<StandardOrder> findAllByUserId(Long id);
+  List<StandardOrder> findAllByUserId(Long id);
 
-    @Query(value = "select sum(orders.totalPrice) from StandardOrder orders where orders.userId = :userId")
-    Double findSumOfAllStandardOrdersFromUser(Long userId);
+  @Query(
+      value =
+          "select sum(orders.totalPrice) from StandardOrder orders where orders.userId = :userId")
+  Double findSumOfAllStandardOrdersFromUser(Long userId);
 
-    @Query(value = "select sum(orders.totalPrice) from StandardOrder orders")
-    Double calculateTotalSumOfOrders();
+  @Query(value = "select sum(orders.totalPrice) from StandardOrder orders")
+  Double calculateTotalSumOfOrders();
 }

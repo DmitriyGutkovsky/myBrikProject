@@ -5,6 +5,5 @@ import lombok.Data;
 @Data
 public class TextileUpdate extends TextileCreate {
 
-    private Long id;
-
+  private Long id;
 }

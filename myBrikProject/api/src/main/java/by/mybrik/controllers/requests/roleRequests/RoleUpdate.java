@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class RoleUpdate {
 
-    private SystemRoles systemRoles;
+  private SystemRoles systemRoles;
 }

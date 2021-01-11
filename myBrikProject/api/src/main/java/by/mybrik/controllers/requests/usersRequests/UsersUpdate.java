@@ -5,6 +5,5 @@ import lombok.Data;
 @Data
 public class UsersUpdate extends UserCreate {
 
-    private Long id;
-
+  private Long id;
 }

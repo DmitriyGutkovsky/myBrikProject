@@ -14,51 +14,48 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name ="m_goods" )
+@Table(name = "m_goods")
 public class Goods {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "order_code")
-    private String orderCode;
+  @Column(name = "order_code")
+  private String orderCode;
 
-    @Column
-    private String name;
+  @Column private String name;
 
-    @Column
-    private  String photo;
+  @Column private String photo;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+  @Column
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
 
-    @Column
-    private Integer size;
+  @Column
+  private Integer size;
 
-    @Column
-    private String color;
+  @Column
+  private String color;
 
-    @Column
-    private String description;
+  @Column
+  private String description;
 
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
+  @Column(name = "is_deleted")
+  private boolean isDeleted;
 
-    @Column
-    private Double price;
+  @Column
+  private Double price;
 
-    @Column
-    private int quantity;
+  @Column
+  private int quantity;
 
-    @Column
-    private String category;
+  @Column
+  private String category;
 
-    @Column
-    private Timestamp created = new Timestamp(System.currentTimeMillis());
+  @Column
+  private Timestamp created = new Timestamp(System.currentTimeMillis());
 
-    @Column
-    private Timestamp changed = new Timestamp(System.currentTimeMillis());
-
+  @Column
+  private Timestamp changed = new Timestamp(System.currentTimeMillis());
 }

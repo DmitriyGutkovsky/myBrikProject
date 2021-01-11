@@ -5,10 +5,9 @@ import lombok.Data;
 @Data
 public class Criteria {
 
-    private Boolean criteria;
+  private Boolean criteria;
 
-    private Long id;
+  private Long id;
 
-    private String orderCode;
-
+  private String orderCode;
 }

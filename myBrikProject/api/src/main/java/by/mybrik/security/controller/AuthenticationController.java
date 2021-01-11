@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /*
 user login via existing credentials
  */
@@ -35,26 +34,24 @@ public class AuthenticationController {
 
   @ApiOperation(value = "login user in the system", notes = "Return Auth-Token with user login")
   @ApiResponses({
-            @ApiResponse(code = 200, message = "Successful authorization"),
-            @ApiResponse(code = 400, message = "Request error"),
-            @ApiResponse(code = 500, message = "Server error")
-    })
+    @ApiResponse(code = 200, message = "Successful authorization"),
+    @ApiResponse(code = 400, message = "Request error"),
+    @ApiResponse(code = 500, message = "Server error")
+  })
   @PostMapping
   public ResponseEntity<AuthResponse> loginUser(@RequestBody AuthRequest request) {
 
     /*Check login and password*/
     Authentication authenticate =
         authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword())
-        );
+            new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authenticate);
 
     /*Generate token with answer to user*/
     return ResponseEntity.ok(
-        AuthResponse
-                .builder()
-                .username(request.getLogin())
-                .token(tokenUtils.generateToken(userProvider.loadUserByUsername(request.getLogin())))
-                .build());
+        AuthResponse.builder()
+            .username(request.getLogin())
+            .token(tokenUtils.generateToken(userProvider.loadUserByUsername(request.getLogin())))
+            .build());
   }
 }

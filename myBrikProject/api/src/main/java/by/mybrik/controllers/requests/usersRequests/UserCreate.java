@@ -11,24 +11,23 @@ import java.util.Set;
 @Data
 public class UserCreate {
 
-    private String name;
+  private String name;
 
-    private String surName;
+  private String surName;
 
-    private String login;
+  private String login;
 
-    private String password;
+  private String password;
 
-    private String email;
+  private String email;
 
-    private Gender gender;
+  private Gender gender;
 
-    private String phone;
+  private String phone;
 
-    private String address;
+  private String address;
 
-    private boolean isDeleted;
+  private boolean isDeleted;
 
-    private Set<Role> role = Collections.singleton(new Role(SystemRoles.ROLE_USER));
-
+  private Set<Role> role = Collections.singleton(new Role(SystemRoles.ROLE_USER));
 }

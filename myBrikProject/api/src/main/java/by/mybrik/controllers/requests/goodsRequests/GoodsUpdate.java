@@ -5,6 +5,5 @@ import lombok.Data;
 @Data
 public class GoodsUpdate extends GoodsCreate {
 
-    private Long id;
-
+  private Long id;
 }

@@ -6,26 +6,25 @@ import lombok.Data;
 @Data
 public class GoodsCreate {
 
-    private String orderCode;
+  private String orderCode;
 
-    private String name;
+  private String name;
 
-    private  String photo;
+  private String photo;
 
-    private Gender gender;
+  private Gender gender;
 
-    private Integer size;
+  private Integer size;
 
-    private String color;
+  private String color;
 
-    private String description;
+  private String description;
 
-    private boolean isDeleted;
+  private boolean isDeleted;
 
-    private double price;
+  private double price;
 
-    private int quantity;
+  private int quantity;
 
-    private String category;
-
+  private String category;
 }

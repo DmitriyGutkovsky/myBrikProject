@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -21,60 +20,44 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class ApplicationBeans {
 
-//    @Bean
-//    public DataSource hikariDatasource(DatabaseConfig databaseConfig){
-//
-//        HikariDataSource hikariDataSource = new HikariDataSource();
-//
-//        hikariDataSource.setDriverClassName(databaseConfig.getDriverName());
-//        hikariDataSource.setJdbcUrl(databaseConfig.getUrl());
-//        hikariDataSource.setUsername(databaseConfig.getLogin());
-//        hikariDataSource.setPassword(databaseConfig.getPassword());
-//        hikariDataSource.setMaximumPoolSize(20);
-//
-//        return hikariDataSource;
-//    }
+  @Bean
+  public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+    return new JdbcTemplate(dataSource);
+  }
 
-    @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource){
-        return new JdbcTemplate(dataSource);
-    }
+  @Bean
+  public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) {
+    return new NamedParameterJdbcTemplate(dataSource);
+  }
 
-    @Bean
-    public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource){
-        return new NamedParameterJdbcTemplate(dataSource);
-    }
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.any())
+        .paths(PathSelectors.any())
+        .build();
+  }
 
+  @Bean
+  public static PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
-    }
+  // Cache: Caffeine configuration
+  @Bean
+  public CacheManager cacheManager() {
+    CaffeineCacheManager cacheManager = new CaffeineCacheManager("goods", "textile");
+    cacheManager.setCaffeine(cacheProperties());
+    return cacheManager;
+  }
 
-    @Bean
-    public static PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    // Cache: Caffeine configuration
-    @Bean
-    public CacheManager cacheManager() {
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager("goods", "textile");
-        cacheManager.setCaffeine(cacheProperties());
-        return cacheManager;
-    }
-
-    public Caffeine<Object, Object> cacheProperties() {
-        return Caffeine.newBuilder()
-                .initialCapacity(10)
-                .maximumSize(50)
-                .expireAfterAccess(10, TimeUnit.MINUTES)
-                .weakKeys()
-                .recordStats();
-    }
-
+  public Caffeine<Object, Object> cacheProperties() {
+    return Caffeine.newBuilder()
+        .initialCapacity(10)
+        .maximumSize(50)
+        .expireAfterAccess(10, TimeUnit.MINUTES)
+        .weakKeys()
+        .recordStats();
+  }
 }

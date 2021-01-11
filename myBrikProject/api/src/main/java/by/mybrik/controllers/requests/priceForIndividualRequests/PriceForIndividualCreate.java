@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class PriceForIndividualCreate {
 
-    private String productType;
+  private String productType;
 
-    private double price;
+  private double price;
 
-    private boolean isDeleted;
+  private boolean isDeleted;
 }

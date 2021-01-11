@@ -22,28 +22,27 @@ import javax.persistence.Table;
 @Table(name = "m_roles")
 public class Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "role_name")
-    @Enumerated(EnumType.STRING)
-    private SystemRoles roleName;
+  @Column(name = "role_name")
+  @Enumerated(EnumType.STRING)
+  private SystemRoles roleName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    @JsonBackReference
-    private Users user;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_id")
+  @JsonBackReference
+  private Users user;
 
-    public Role(SystemRoles roleName, Users user) {
-        this.roleName = roleName;
-        this.user = user;
-    }
+  public Role(SystemRoles roleName, Users user) {
+    this.roleName = roleName;
+    this.user = user;
+  }
 
-    public Role() {
-    }
+  public Role() {}
 
-    public Role(SystemRoles roleName) {
-        this.roleName = roleName;
-    }
+  public Role(SystemRoles roleName) {
+    this.roleName = roleName;
+  }
 }

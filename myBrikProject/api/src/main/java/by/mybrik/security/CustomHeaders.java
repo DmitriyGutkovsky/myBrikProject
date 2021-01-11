@@ -1,5 +1,5 @@
 package by.mybrik.security;
 
 public interface CustomHeaders {
-    String AUTH_HEADER = "X-Auth-Token";
+  String AUTH_HEADER = "X-Auth-Token";
 }

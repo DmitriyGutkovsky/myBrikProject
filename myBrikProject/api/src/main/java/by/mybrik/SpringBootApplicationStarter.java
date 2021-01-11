@@ -13,21 +13,20 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication(scanBasePackages = "by.mybrik")
-//@EnableWebMvc
 @EnableSwagger2
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableJpaRepositories
 @EnableCaching
-@Import({ApplicationBeans.class,
-        PersistenceContextBeansConfiguration.class,
-        WebSecurityConfiguration.class,
-        JwtTokenConfig.class
+@Import({
+  ApplicationBeans.class,
+  PersistenceContextBeansConfiguration.class,
+  WebSecurityConfiguration.class,
+  JwtTokenConfig.class
 })
 public class SpringBootApplicationStarter {
 
   public static void main(String[] args) {
 
-      SpringApplication.run(SpringBootApplicationStarter.class, args);
-
+    SpringApplication.run(SpringBootApplicationStarter.class, args);
   }
 }

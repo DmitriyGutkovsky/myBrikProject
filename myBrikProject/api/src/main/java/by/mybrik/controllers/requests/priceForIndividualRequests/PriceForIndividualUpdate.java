@@ -5,6 +5,5 @@ import lombok.Data;
 @Data
 public class PriceForIndividualUpdate extends PriceForIndividualCreate {
 
-    private Long id;
-
+  private Long id;
 }

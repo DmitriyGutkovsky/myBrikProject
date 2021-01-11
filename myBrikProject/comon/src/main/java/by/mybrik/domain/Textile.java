@@ -20,41 +20,33 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "m_textile")
-@EqualsAndHashCode(exclude = {
-        "productTypes"
-})
+@EqualsAndHashCode(exclude = {"productTypes"})
 public class Textile {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column
-    private String code;
+  @Column private String code;
 
-    @Column
-    private String name;
+  @Column private String name;
 
-    @Column
-    private String color;
+  @Column private String color;
 
-    @Column
-    private String description;
+  @Column private String description;
 
-    @Column
-    private String photo;
+  @Column private String photo;
 
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
+  @Column(name = "is_deleted")
+  private boolean isDeleted;
 
-    @Column
-    private Timestamp created = new Timestamp(System.currentTimeMillis());
+  @Column
+  private Timestamp created = new Timestamp(System.currentTimeMillis());
 
-    @Column
-    private Timestamp changed = new Timestamp(System.currentTimeMillis());
+  @Column
+  private Timestamp changed = new Timestamp(System.currentTimeMillis());
 
-
-    @JsonIgnoreProperties("textiles")
-    @ManyToMany(mappedBy = "textiles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<ProductType> productTypes = Collections.emptySet();
+  @JsonIgnoreProperties("textiles")
+  @ManyToMany(mappedBy = "textiles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private Set<ProductType> productTypes = Collections.emptySet();
 }

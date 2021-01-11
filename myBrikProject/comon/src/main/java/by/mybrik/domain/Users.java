@@ -36,14 +36,11 @@ public class Users {
   @Column(name = "surname")
   private String surName;
 
-  @Column
-  private String login;
+  @Column private String login;
 
-  @Column
-  private String password;
+  @Column private String password;
 
-  @Column
-  private String email;
+  @Column private String email;
 
   @Column
   @Enumerated(EnumType.STRING)
