@@ -8,14 +8,15 @@ online-shop for hats. Two type of orders:
 
 2) used  Spring Data 
 
-3) 8 tables with entities for business logic: m_goods
-                                              m_individual_order
-                                              m_price_for_individual_order
-                                              m_product_type
-                                              m_roles
-                                              m_standard_order
-                                              m_textile
-                                              m_users
+3) 8 tables with entities for business logic: 
+    - m_goods,
+    - m_individual_order,
+    - m_price_for_individual_order,
+    - m_product_type,
+    - m_roles,
+    - m_standard_order,
+    - m_textile,
+    - m_users
 4) for all entities were implemented standard CRUD operations: findAll, findById, delete, create, update 
 
 5) in the project was implemented Swagger API
