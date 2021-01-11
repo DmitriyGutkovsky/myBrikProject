@@ -42,7 +42,6 @@ public class StandardOrderController {
 
   public final ConversionService conversionService;
 
-  // http://localhost:8080/new/rest/standardorder
   @ApiOperation(value = "Endpoint for getting a list of all standard orders")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -58,7 +57,6 @@ public class StandardOrderController {
     return standardOrderRepository.findAll();
   }
 
-  // http://localhost:8080/new/rest/standardorder/1
   @ApiOperation(value = "Endpoint for getting a standard order by id")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(
@@ -77,7 +75,6 @@ public class StandardOrderController {
     return standardOrderRepository.findById(id);
   }
 
-  // http://localhost:8080/new/rest/standardorder/1
   @ApiOperation(value = "Endpoint for deleting a standard order by id from database")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -97,16 +94,6 @@ public class StandardOrderController {
     return standardOrderRepository.findAll();
   }
 
-  /*
-  http://localhost:8080/new/rest/standardorder
-  {
-      "goodId": 6,
-      "userId": 10,
-      "quantity": 12,
-      "totalPrice": 12.0,
-      "orderStatus": "SEND"
-  }
-   */
   @ApiOperation(value = "Endpoint for creating a standard")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(
@@ -125,16 +112,6 @@ public class StandardOrderController {
     return standardOrderRepository.save(order);
   }
 
-  /*
-  http://localhost:8080/new/rest/standardorder/4
-  {
-          "goodId": 6,
-          "userId": 10,
-          "quantity": 115,
-          "totalPrice": 1200.0,
-          "orderStatus": "in progress"
-  }
-   */
   @ApiOperation(value = "Endpoint for updating standard order with specified id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(

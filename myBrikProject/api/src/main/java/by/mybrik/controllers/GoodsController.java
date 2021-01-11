@@ -40,14 +40,12 @@ public class GoodsController {
 
   public final ConversionService conversionService;
 
-  //  http://localhost:8080/new/rest/goods
   @ApiOperation(value = "Endpoint for getting list of all goods")
   @GetMapping
   public ResponseEntity<List<Goods>> findAllGoods() {
     return new ResponseEntity<>(goodsRepository.findAll(), HttpStatus.OK);
   }
 
-  // http://localhost:8080/new/rest/goods/13
   @ApiOperation(value = "Endpoint for getting specific product by id ")
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
@@ -58,7 +56,6 @@ public class GoodsController {
     return goodsRepository.findById(id);
   }
 
-  //  http://localhost:8080/new/rest/goods/14
   @ApiOperation(value = "Endpoint for hard deleting product from database by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -78,22 +75,6 @@ public class GoodsController {
     return goodsRepository.findAll();
   }
 
-  /*
-  POST + http://localhost:8080/new/rest/goods
-  {
-  "orderCode": "someOrderCode120",
-  "name": "cap2",
-  "photo": "linkToPhoto",
-  "gender": "MALE",
-  "size": "52",
-  "color": "red",
-  "description": "summer cap",
-  "price": 15.0,
-  "quantity": 15,
-  "category": "caps",
-  "deleted": false
-  }
-   */
   @ApiOperation(value = "Endpoint for creating a new product")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -112,22 +93,6 @@ public class GoodsController {
     return goodsRepository.save(product);
   }
 
-  /*
-  PUT + http://localhost:8080/rest/goods/13
-  {
-  "orderCode": "someOrderCode123",
-  "name": "capBig",
-  "photo": "linkToPhoto",
-  "gender": "MALE",
-  "size": "52",
-  "color": "red",
-  "description": "summer cap",
-  "price": 15.0,
-  "quantity": 15,
-  "category": "caps",
-  "deleted": false
-  }
-   */
   @ApiOperation(value = "Endpoint for updating specific product by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(

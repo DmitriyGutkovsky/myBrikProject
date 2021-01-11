@@ -37,7 +37,6 @@ public class PriceForIndividualOrderController {
 
   public final ConversionService conversionService;
 
-  // http://localhost:8080/new/rest/individualorderprice
   @ApiOperation(value = "Endpoint for getting a list of all prices for individual orders")
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
@@ -45,7 +44,6 @@ public class PriceForIndividualOrderController {
     return priceForIndividualOrderRepository.findAll();
   }
 
-  // http://localhost:8080/new/rest/individualorderprice/3
   @ApiOperation(value = "Endpoint for getting a price for individual order specified by id")
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
@@ -58,7 +56,6 @@ public class PriceForIndividualOrderController {
     return priceForIndividualOrderRepository.findById(id);
   }
 
-  // http://localhost:8080/new/rest/individualorderprice/3
   @ApiOperation(value = "Endpoint for deleting a price for individual order from database")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -79,14 +76,6 @@ public class PriceForIndividualOrderController {
     return priceForIndividualOrderRepository.findAll();
   }
 
-  /*
-  http://localhost:8080/new/rest/individualorderprice
-  {
-      "productType": "test",
-      "price": 12.0,
-      "deleted": false
-  }
-   */
   @ApiOperation(value = "Endpoint for adding a price for individual order")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -107,14 +96,6 @@ public class PriceForIndividualOrderController {
     return priceForIndividualOrderRepository.save(price);
   }
 
-  /*
-  http://localhost:8080/new/rest/individualorderprice/4
-  {
-      "productType": "test",
-      "price": 12.0,
-      "deleted": false
-  }
-  */
   @ApiOperation(value = "Endpoint for updating information about price for individual order")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(

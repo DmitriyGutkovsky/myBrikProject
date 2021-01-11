@@ -41,7 +41,6 @@ public class UsersController {
 
   public final ConversionService conversionService;
 
-  // http://localhost:8080/new/rest/users
   @ApiOperation(value = "Endpoint for getting a list of all users")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -57,7 +56,6 @@ public class UsersController {
     return usersRepository.findAll();
   }
 
-  // http://localhost:8080/new/rest/users/20
   @ApiOperation(value = "Endpoint for getting a specified user by id")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(
@@ -76,7 +74,6 @@ public class UsersController {
     return usersRepository.findById(id);
   }
 
-  // http://localhost:8080/new/rest/users/21
   @ApiOperation(value = "Endpoint for deleting from Database a specified user by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -96,20 +93,6 @@ public class UsersController {
     return usersRepository.findAll();
   }
 
-  /*
-  http://localhost:8080/new/rest/users
-  {
-  "name": "saveUserTest",
-  "surName": "saveUserTest",
-  "login": "saveUserTest",
-  "password": "save809",
-  "email": "saveUserTest@mail.ru",
-  "gender": "FEMALE",
-  "phone": 356938980,
-  "address": "sav8099",
-  "deleted": false
-  }
-   */
   @ApiOperation(value = "Endpoint for user creation")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -128,20 +111,6 @@ public class UsersController {
     return usersRepository.save(user);
   }
 
-  /*
-  http://localhost:8080/new/rest/users/21
-   {
-   "name": "saveUserTestUpdate",
-   "surName": "saveUserTest",
-   "login": "saveUserTest",
-   "password": "save809",
-   "email": "saveUserTest@mail.ru",
-   "gender": "FEMALE",
-   "phone": 356938980,
-   "address": "sav8099",
-   "deleted": false
-   }
-   */
   @ApiOperation(value = "Endpoint for updating user details")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(

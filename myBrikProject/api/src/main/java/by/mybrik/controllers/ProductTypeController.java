@@ -37,7 +37,6 @@ public class ProductTypeController {
 
   public final ConversionService conversionService;
 
-  // http://localhost:8080/new/rest/producttype
   @ApiOperation(value = "Endpoint for getting a list of all product types")
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
@@ -45,7 +44,6 @@ public class ProductTypeController {
     return productTypeRepository.findAll();
   }
 
-  // http://localhost:8080/new/rest/producttype/4
   @ApiOperation(value = "Endpoint for getting a product type specified by id")
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
@@ -56,7 +54,6 @@ public class ProductTypeController {
     return productTypeRepository.findById(id);
   }
 
-  // http://localhost:8080/new/rest/producttype/4
   @ApiOperation(value = "Endpoint for deleting product type from database")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -76,14 +73,6 @@ public class ProductTypeController {
     return productTypeRepository.findAll();
   }
 
-  /*
-  http://localhost:8080/new/rest/producttype
-  {
-      "productType": "test2Creat",
-      "photo": "test2",
-      "deleted": false
-  }
-   */
   @ApiOperation(value = "Endpoint for adding a new product type")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -102,14 +91,6 @@ public class ProductTypeController {
     return productTypeRepository.save(newType);
   }
 
-  /*
-  http://localhost:8080/new/rest/producttype/5
-  {
-      "productType": "test5Update",
-      "photo": "test5",
-      "deleted": false
-  }
-   */
   @ApiOperation(value = "Endpoint for updating information about a product type")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(

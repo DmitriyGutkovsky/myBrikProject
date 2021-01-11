@@ -29,20 +29,6 @@ public class RegistrationController {
 
   public final ConversionService conversionService;
 
-  /*
-  {
-    "name": "Nastya",
-    "surName": "Gutkovskaya",
-    "login": "nastlenka",
-    "password": "password",
-    "email": "gutrovsky@mail.ru",
-    "gender": "FEMALE",
-    "phone": "3500555689",
-    "address": "test",
-    "deleted": "false"
-  }
-   */
-
   @ApiOperation(value = "End point for registration users")
   @PostMapping
   public ResponseEntity<Map<String, Object>> registration(@RequestBody UserCreate request) {

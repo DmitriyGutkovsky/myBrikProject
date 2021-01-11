@@ -44,7 +44,6 @@ public class TextileController {
 
   public final ConversionService conversionService;
 
-  // http://localhost:8080/new/rest/textile
   @ApiOperation(value = "Endpoint for getting a list of all textile")
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
@@ -52,7 +51,6 @@ public class TextileController {
     return textileRepository.findAll();
   }
 
-  // http://localhost:8080/new/rest/textile/5
   @ApiOperation(value = "Endpoint for getting a textile with specified id")
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
@@ -63,7 +61,6 @@ public class TextileController {
     return textileRepository.findById(id);
   }
 
-  // http://localhost:8080/new/rest/textile/6
   @ApiOperation(value = "Endpoint deleting from Database a specified textile by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -83,17 +80,6 @@ public class TextileController {
     return textileRepository.findAll();
   }
 
-  /*
-  http://localhost:8080/new/rest/textile/
-  {
-      "code": "someCode89",
-      "name": "someName69",
-      "color": "someColor",
-      "description": "someDescription",
-      "photo": "somePhoto",
-      "deleted": false
-  }
-   */
   @ApiOperation(value = "Endpoint for adding a new textile")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -112,17 +98,6 @@ public class TextileController {
     return textileRepository.save(textile);
   }
 
-  /*
-  http://localhost:8080/new/rest/textile/6
-   {
-      "code": "someCodeUpdate",
-      "name": "someName6",
-      "color": "someColor",
-      "description": "someDescription",
-      "photo": "somePhoto",
-      "deleted": false
-  }
-   */
   @ApiOperation(value = "Endpoint for updating information about textile")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(

@@ -42,7 +42,6 @@ public class IndividualOrderController {
 
   public final ConversionService conversionService;
 
-  // http://localhost:8080/new/rest/individualorder
   @ApiOperation(value = "Endpoint for getting full list of individual orders")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -58,7 +57,6 @@ public class IndividualOrderController {
     return individualOrderRepository.findAll();
   }
 
-  // http://localhost:8080/new/rest/individualorder/1
   @ApiOperation(value = "Endpoint for getting an individual order by id")
   @Secured({"ROLE_ADMIN", "ROLE_ADMIN"})
   @ApiImplicitParams(
@@ -78,7 +76,6 @@ public class IndividualOrderController {
     return individualOrderRepository.findById(id);
   }
 
-  // http://localhost:8080/new/rest/individualorder/1
   @ApiOperation(value = "Endpoint for hard deleting an individual order from database by id")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
@@ -99,18 +96,6 @@ public class IndividualOrderController {
     return individualOrderRepository.findAll();
   }
 
-  /*
-   http://localhost:8080/new/rest/individualorder
-  {
-     "userId": 2,
-     "textileId": 1,
-     "productTypeId": 1,
-     "priceId": 1,
-     "quantity": 1,
-     "totalPrice": 10,
-     "orderStatus": "created"
-   }
-    */
   @ApiOperation(value = "Endpoint for creating an individual order")
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @ApiImplicitParams(
@@ -129,19 +114,6 @@ public class IndividualOrderController {
     return individualOrderRepository.save(order);
   }
 
-  /*
-  http://localhost:8080/new/rest/individualorder/4
-
-  {
-      "userId": 6,
-      "textileId": 1,
-      "productTypeId": 1,
-      "priceId": 1,
-      "quantity": 1,
-      "totalPrice": 10,
-      "orderStatus": "updated"
-  }
-  */
   @ApiOperation(value = "Endpoint for updating information about individual order")
   @Secured("ROLE_ADMIN")
   @ApiImplicitParams(
