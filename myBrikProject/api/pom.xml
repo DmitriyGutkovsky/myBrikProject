@@ -12,13 +12,12 @@
     <artifactId>api</artifactId>
 
     <properties>
-
         <jwt.version>0.9.1</jwt.version>
         <swagger.version>2.9.2</swagger.version>
-
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>by.mybrik</groupId>
             <artifactId>comon</artifactId>
@@ -66,8 +65,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
-
-
 
     </dependencies>
 

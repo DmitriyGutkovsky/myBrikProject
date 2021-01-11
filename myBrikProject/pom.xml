@@ -23,8 +23,6 @@
 
     <properties>
         <spring.version>5.2.9.RELEASE</spring.version>
-
-
     </properties>
 
     <dependencies>
