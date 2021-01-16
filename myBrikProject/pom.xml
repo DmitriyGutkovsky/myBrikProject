@@ -16,6 +16,7 @@
         <module>api</module>
     </modules>
 
+<!--    Java EE - course final revision -->
     <groupId>by.mybrik</groupId>
     <artifactId>myBrikProject</artifactId>
     <version>1.0</version>
