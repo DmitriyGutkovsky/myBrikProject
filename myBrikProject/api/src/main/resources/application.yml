@@ -23,3 +23,15 @@ Spring:
 jwtconfig:
   secret: secretsecretsecretbrik
   expiration: 36000000 # time in milliseconds, expiration time for Token
+
+---
+
+amazon:
+  images:
+    s3: mybrikproject
+    accessKeyId: someToken
+    secretKey: password
+    bucket: mybrikproject
+    serverUrl: "https://mybrikproject.s3.eu-central-1.amazonaws.com"
+    userFolder: goods
+    region: eu-central-1
